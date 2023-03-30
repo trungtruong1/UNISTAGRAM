@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 
-@Data 
+@Data
 @Document(collection = "user")
 @JsonInclude(JsonInclude.Include.NON_NULL) //include only non_null values
 public class User {
@@ -20,7 +20,7 @@ public class User {
 	public User() {
     }
 
-    public User(String name, int age) {
-        this.firstName = name;
+    public User(String firstName) {
+        this.firstName = firstName;
     }
 }
