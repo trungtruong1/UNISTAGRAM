@@ -3,8 +3,6 @@ Very cool app
 
 bietongliemkhong?
 
-Do you know ligma?
-
 Trong main/java/com/JustA_Group
 Config: Cho Swagger thoi k can qtam
 Controller: Control may cai API
