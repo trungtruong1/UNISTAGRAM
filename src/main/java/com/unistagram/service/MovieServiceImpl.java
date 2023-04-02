@@ -1,0 +1,27 @@
+package com.unistagram.service;
+
+import org.springframework.stereotype.Service;
+
+import com.unistagram.model.Movie;
+import com.unistagram.repositories.MovieRepository;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Service
+public class MovieServiceImpl implements MovieService{
+    
+    @Autowired
+    private MovieRepository movieRepository;
+
+    @Override
+    public String save(Movie movie){
+        return movieRepository.save(movie).getId();
+    }
+
+    @Override
+    public List<Movie> getMovie(int movie){
+        return movieRepository.findAll();
+    }
+}
