@@ -14,7 +14,7 @@ import com.unistagram.model.User;
 import com.unistagram.service.UserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired

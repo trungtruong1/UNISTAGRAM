@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.unistagram.model.Movie;
 import com.unistagram.model.Rating;
+import com.unistagram.model.Result;
 import com.unistagram.service.RatingService;
 
 @RestController
@@ -29,7 +31,12 @@ public class RatingController {
 
     @GetMapping("/{rating}")
     @ResponseBody
-    public List<Rating> getRating(@PathVariable("rating") int rating) {
-        return ratingService.getRating(rating);
+    public List<Movie> getRating(@PathVariable("rating") int rating) {
+        Result<List<Movie>> result = ratingService.getMovieRatingGTE(rating);
+        if(result.isOK()) {
+            return result.getResult();
+        }
+        // TODO: Need to handle error.
+        return result.getResult();
     }
 }

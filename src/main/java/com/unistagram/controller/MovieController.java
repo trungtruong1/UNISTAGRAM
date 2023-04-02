@@ -22,14 +22,14 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @PostMapping
-    public String save(@RequestBody Movie movie) {
-        return movieService.save(movie);
-    }
+    // @PostMapping
+    // public String save(@RequestBody Movie movie) {
+    //     return movieService.save(movie);
+    // }
 
     @GetMapping("/{movie}")
     @ResponseBody
-    public List<Movie> getMovie(@PathVariable("movie") int movie) {
-        return movieService.getMovie(movie);
+    public Movie getMovie(@PathVariable("movie") int movie) {
+        return movieService.getMovieById(movie);
     }
 }

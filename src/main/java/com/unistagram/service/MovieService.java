@@ -6,8 +6,7 @@ import com.unistagram.model.Movie;
 
 public interface MovieService {
 
-    String save(Movie movie);
+    public Movie getMovieById(int id);
 
-    List<Movie> getMovie(int movie);
-
+    public long count();
 }

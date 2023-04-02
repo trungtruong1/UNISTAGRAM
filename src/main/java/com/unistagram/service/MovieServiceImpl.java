@@ -15,13 +15,18 @@ public class MovieServiceImpl implements MovieService{
     @Autowired
     private MovieRepository movieRepository;
 
+    // @Override
+    // public String save(Movie movie){
+    //     return movieRepository.save(movie).getId();
+    // }
+
     @Override
-    public String save(Movie movie){
-        return movieRepository.save(movie).getId();
+    public Movie getMovieById(int id){
+        return movieRepository.findMovieByMovieID(id);
     }
 
     @Override
-    public List<Movie> getMovie(int movie){
-        return movieRepository.findAll();
+    public long count() {
+        return movieRepository.count();
     }
 }

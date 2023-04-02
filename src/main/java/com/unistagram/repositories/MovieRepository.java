@@ -1,13 +1,14 @@
 package com.unistagram.repositories;
-// import java.util.List;
+import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+// import org.springframework.stereotype.Repository;
 
 import com.unistagram.model.Movie;
 
 
-@Repository
-public interface MovieRepository extends MongoRepository<Movie, String> {
-
+public interface MovieRepository {
+    public Movie findMovieByMovieID(int movie_id);
+    public Movie findMovieByName(String movie_name);
+    public long count();
 }

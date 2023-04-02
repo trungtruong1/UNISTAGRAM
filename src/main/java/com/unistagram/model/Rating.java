@@ -28,4 +28,7 @@ public class Rating {
 		this.rating = rating;
 		this.timestamp = timestamp;
     }
+
+	public int getMovieId() { return this.movie_id; }
+	public int getRating() { return this.rating; }
 }
