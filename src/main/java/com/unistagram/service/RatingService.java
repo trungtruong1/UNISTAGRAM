@@ -12,6 +12,6 @@ public interface RatingService {
 
     String save(Rating rating);
 
-    Result<List<Object>> getMovieRatingGTE(int rating);
+    Result<List<Object>> getMovieRatingGTE(double rating);
 
 }

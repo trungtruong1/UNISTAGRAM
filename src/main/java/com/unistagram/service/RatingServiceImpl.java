@@ -42,7 +42,7 @@ public class RatingServiceImpl implements RatingService{
     }
 
     @Override
-    public Result<List<Object>> getMovieRatingGTE(int rating){
+    public Result<List<Object>> getMovieRatingGTE(double rating){
         if(rating < 1 || rating > 5) {
             return new Result<List<Object>>(false);
         }
