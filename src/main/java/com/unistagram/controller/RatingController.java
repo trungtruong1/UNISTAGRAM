@@ -3,6 +3,7 @@ package com.unistagram.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +32,8 @@ public class RatingController {
 
     @GetMapping("/{rating}")
     @ResponseBody
-    public List<Movie> getRating(@PathVariable("rating") int rating) {
-        Result<List<Movie>> result = ratingService.getMovieRatingGTE(rating);
+    public List<Object> getRating(@PathVariable("rating") int rating) {
+        Result<List<Object>> result = ratingService.getMovieRatingGTE(rating);
         if(result.isOK()) {
             return result.getResult();
         }

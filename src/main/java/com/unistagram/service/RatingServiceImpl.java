@@ -12,6 +12,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.LookupOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
+import org.springframework.data.mongodb.core.aggregation.ReplaceRootOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.query.Criteria;
 
 @Service
 public class RatingServiceImpl implements RatingService{
@@ -20,6 +33,8 @@ public class RatingServiceImpl implements RatingService{
     private RatingRepository ratingRepository;
     @Autowired
     private MovieService movieService;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Override
     public String save(Rating rating){
@@ -27,32 +42,45 @@ public class RatingServiceImpl implements RatingService{
     }
 
     @Override
-    public Result<List<Movie>> getMovieRatingGTE(int rating){
+    public Result<List<Object>> getMovieRatingGTE(int rating){
         if(rating < 1 || rating > 5) {
-            return new Result<List<Movie>>(false);
-        }
-        int numMovies = 3952; // TODO: Need to change this
-        int[] moviesSum = new int[numMovies + 1];
-        int[] moviesCount = new int[numMovies + 1];
-        Arrays.fill(moviesSum, 0);
-        Arrays.fill(moviesCount, 0);
-        List<Rating> ratingList = ratingRepository.findAll();
-        for (Rating user_rating: ratingList) {
-            moviesSum[user_rating.getMovieId()] += user_rating.getRating();
-            moviesCount[user_rating.getMovieId()]++;
+            return new Result<List<Object>>(false);
         }
 
-        List<Movie> result = new ArrayList<Movie>(0);
-        for (int i = 1; i <= numMovies; i++) {
-            if(moviesCount[i] == 0) {
-                continue;
-            }
-            double movieRating = moviesSum[i] / moviesCount[i];
-            if(movieRating >= rating) {
-                result.add(movieService.getMovieById(i));
-            }
-        }
+        GroupOperation avgRating = Aggregation.group("$movie_id")
+                                            .avg("$rating").
+                                            as("avg_rating");
 
-        return new Result<List<Movie>>(true, result);
+        MatchOperation filterRating = Aggregation.match(
+            Criteria.where("avg_rating").gte(rating)
+        );
+
+        SortOperation sortOperation = Aggregation.sort(Sort.Direction.ASC, "movie_id");
+
+        LookupOperation movieLookup = Aggregation.lookup("movie", "_id", "movie_id", "matching_movie");
+
+        UnwindOperation unwindMovie = Aggregation.unwind("$matching_movie");
+
+        ReplaceRootOperation replaceRoot = Aggregation.replaceRoot("$matching_movie");
+
+        ProjectionOperation projectMovie = Aggregation.project("movie_name", "genre")
+                                                      .andExclude("_id");
+
+        Aggregation aggregation = Aggregation.newAggregation(
+            avgRating,
+            filterRating,
+            sortOperation,
+            movieLookup,
+            unwindMovie,
+            replaceRoot,
+            projectMovie
+        );
+
+        AggregationResults<Object> results = mongoTemplate.aggregate(
+            aggregation, 
+            "rating", 
+            Object.class
+        );
+        return new Result<List<Object>>(true, results.getMappedResults());
     }
 }
