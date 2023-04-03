@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import com.unistagram.model.Movie;
 import com.unistagram.repositories.MovieRepository;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service

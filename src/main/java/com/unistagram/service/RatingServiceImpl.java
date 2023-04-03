@@ -2,13 +2,10 @@ package com.unistagram.service;
 
 import org.springframework.stereotype.Service;
 
-import com.unistagram.model.Movie;
 import com.unistagram.model.Rating;
 import com.unistagram.model.Result;
 import com.unistagram.repositories.RatingRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +20,6 @@ import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.aggregation.ReplaceRootOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 
 @Service
@@ -31,8 +27,6 @@ public class RatingServiceImpl implements RatingService{
     
     @Autowired
     private RatingRepository ratingRepository;
-    @Autowired
-    private MovieService movieService;
     @Autowired
     private MongoTemplate mongoTemplate;
 
