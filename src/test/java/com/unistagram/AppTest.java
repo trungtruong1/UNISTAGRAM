@@ -1,4 +1,4 @@
-package com.JustA_Group;
+package com.unistagram;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
