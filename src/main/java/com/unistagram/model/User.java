@@ -25,6 +25,13 @@ public class User {
 	public User() {
     }
 
+	public User(String gender, int age, int occupation, String zip_code) {
+        this.gender = gender;
+		this.age = age;
+		this.occupation = occupation;
+		this.zip_code = zip_code;
+    }
+
     public User(int user_id, String gender, int age, int occupation, String zip_code) {
 		this.user_id = user_id;
         this.gender = gender;
@@ -32,4 +39,6 @@ public class User {
 		this.occupation = occupation;
 		this.zip_code = zip_code;
     }
+
+	public void setUserId(int new_id) { this.user_id = new_id; }
 }
