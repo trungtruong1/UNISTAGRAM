@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mongodb.client.result.UpdateResult;
 import com.unistagram.exception.ObjectIdException;
 import com.unistagram.exception.ParameterErrorNumberException;
 import com.unistagram.exception.ParameterErrorStringException;
@@ -73,18 +75,21 @@ public class UserController {
         }
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") String id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") String id, @RequestBody User user) {
         if(id.length() == 0) {
             throw new ParameterErrorStringException("Parameter is not a number!");
         }
         try {
             int user_id = Integer.parseInt(id);
-            Optional<User> result = userService.getUserById(user_id);
-            if(!result.isPresent()) {
+            UpdateResult result = userService.updateUserById(user_id, user);
+            if(!result.wasAcknowledged() || result.getModifiedCount() == 0) {
+                throw new ObjectIdException("Something wrong when saving the user!");
+            }
+            if(result.getMatchedCount() == 0) {
                 throw new ParameterErrorNumberException("User id does not exist!");
             }
-            return ResponseEntity.ok(result.get());
+            return ResponseEntity.ok(userService.getUserById(user_id).get());
         } catch(NumberFormatException e) {
             throw new ParameterErrorStringException("Parameter is not a number!");
         }

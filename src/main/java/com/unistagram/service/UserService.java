@@ -3,6 +3,7 @@ package com.unistagram.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.mongodb.client.result.UpdateResult;
 import com.unistagram.model.User;
 
 public interface UserService {
@@ -15,7 +16,7 @@ public interface UserService {
 
     public Optional<User> getUserById(String id);
 
-    public Optional<User> updateUserById(int id);
+    public UpdateResult updateUserById(int id, User updated_user);
 
     public int getMaxId();
 

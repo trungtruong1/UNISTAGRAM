@@ -40,5 +40,11 @@ public class User {
 		this.zip_code = zip_code;
     }
 
-	public void setUserId(int new_id) { this.user_id = new_id; }
+	public int getUserId() { return this.user_id; }
+	public String getGender() { return this.gender; }
+	public int getAge() { return this.age; }
+	public int getOccupation() { return this.occupation; }
+	public String getZipCode() { return this.zip_code; }
+
+	public void setUserId(int id) { this.user_id = id; }
 }
