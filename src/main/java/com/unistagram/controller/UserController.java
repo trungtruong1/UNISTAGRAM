@@ -36,7 +36,7 @@ public class UserController {
 
     @ExceptionHandler(ParameterErrorNumberException.class)
     public ResponseEntity<String> handleParameterErrorNumber() {
-        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
                              .body("User id does not exist!");
     }
 
@@ -81,11 +81,11 @@ public class UserController {
         try {
             int user_id = Integer.parseInt(id);
             UpdateResult result = userService.updateUserById(user_id, user);
-            if(!result.wasAcknowledged() || result.getModifiedCount() == 0) {
-                throw new ObjectIdException("Something wrong when saving the user!");
-            }
             if(result.getMatchedCount() == 0) {
                 throw new ParameterErrorNumberException("User id does not exist!");
+            }
+            if(!result.wasAcknowledged()) {
+                throw new ObjectIdException("Something wrong when saving the user!");
             }
             return ResponseEntity.ok(userService.getUserById(user_id).get());
         } catch(NumberFormatException e) {

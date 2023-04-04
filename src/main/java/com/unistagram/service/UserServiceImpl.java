@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService{
         .set("gender", updated_user.getGender())
         .set("age", updated_user.getAge())
         .set("occupation", updated_user.getOccupation())
-        .set("zip_code", updated_user.getZipCode());
+        .set("zip_code", updated_user.getZip_code());
         UpdateResult result = mongoTemplate.updateFirst(query, update, User.class);
         return result;
     }

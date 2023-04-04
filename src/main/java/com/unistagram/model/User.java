@@ -25,26 +25,26 @@ public class User {
 	public User() {
     }
 
-	public User(String gender, int age, int occupation, String zip_code) {
-        this.gender = gender;
-		this.age = age;
-		this.occupation = occupation;
-		this.zip_code = zip_code;
-    }
+	// public User(String gender, int age, int occupation, String zip_code) {
+    //     this.gender = gender;
+	// 	this.age = age;
+	// 	this.occupation = occupation;
+	// 	this.zip_code = zip_code;
+    // }
 
-    public User(int user_id, String gender, int age, int occupation, String zip_code) {
-		this.user_id = user_id;
-        this.gender = gender;
-		this.age = age;
-		this.occupation = occupation;
-		this.zip_code = zip_code;
-    }
+    // public User(int user_id, String gender, int age, int occupation, String zip_code) {
+	// 	this.user_id = user_id;
+    //     this.gender = gender;
+	// 	this.age = age;
+	// 	this.occupation = occupation;
+	// 	this.zip_code = zip_code;
+    // }
 
-	public int getUserId() { return this.user_id; }
+	public int getUser_id() { return this.user_id; }
 	public String getGender() { return this.gender; }
 	public int getAge() { return this.age; }
 	public int getOccupation() { return this.occupation; }
-	public String getZipCode() { return this.zip_code; }
+	public String getZip_code() { return this.zip_code; }
 
 	public void setUserId(int id) { this.user_id = id; }
 }
