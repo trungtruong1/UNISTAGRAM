@@ -11,9 +11,11 @@ public interface UserService {
 
     List<User> getUser();
 
-    public List<User> getUserById(int id);
+    public Optional<User> getUserById(int id);
 
     public Optional<User> getUserById(String id);
+
+    public Optional<User> updateUserById(int id);
 
     public int getMaxId();
 

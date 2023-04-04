@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unistagram.exception.ObjectIdException;
@@ -56,18 +56,35 @@ public class UserController {
         return ResponseEntity.ok(new_user.get());
     }
 
-    @GetMapping
-    public ResponseEntity<List<User>> getUser(@RequestParam("id") String id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable("id") String id) {
         if(id.length() == 0) {
-            return ResponseEntity.ok(userService.getUser());
+            throw new ParameterErrorStringException("Parameter is not a number!");
         }
         try {
             int user_id = Integer.parseInt(id);
-            List<User> result = userService.getUserById(user_id);
-            if(result.size() == 0) {
+            Optional<User> result = userService.getUserById(user_id);
+            if(result.isPresent()) {
+                return ResponseEntity.ok(result.get());
+            }
+            throw new ParameterErrorNumberException("User id does not exist!");
+        } catch(NumberFormatException e) {
+            throw new ParameterErrorStringException("Parameter is not a number!");
+        }
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") String id) {
+        if(id.length() == 0) {
+            throw new ParameterErrorStringException("Parameter is not a number!");
+        }
+        try {
+            int user_id = Integer.parseInt(id);
+            Optional<User> result = userService.getUserById(user_id);
+            if(!result.isPresent()) {
                 throw new ParameterErrorNumberException("User id does not exist!");
             }
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok(result.get());
         } catch(NumberFormatException e) {
             throw new ParameterErrorStringException("Parameter is not a number!");
         }

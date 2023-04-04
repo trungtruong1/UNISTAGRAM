@@ -34,14 +34,24 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> getUserById(int id) {
+    public Optional<User> getUserById(int id) {
         Query query = new Query(Criteria.where("user_id").is(id));
-        return mongoTemplate.find(query, User.class);
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) {
+            return Optional.empty();
+        }
+        return Optional.of(user);
     }
 
     @Override
     public Optional<User> getUserById(String id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public Optional<User> updateUserById(int id) {
+        // TODO Auto-generated method stub
+        return Optional.empty();
     }
 
     @Override
