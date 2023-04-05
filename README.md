@@ -1,5 +1,20 @@
 # UNISTAGRAM
 
+## Note for part 2
+
+When testing POST and PUT method, uses the following commands
+
+```bash
+curl -X POST http://localhost:8080/employees -H 'Content-type:application/json' -d '{"name": "Samwise Gamgee", "role": "gardener"}'
+```
+```bash
+curl -X PUT http://localhost:8080/employees/3 -H 'Content-type:application/json' -d '{"name": "Samwise Gamgee", "role": "ring bearer"}'
+```
+
+If you use the original `curl` command given in the handout, you will always recieve 400 - Bad request due to a typo in the assignment handout.
+
+---
+
 ## Open Endpoints
 
 * [Query rating](#query-rating) : `GET /ratings/:rating`
