@@ -6,9 +6,9 @@
 
 * [Query user](#query-user) : `GET /users/:id`
 
-* [Insert user](#insert) : `GET /users`
+* [Insert user](#insert) : `POST /users`
 
-* [Update user](#update) : `GET /users/:id`
+* [Update user](#update) : `PUT /users/:id`
 
 ## API Documentation
 
@@ -57,15 +57,18 @@ Returns the list of those movies with average rating greater or equal to the giv
         Content: `"Parameter is not in the range of [1, 5]!"` or `"Parameter is not a number!"`
 
 * Sample Call:
+
+Returns a list of movies whose average ratings are greater or equal to 4.
 ```bash
 curl -X GET http://localhost:8080/ratings/4
 ```
 
 ### Query user
+Returns a user object with a given user ID.
 
 * URL:
 
-    `/user/:id`
+    `/users/:id`
 
 * Method:
 
@@ -106,15 +109,18 @@ curl -X GET http://localhost:8080/ratings/4
 
 
 * Sample Call:
+
+Returns a user object with a given user ID 3. // TODO: user_id 3 at first does not exist in the database?
 ```bash
 curl -X GET http://localhost:8080/users/3
 ```
 
 ### Insert
+Inserts a new user data to the database and returns a newly inserted user object given in data param.
 
 * URL:
 
-    `/user`
+    `/users`
 
 * Method:
 
@@ -123,11 +129,11 @@ curl -X GET http://localhost:8080/users/3
 * URL Params:
 
     **Required**:
-    - `id=[integer]`
+    // TODO: ADD DETAILS
 
 * Data Params:
 
-    None
+    // TODO: ADD DETAILS 
 
 * Success Response:
 
@@ -165,27 +171,31 @@ curl -X GET http://localhost:8080/users/3
 
 
 * Sample Call:
+
+Returns a newly inserted user with given information {"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}.
 ```bash
 curl -X POST http://localhost:8080/users -H 'Content-type:application/json' -d '{"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}'
 ```
 
 ### Update
+Updates an existing user data in database and returns the updated user object given in data param.
 
 * URL:
 
-    `/user/:id`
+    `/users/:id`
 
 * Method:
 
-    `POST`
+    `PUT`
 
 * URL Params:
 
-    None
+    **Required**:
+    - `id=[integer]`
 
 * Data Params:
 
-    None
+    // TODO
 
 * Success Response:
 
@@ -223,6 +233,8 @@ curl -X POST http://localhost:8080/users -H 'Content-type:application/json' -d '
 
 
 * Sample Call:
+
+// TODO: ADD DESCRIPTION WHAT CHANGES PLS!
 ```bash
-curl -X POST http://localhost:8080/users -H 'Content-type:application/json' -d '{"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}'
+curl -X PUT http://localhost:8080/users/2 -H 'Content-type:application/json' -d '{"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}'
 ```
