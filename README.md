@@ -111,7 +111,7 @@ Returns a user object with a given user ID.
 
     - Code: 404 Not Found
 
-        Content: `"User id does not exist!"`s
+        Content: `"User id does not exist!"`
 
 
 * Sample Call:
@@ -165,8 +165,6 @@ Inserts a new user data to the database and returns a newly inserted user object
 
 * Error Response:
 
-    Or
-
     - Code: 500 Internal Server Error
 
         Content: `"Something wrong when saving the user"`
@@ -215,10 +213,10 @@ Updates an existing user data in database and returns the updated user object gi
 {
   "id" : "642c1427ce91314b8fb3c3b0",
   "user_id" : 6061,
-  "gender" : "M",
-  "age" : 21,
-  "occupation" : 7,
-  "zip_code" : "100000"
+  "gender" : "F",
+  "age" : 18,
+  "occupation" : 5,
+  "zip_code" : "100"
 }
 `
 
