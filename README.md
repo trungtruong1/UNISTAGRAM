@@ -110,7 +110,7 @@ Returns a user object with a given user ID.
 
 * Sample Call:
 
-Returns a user object with a given user ID 3. // TODO: user_id 3 at first does not exist in the database?
+Returns a user object with a given user ID 3. 
 ```bash
 curl -X GET http://localhost:8080/users/3
 ```
@@ -236,5 +236,5 @@ Updates an existing user data in database and returns the updated user object gi
 
 // TODO: ADD DESCRIPTION WHAT CHANGES PLS!
 ```bash
-curl -X PUT http://localhost:8080/users/2 -H 'Content-type:application/json' -d '{"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}'
+curl -X PUT http://localhost:8080/users/6061 -H 'Content-type:application/json' -d '{"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}'
 ```
