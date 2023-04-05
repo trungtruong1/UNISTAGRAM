@@ -2,7 +2,7 @@
 
 ## Note for part 2
 
-When testing POST and PUT method, uses the following commands
+When testing POST and PUT method, please use the following commands
 
 ```bash
 curl -X POST http://localhost:8080/employees -H 'Content-type:application/json' -d '{"name": "Samwise Gamgee", "role": "gardener"}'
@@ -11,7 +11,7 @@ curl -X POST http://localhost:8080/employees -H 'Content-type:application/json' 
 curl -X PUT http://localhost:8080/employees/3 -H 'Content-type:application/json' -d '{"name": "Samwise Gamgee", "role": "ring bearer"}'
 ```
 
-If you use the original `curl` command given in the handout, you will always recieve 400 - Bad request due to a typo in the assignment handout.
+If you use the original `curl` command given in the handout, you will always recieve `400 - Bad request` due to a typo in the assignment handout.
 
 ---
 
