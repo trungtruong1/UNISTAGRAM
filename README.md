@@ -256,7 +256,7 @@ Updates an existing user data in database and returns the updated user object gi
 
 * Sample Call:
 
-Change the user with id 6061 to `{"gender": "F", "age": 18, "occupation": 5, "zip_code": "100"}`
+Change the user with id 6041 to `{"gender": "F", "age": 18, "occupation": 5, "zip_code": "100"}`
 ```bash
-curl -X PUT http://localhost:8080/users/6061 -H 'Content-type:application/json' -d '{"gender": "F", "age": 18, "occupation": 5, "zip_code": "100"}'
+curl -X PUT http://localhost:8080/users/6041 -H 'Content-type:application/json' -d '{"gender": "F", "age": 18, "occupation": 5, "zip_code": "100"}'
 ```
