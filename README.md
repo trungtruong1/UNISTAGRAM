@@ -6,9 +6,9 @@
 
 * [Query user](#query-user) : `GET /users/:id`
 
-* [Insert user](#insert) : `POST /users`
+* [Insert user](#insert-user) : `POST /users`
 
-* [Update user](#update) : `PUT /users/:id`
+* [Update user](#update-user) : `PUT /users/:id`
 
 ## API Documentation
 
@@ -103,9 +103,15 @@ Returns a user object with a given user ID.
 
 * Error Response:
 
-    - Code: 500 Internal Server Error
+    - Code: 406 Not Acceptable
 
-        Content: `"Something wrong when saving the user"`
+        Content: `"Parameter is not a number!"`
+
+    Or
+
+    - Code: 404 Not Found
+
+        Content: `"User id does not exist!"`s
 
 
 * Sample Call:
@@ -115,7 +121,7 @@ Returns a user object with a given user ID 3.
 curl -X GET http://localhost:8080/users/3
 ```
 
-### Insert
+### Insert user
 Inserts a new user data to the database and returns a newly inserted user object given in data param.
 
 * URL:
@@ -128,12 +134,18 @@ Inserts a new user data to the database and returns a newly inserted user object
 
 * URL Params:
 
-    **Required**:
-    // TODO: ADD DETAILS
+    None
 
 * Data Params:
 
-    // TODO: ADD DETAILS 
+```json
+{
+    "gender": "M", 
+    "age": 21, 
+    "occupation": 7, 
+    "zip_code": "100000"
+}
+```
 
 * Success Response:
 
@@ -153,16 +165,6 @@ Inserts a new user data to the database and returns a newly inserted user object
 
 * Error Response:
 
-    - Code: 406 Not Acceptable
-
-        Content: `"Parameter is not a number!"`
-
-    Or
-
-    - Code: 404 Not Found
-
-        Content: `"User id does not exist!"`
-
     Or
 
     - Code: 500 Internal Server Error
@@ -172,12 +174,12 @@ Inserts a new user data to the database and returns a newly inserted user object
 
 * Sample Call:
 
-Returns a newly inserted user with given information {"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}.
+Returns a newly inserted user with given information `{"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}`.
 ```bash
 curl -X POST http://localhost:8080/users -H 'Content-type:application/json' -d '{"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}'
 ```
 
-### Update
+### Update user
 Updates an existing user data in database and returns the updated user object given in data param.
 
 * URL:
@@ -195,7 +197,14 @@ Updates an existing user data in database and returns the updated user object gi
 
 * Data Params:
 
-    // TODO
+```json
+{
+    "gender": "F", 
+    "age": 18, 
+    "occupation": 5, 
+    "zip_code": "100"
+}
+```
 
 * Success Response:
 
@@ -234,7 +243,7 @@ Updates an existing user data in database and returns the updated user object gi
 
 * Sample Call:
 
-// TODO: ADD DESCRIPTION WHAT CHANGES PLS!
+Change the user with id 6061 to `{"gender": "F", "age": 18, "occupation": 5, "zip_code": "100"}`
 ```bash
-curl -X PUT http://localhost:8080/users/6061 -H 'Content-type:application/json' -d '{"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}'
+curl -X PUT http://localhost:8080/users/6061 -H 'Content-type:application/json' -d '{"gender": "F", "age": 18, "occupation": 5, "zip_code": "100"}'
 ```
