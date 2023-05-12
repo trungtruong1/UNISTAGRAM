@@ -30,7 +30,7 @@ public class ConversationServiceImpl implements ConversationService {
 
     @Override
     public List<Conversation> getAllConversations() {
-        return mongoTemplate.findAll(Conversation.class);
+        return mongoTemplate.find(new Query(), Conversation.class);
     }
 
     @Override

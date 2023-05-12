@@ -36,6 +36,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public List<User> getOthersInQueue(String client_id) {
+        Query query = new Query(Criteria.where("id")
+                                .ne(client_id)
+                                .and("is_in_queue").is(true)
+        );
+        return mongoTemplate.find(query, User.class);
+    }
+
+    @Override
     public Optional<User> getUserById(int id) {
         Query query = new Query(Criteria.where("user_id").is(id));
         User user = mongoTemplate.findOne(query, User.class);

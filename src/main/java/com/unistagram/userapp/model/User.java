@@ -13,7 +13,7 @@ import lombok.Data;
 public class User {
 
 	@Id
-	private String _id;
+	private String id;
 	private int user_id;
 	private String username;
 	private String password;
@@ -30,7 +30,7 @@ public class User {
 
 	public User() {}
 
-	public String getId() { return this._id; }
+	public String getId() { return this.id; }
 	public int getUser_id() { return this.user_id; }
 	public String getUsername() { return this.username; }
 	public String getEmail() { return this.email; }

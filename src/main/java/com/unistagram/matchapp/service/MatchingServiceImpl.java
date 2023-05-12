@@ -55,7 +55,7 @@ public class MatchingServiceImpl implements MatchingService {
     }
 
     private Optional<User> getOtherRandomWaitingClient(User client){
-        List<User> waitingUsers = userRepository.findByIsInQueueAndExcludingId(true, client.getId());
+        List<User> waitingUsers = userService.getOthersInQueue(client.getId());
         // Return null if there is no one in the queue
         if(waitingUsers.isEmpty()) {
             return null;

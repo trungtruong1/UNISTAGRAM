@@ -27,14 +27,14 @@ public class Conversation {
     private User client1;
     @DocumentReference
     private User client2;
-    private Status conversation_status;
+    private Status status;
 
     public Conversation() {}
 
-    public Conversation(User client1, User client2, Status conversation_status) {
+    public Conversation(User client1, User client2, Status status) {
         this.client1 = client1;
         this.client2 = client2;
-        this.conversation_status = conversation_status;
+        this.status = status;
     }
 
     public String getId() { return this.id; }
@@ -43,6 +43,6 @@ public class Conversation {
 
     public User getClient2() { return this.client2; }
 
-    public Status getStatus() { return this.conversation_status; }
+    public Status getStatus() { return this.status; }
 
 }

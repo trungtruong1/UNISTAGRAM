@@ -12,6 +12,8 @@ public interface UserService {
 
     List<User> getUser();
 
+    public List<User> getOthersInQueue(String client_id);
+
     public Optional<User> getUserById(int id);
 
     public Optional<User> getUserById(String id);
