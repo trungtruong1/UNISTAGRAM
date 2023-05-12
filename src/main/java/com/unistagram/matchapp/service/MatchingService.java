@@ -1,7 +1,5 @@
 package com.unistagram.matchapp.service;
 
-import java.util.Optional;
-
 import com.unistagram.userapp.model.User;
 
 public interface MatchingService {

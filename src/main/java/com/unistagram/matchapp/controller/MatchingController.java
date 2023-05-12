@@ -3,34 +3,24 @@ package com.unistagram.matchapp.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.HtmlUtils;
 
-import com.mongodb.client.result.UpdateResult;
 import com.unistagram.userapp.exception.ObjectIdException;
 import com.unistagram.userapp.exception.ParameterErrorNumberException;
 import com.unistagram.userapp.exception.ParameterErrorStringException;
-import com.unistagram.matchapp.model.MatchingMessage;
 import com.unistagram.matchapp.model.MatchingRecieve;
 import com.unistagram.matchapp.service.MatchingService;
 import com.unistagram.userapp.model.User;
 import com.unistagram.userapp.service.UserService;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 
 @RestController
@@ -73,7 +63,7 @@ public class MatchingController {
         try {
             int user_id = Integer.parseInt(id);
             Optional<User> queried_user = userService.getUserById(user_id);
-            if(queried_user == null) {
+            if(queried_user.isEmpty()) {
                 throw new ParameterErrorNumberException("User id does not exist!");
             }
             if(queried_user.get().getIs_in_queue()) {
@@ -94,7 +84,7 @@ public class MatchingController {
         try {
             int user_id = Integer.parseInt(id);
             Optional<User> queried_user = userService.getUserById(user_id);
-            if(queried_user == null) {
+            if(queried_user.isEmpty()) {
                 throw new ParameterErrorNumberException("User id does not exist!");
             }
             if(!queried_user.get().getIs_in_queue()) {

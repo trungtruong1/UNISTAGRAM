@@ -54,5 +54,14 @@ public class ConversationServiceImpl implements ConversationService {
         UpdateResult result = mongoTemplate.updateFirst(query, update, Conversation.class);
         return result;
     }
+
+    @Override
+    public List<Conversation> getConversationsByUser(String id) {
+        ObjectId user_id = new ObjectId(id);
+        Query query = new Query(Criteria.where("").orOperator(Criteria.where("client1").is(user_id),
+                                                    Criteria.where("client2").is(user_id))
+        );
+        return mongoTemplate.find(query, Conversation.class);
+    }
     
 }

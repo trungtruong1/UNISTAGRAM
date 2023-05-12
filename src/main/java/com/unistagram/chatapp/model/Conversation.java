@@ -1,13 +1,10 @@
 package com.unistagram.chatapp.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Reference;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.unistagram.userapp.model.User;
 
 import lombok.Data;
 
@@ -23,25 +20,29 @@ public class Conversation {
     
     @Id
     private String id;
-    @DocumentReference
-    private User client1;
-    @DocumentReference
-    private User client2;
+    private String client1;
+    private String client2;
     private Status status;
 
     public Conversation() {}
 
-    public Conversation(User client1, User client2, Status status) {
+    public Conversation(String client1, String client2, Status status) {
         this.client1 = client1;
         this.client2 = client2;
         this.status = status;
     }
 
+    public Conversation(ObjectId client1, ObjectId client2, Status status) {
+        this.client1 = client1.toString();
+        this.client2 = client2.toString();
+        this.status = status;
+    }
+
     public String getId() { return this.id; }
 
-    public User getClient1() { return this.client1; }
+    public String getClient1() { return this.client1; }
 
-    public User getClient2() { return this.client2; }
+    public String getClient2() { return this.client2; }
 
     public Status getStatus() { return this.status; }
 

@@ -50,7 +50,7 @@ public class UserController {
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         String new_id = userService.save(user);
         Optional<User> new_user = userService.getUserById(new_id);
-        if(new_user == null) {
+        if(new_user.isEmpty()) {
             throw new ObjectIdException("Something wrong when saving the user!");
         } 
         return ResponseEntity.ok(new_user.get());

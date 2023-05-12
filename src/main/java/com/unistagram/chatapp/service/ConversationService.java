@@ -15,4 +15,6 @@ public interface ConversationService {
 
     public UpdateResult updateConversationById(String id, Conversation updateed_conversation);
 
+    public List<Conversation> getConversationsByUser(String id);
+
 }
