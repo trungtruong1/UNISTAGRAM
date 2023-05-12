@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,13 @@ import org.springframework.messaging.handler.annotation.SendTo;
 // @RequestMapping("/matching")
 @RequestMapping("/matching")
 public class MatchingController {
+
+    private class CheckInQueue {
+        private boolean is_in_queue;
+        public CheckInQueue(boolean is_in_queue) { this.is_in_queue = is_in_queue; }
+
+        public boolean getIs_in_queue() { return this.is_in_queue; }
+    }
 
     @Autowired
     private UserService userService;
@@ -95,6 +103,15 @@ public class MatchingController {
         } catch(NumberFormatException e) {
             throw new ParameterErrorStringException("Parameter is not a number!");
         }
+    }
+
+    @GetMapping("/check_in_queue/{id}")
+    public ResponseEntity<CheckInQueue> checkUserInQueue(@PathVariable("id") int id) {
+        Optional<User> user = userService.getUserById(id);
+        if(user.isEmpty()) {
+            throw new ParameterErrorNumberException("User id does not exist!");
+        }
+        return ResponseEntity.ok(new CheckInQueue(matchingService.isWaiting(user.get())));
     }
 
     @MessageMapping("/hello")
