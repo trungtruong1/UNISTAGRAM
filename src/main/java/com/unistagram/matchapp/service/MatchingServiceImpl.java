@@ -60,7 +60,7 @@ public class MatchingServiceImpl implements MatchingService {
         if(waitingUsers.isEmpty()) {
             return null;
         }
-        // Return a random user in the queue
+        // Return a random user in the queue    
         return Optional.of(waitingUsers.get(rng.nextInt(waitingUsers.size())));
     }
 
