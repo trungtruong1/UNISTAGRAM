@@ -1,6 +1,7 @@
 package com.unistagram.userapp.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,6 +16,7 @@ public class User {
 	@Id
 	private String id;
 	private int user_id;
+	@Indexed
 	private String username;
 	private String password;
 	private String email;

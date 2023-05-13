@@ -1,5 +1,8 @@
 package com.unistagram.chatapp.model;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -17,12 +20,21 @@ public class Message {
     @Id
     private String id;
     
-    @DocumentReference(lazy = true)
-    private Conversation conversation;
+    private String conversation;
 
-    @DocumentReference(lazy = true)
-    private User sender;
+    private String sender;
+
+    private String receiver;
 
     private String content;
 
+    @CreationTimestamp
+    private LocalDateTime timestamp;
+
+    public Message(String conversation, String sender, String receiver, String content) {
+        this.conversation = conversation;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.content = content;
+    }
 }
