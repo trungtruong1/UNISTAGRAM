@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +24,6 @@ import com.unistagram.chatapp.service.MessageService;
 import com.unistagram.userapp.model.User;
 import com.unistagram.userapp.service.UserService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
 @RestController
 @RequestMapping("/messages")
 public class MessageController {
@@ -36,10 +35,12 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
-    private class SendMessageInfo {
+    private static class SendMessageInfo {
         String conversation;
         String sender;
         String content;
+
+        public SendMessageInfo() {}
 
         public SendMessageInfo(String conversation, String sender, String content) {
             this.conversation = conversation;
@@ -63,13 +64,13 @@ public class MessageController {
     @ExceptionHandler(ParameterErrorNumberException.class)
     public ResponseEntity<String> handleParameterErrorNumber() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                             .body("User id does not exist!");
+                             .body("Conversation does not exist!");
     }
 
     @ExceptionHandler(ParameterErrorStringException.class)
     public ResponseEntity<String> handleParameterErrorString() {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
-                             .body("Parameter is not a number!");
+                             .body("User is not in this conversation!");
     }
 
     @GetMapping("/{id}")
@@ -78,21 +79,21 @@ public class MessageController {
         return ResponseEntity.ok(conversation);
     }
 
-    @PostMapping("/send/{id}")
+    @PostMapping("/send/")
     public ResponseEntity<Message> sendMessageToConversation(@RequestBody SendMessageInfo message) {
         Optional<Conversation> conversation = conversationService.getConversationById(message.getConversation());
         if(conversation.isEmpty()) {
             throw new ParameterErrorNumberException("Conversation does not exist!");
         }
         String receiver = "";
-        if(message.sender == conversation.get().getClient1()) {
+        if(message.sender.equals(conversation.get().getClient1())) {
             receiver = conversation.get().getClient2();
         }
-        if(message.sender == conversation.get().getClient2()) {
+        if(message.sender.equals(conversation.get().getClient2())) {
             receiver = conversation.get().getClient1();
         }
         if(receiver == "") {
-            throw new ParameterErrorNumberException("User is not in this conversation!");
+            throw new ParameterErrorStringException("User is not in this conversation!");
         }
         String message_id = messageService.saveNewMessage(message.getConversation(), message.getSender(), receiver, message.getContent());
         Optional<Message> new_message = messageService.getMessageById(message_id);

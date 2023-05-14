@@ -38,13 +38,13 @@ public class ConversationController {
     @ExceptionHandler(ParameterErrorNumberException.class)
     public ResponseEntity<String> handleParameterErrorNumber() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                             .body("User id does not exist!");
+                             .body("Conversation id does not exist!");
     }
 
     @ExceptionHandler(ParameterErrorStringException.class)
     public ResponseEntity<String> handleParameterErrorString() {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
-                             .body("Parameter is not a number!");
+                             .body("User id does not exist!");
     }
 
     @GetMapping("/")
@@ -65,7 +65,7 @@ public class ConversationController {
     public ResponseEntity<List<Conversation>> getConversationsByUser(@PathVariable("id") int id) {
         Optional<User> check_user = userService.getUserById(id);
         if(check_user.isEmpty()) {
-            throw new ParameterErrorNumberException("User id does not exist!");
+            throw new ParameterErrorStringException("User id does not exist!");
         }
         return ResponseEntity.ok(conversationService.getConversationsByUser(check_user.get().getId()));
     }
