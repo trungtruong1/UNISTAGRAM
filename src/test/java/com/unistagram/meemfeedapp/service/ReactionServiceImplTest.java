@@ -45,10 +45,6 @@ class ReactionServiceImplTest {
 
     @Autowired
     private ReactionServiceImpl reactionServiceImpl;
-
-    /**
-     * Method under test: {@link ReactionServiceImpl#save(String, MultipartFile, String)}
-     */
     @Test
     void testSave() throws IOException {
         Reaction reaction = new Reaction();
@@ -62,10 +58,6 @@ class ReactionServiceImplTest {
                 new MockMultipartFile("Name", new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))), "JaneDoe"));
         verify(reactionRepository).save(Mockito.<Reaction>any());
     }
-
-    /**
-     * Method under test: {@link ReactionServiceImpl#getReactionById(String)}
-     */
     @Test
     void testGetReactionById() throws UnsupportedEncodingException {
         Reaction reaction = new Reaction();

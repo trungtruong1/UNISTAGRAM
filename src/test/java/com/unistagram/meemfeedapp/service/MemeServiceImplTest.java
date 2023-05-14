@@ -41,10 +41,6 @@ class MemeServiceImplTest {
 
     @MockBean
     private MongoTemplate mongoTemplate;
-
-    /**
-     * Method under test: {@link MemeServiceImpl#save(String, MultipartFile, String)}
-     */
     @Test
     void testSave() throws IOException {
         Meme meme = new Meme();
@@ -58,10 +54,6 @@ class MemeServiceImplTest {
                 new MockMultipartFile("Name", new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))), "JaneDoe"));
         verify(memeRepository).save(Mockito.<Meme>any());
     }
-
-    /**
-     * Method under test: {@link MemeServiceImpl#getMemeById(String)}
-     */
     @Test
     void testGetMemeById() throws UnsupportedEncodingException {
         Meme meme = new Meme();

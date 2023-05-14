@@ -11,9 +11,6 @@ import org.bson.types.Binary;
 import org.junit.jupiter.api.Test;
 
 class ReactionTest {
-    /**
-     * Method under test: {@link Reaction#Reaction()}
-     */
     @Test
     void testConstructor() {
         Reaction actualReaction = new Reaction();
@@ -23,10 +20,6 @@ class ReactionTest {
         assertNull(actualReaction.getImage());
         assertNull(actualReaction.getId());
     }
-
-    /**
-     * Method under test: {@link Reaction#Reaction(String, Binary, String)}
-     */
     @Test
     void testConstructor2() throws UnsupportedEncodingException {
         Binary image = new Binary("AXAXAXAX".getBytes("UTF-8"));

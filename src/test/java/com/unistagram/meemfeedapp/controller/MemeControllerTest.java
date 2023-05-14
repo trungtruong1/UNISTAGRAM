@@ -34,7 +34,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.multipart.MultipartFile;
 
 @ContextConfiguration(classes = {MemeController.class})
 @ExtendWith(SpringExtension.class)
@@ -48,9 +47,6 @@ class MemeControllerTest {
     @MockBean
     private UserService userService;
 
-    /**
-     * Method under test: {@link MemeController#handleObjectIdException()}
-     */
     @Test
     void testHandleObjectIdException() {
         ResponseEntity<String> actualHandleObjectIdExceptionResult = memeController.handleObjectIdException();
@@ -59,9 +55,6 @@ class MemeControllerTest {
         assertTrue(actualHandleObjectIdExceptionResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MemeController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
     @Test
     void testHandleParameterErrorNumber() {
         ResponseEntity<String> actualHandleParameterErrorNumberResult = memeController
@@ -71,28 +64,8 @@ class MemeControllerTest {
         assertTrue(actualHandleParameterErrorNumberResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MemeController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
     @Test
-    @Disabled("TODO: Complete this test")
     void testHandleParameterErrorNumber2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.unistagram.userapp.exception.ParameterErrorNumberException.getMessage()" because "ex" is null
-        //       at com.unistagram.memefeedapp.controller.MemeController.handleParameterErrorNumber(MemeController.java:44)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        memeController.handleParameterErrorNumber(null);
-    }
-
-    /**
-     * Method under test: {@link MemeController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
-    @Test
-    void testHandleParameterErrorNumber3() {
         ParameterErrorNumberException ex = mock(ParameterErrorNumberException.class);
         when(ex.getMessage()).thenReturn("Not all who wander are lost");
         ResponseEntity<String> actualHandleParameterErrorNumberResult = memeController.handleParameterErrorNumber(ex);
@@ -102,9 +75,6 @@ class MemeControllerTest {
         verify(ex).getMessage();
     }
 
-    /**
-     * Method under test: {@link MemeController#handleParameterErrorString(ParameterErrorStringException)}
-     */
     @Test
     void testHandleParameterErrorString() {
         ResponseEntity<String> actualHandleParameterErrorStringResult = memeController
@@ -114,28 +84,8 @@ class MemeControllerTest {
         assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MemeController#handleParameterErrorString(ParameterErrorStringException)}
-     */
     @Test
-    @Disabled("TODO: Complete this test")
     void testHandleParameterErrorString2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.unistagram.userapp.exception.ParameterErrorStringException.getMessage()" because "ex" is null
-        //       at com.unistagram.memefeedapp.controller.MemeController.handleParameterErrorString(MemeController.java:50)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        memeController.handleParameterErrorString(null);
-    }
-
-    /**
-     * Method under test: {@link MemeController#handleParameterErrorString(ParameterErrorStringException)}
-     */
-    @Test
-    void testHandleParameterErrorString3() {
         ParameterErrorStringException ex = mock(ParameterErrorStringException.class);
         when(ex.getMessage()).thenReturn("Not all who wander are lost");
         ResponseEntity<String> actualHandleParameterErrorStringResult = memeController.handleParameterErrorString(ex);
@@ -145,9 +95,6 @@ class MemeControllerTest {
         verify(ex).getMessage();
     }
 
-    /**
-     * Method under test: {@link MemeController#getMemeById(String)}
-     */
     @Test
     void testGetMemeById() throws Exception {
         Meme meme = new Meme();
@@ -169,9 +116,6 @@ class MemeControllerTest {
                                 "{\"id\":\"42\",\"title\":\"Dr\",\"image\":{\"type\":0,\"data\":\"QVhBWEFYQVg=\"},\"author\":\"JaneDoe\",\"timestamp\":0}"));
     }
 
-    /**
-     * Method under test: {@link MemeController#getMemeById(String)}
-     */
     @Test
     void testGetMemeById2() throws Exception {
         when(memeService.getMemeById(Mockito.<String>any())).thenReturn(Optional.empty());
@@ -184,9 +128,6 @@ class MemeControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("The meme id does not exist!"));
     }
 
-    /**
-     * Method under test: {@link MemeController#getMemeById(String)}
-     */
     @Test
     void testGetMemeById3() throws Exception {
         when(memeService.getMemeById(Mockito.<String>any()))
@@ -200,9 +141,6 @@ class MemeControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link MemeController#saveMeme(String, MultipartFile, String)}
-     */
     @Test
     void testSaveMeme() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.get("/memes").param("author", "foo");

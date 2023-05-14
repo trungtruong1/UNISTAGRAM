@@ -37,10 +37,6 @@ class MemeReactionServiceImplTest {
 
     @MockBean
     private MongoTemplate mongoTemplate;
-
-    /**
-     * Method under test: {@link MemeReactionServiceImpl#save(String, String, String)}
-     */
     @Test
     void testSave() {
         MemeReaction memeReaction = new MemeReaction();
@@ -53,10 +49,6 @@ class MemeReactionServiceImplTest {
         assertNull(memeReactionServiceImpl.save("Meme id", "Reaction id", "User"));
         verify(memeReactionRepository).save(Mockito.<MemeReaction>any());
     }
-
-    /**
-     * Method under test: {@link MemeReactionServiceImpl#getMemeReactionByMemeAndUser(String, String)}
-     */
     @Test
     void testGetMemeReactionByMemeAndUser() {
         MemeReaction memeReaction = new MemeReaction();
@@ -69,10 +61,6 @@ class MemeReactionServiceImplTest {
         assertTrue(memeReactionServiceImpl.getMemeReactionByMemeAndUser("Meme id", "User id").isPresent());
         verify(mongoTemplate).findOne(Mockito.<Query>any(), Mockito.<Class<MemeReaction>>any());
     }
-
-    /**
-     * Method under test: {@link MemeReactionServiceImpl#getMemeReactionById(String, String, String)}
-     */
     @Test
     void testGetMemeReactionById() {
         MemeReaction memeReaction = new MemeReaction();
@@ -85,20 +73,12 @@ class MemeReactionServiceImplTest {
         assertTrue(memeReactionServiceImpl.getMemeReactionById("Meme id", "Reaction id", "User id").isPresent());
         verify(mongoTemplate).findOne(Mockito.<Query>any(), Mockito.<Class<MemeReaction>>any());
     }
-
-    /**
-     * Method under test: {@link MemeReactionServiceImpl#getMemeReactionsByMemeId(String)}
-     */
     @Test
     void testGetMemeReactionsByMemeId() {
         when(mongoTemplate.find(Mockito.<Query>any(), Mockito.<Class<MemeReaction>>any())).thenReturn(new ArrayList<>());
         assertTrue(memeReactionServiceImpl.getMemeReactionsByMemeId("Meme id").isEmpty());
         verify(mongoTemplate).find(Mockito.<Query>any(), Mockito.<Class<MemeReaction>>any());
     }
-
-    /**
-     * Method under test: {@link MemeReactionServiceImpl#getMemeReactionsByMemeId(String)}
-     */
     @Test
     void testGetMemeReactionsByMemeId2() {
         MemeReaction memeReaction = new MemeReaction();
@@ -118,10 +98,6 @@ class MemeReactionServiceImplTest {
         assertEquals(expectedGetResult, actualMemeReactionsByMemeId.get("meme_id"));
         verify(mongoTemplate).find(Mockito.<Query>any(), Mockito.<Class<MemeReaction>>any());
     }
-
-    /**
-     * Method under test: {@link MemeReactionServiceImpl#removeReaction(String)}
-     */
     @Test
     void testRemoveReaction() {
         when(mongoTemplate.remove(Mockito.<Query>any(), Mockito.<Class<Object>>any())).thenReturn(null);

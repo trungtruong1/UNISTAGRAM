@@ -11,19 +11,6 @@ import org.bson.types.Binary;
 import org.junit.jupiter.api.Test;
 
 class MemeTest {
-    /**
-     * Methods under test:
-     *
-     * <ul>
-     *   <li>{@link Meme#Meme()}
-     *   <li>{@link Meme#setImage(Binary)}
-     *   <li>{@link Meme#getAuthor()}
-     *   <li>{@link Meme#getId()}
-     *   <li>{@link Meme#getImage()}
-     *   <li>{@link Meme#getTimestamp()}
-     *   <li>{@link Meme#getTitle()}
-     * </ul>
-     */
     @Test
     void testConstructor() throws UnsupportedEncodingException {
         Meme actualMeme = new Meme();
@@ -36,18 +23,6 @@ class MemeTest {
         assertNull(actualMeme.getTitle());
     }
 
-    /**
-     * Methods under test:
-     *
-     * <ul>
-     *   <li>{@link Meme#Meme(String, Binary, String)}
-     *   <li>{@link Meme#setImage(Binary)}
-     *   <li>{@link Meme#getAuthor()}
-     *   <li>{@link Meme#getId()}
-     *   <li>{@link Meme#getImage()}
-     *   <li>{@link Meme#getTitle()}
-     * </ul>
-     */
     @Test
     void testConstructor2() throws UnsupportedEncodingException {
         Binary image = new Binary("AXAXAXAX".getBytes("UTF-8"));

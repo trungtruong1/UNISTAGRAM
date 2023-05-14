@@ -49,9 +49,6 @@ class MemeReactionControllerTest {
     @MockBean
     private UserService userService;
 
-    /**
-     * Method under test: {@link MemeReactionController#handleObjectIdException()}
-     */
     @Test
     void testHandleObjectIdException() {
         ResponseEntity<String> actualHandleObjectIdExceptionResult = memeReactionController.handleObjectIdException();
@@ -60,9 +57,6 @@ class MemeReactionControllerTest {
         assertTrue(actualHandleObjectIdExceptionResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
     @Test
     void testHandleParameterErrorNumber() {
         ResponseEntity<String> actualHandleParameterErrorNumberResult = memeReactionController
@@ -72,28 +66,8 @@ class MemeReactionControllerTest {
         assertTrue(actualHandleParameterErrorNumberResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
     @Test
-    @Disabled("TODO: Complete this test")
     void testHandleParameterErrorNumber2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.unistagram.userapp.exception.ParameterErrorNumberException.getMessage()" because "ex" is null
-        //       at com.unistagram.memefeedapp.controller.MemeReactionController.handleParameterErrorNumber(MemeReactionController.java:45)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        memeReactionController.handleParameterErrorNumber(null);
-    }
-
-    /**
-     * Method under test: {@link MemeReactionController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
-    @Test
-    void testHandleParameterErrorNumber3() {
         ParameterErrorNumberException ex = mock(ParameterErrorNumberException.class);
         when(ex.getMessage()).thenReturn("Not all who wander are lost");
         ResponseEntity<String> actualHandleParameterErrorNumberResult = memeReactionController
@@ -104,9 +78,6 @@ class MemeReactionControllerTest {
         verify(ex).getMessage();
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#handleParameterErrorString(ParameterErrorStringException)}
-     */
     @Test
     void testHandleParameterErrorString() {
         ResponseEntity<String> actualHandleParameterErrorStringResult = memeReactionController
@@ -116,28 +87,8 @@ class MemeReactionControllerTest {
         assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#handleParameterErrorString(ParameterErrorStringException)}
-     */
     @Test
-    @Disabled("TODO: Complete this test")
     void testHandleParameterErrorString2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.unistagram.userapp.exception.ParameterErrorStringException.getMessage()" because "ex" is null
-        //       at com.unistagram.memefeedapp.controller.MemeReactionController.handleParameterErrorString(MemeReactionController.java:51)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        memeReactionController.handleParameterErrorString(null);
-    }
-
-    /**
-     * Method under test: {@link MemeReactionController#handleParameterErrorString(ParameterErrorStringException)}
-     */
-    @Test
-    void testHandleParameterErrorString3() {
         ParameterErrorStringException ex = mock(ParameterErrorStringException.class);
         when(ex.getMessage()).thenReturn("Not all who wander are lost");
         ResponseEntity<String> actualHandleParameterErrorStringResult = memeReactionController
@@ -148,9 +99,6 @@ class MemeReactionControllerTest {
         verify(ex).getMessage();
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#addReaction(String, String, String)}
-     */
     @Test
     void testAddReaction() throws Exception {
         MemeReaction memeReaction = new MemeReaction();
@@ -186,9 +134,6 @@ class MemeReactionControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("This user has already reacted to this meme!"));
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#removeReaction(String, String, String)}
-     */
     @Test
     void testRemoveReaction() throws Exception {
         MemeReaction memeReaction = new MemeReaction();
@@ -214,9 +159,6 @@ class MemeReactionControllerTest {
         resultActions.andExpect(contentResult.string(Boolean.TRUE.toString()));
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#removeReaction(String, String, String)}
-     */
     @Test
     void testRemoveReaction2() throws Exception {
         MemeReaction memeReaction = new MemeReaction();
@@ -242,9 +184,6 @@ class MemeReactionControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#removeReaction(String, String, String)}
-     */
     @Test
     void testRemoveReaction3() throws Exception {
         MemeReaction memeReaction = new MemeReaction();
@@ -270,9 +209,6 @@ class MemeReactionControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#removeReaction(String, String, String)}
-     */
     @Test
     void testRemoveReaction4() throws Exception {
         when(memeReactionService.removeReaction(Mockito.<String>any())).thenReturn(true);
@@ -290,9 +226,6 @@ class MemeReactionControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("This is not your reaction!"));
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#addReaction(String, String, String)}
-     */
     @Test
     void testAddReaction2() throws Exception {
         MemeReaction memeReaction = new MemeReaction();
@@ -322,9 +255,6 @@ class MemeReactionControllerTest {
                                 "{\"id\":\"42\",\"meme_id\":\"Meme id\",\"reaction_id\":\"Reaction id\",\"user_id\":\"User id\",\"timestamp\":0}"));
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#addReaction(String, String, String)}
-     */
     @Test
     void testAddReaction3() throws Exception {
         when(memeReactionService.save(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any()))
@@ -345,9 +275,6 @@ class MemeReactionControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#getReactionsInMeme(String)}
-     */
     @Test
     void testGetReactionsInMeme() throws Exception {
         when(memeReactionService.getMemeReactionsByMemeId(Mockito.<String>any())).thenReturn(new HashMap<>());
@@ -360,9 +287,6 @@ class MemeReactionControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("{}"));
     }
 
-    /**
-     * Method under test: {@link MemeReactionController#getReactionsInMeme(String)}
-     */
     @Test
     void testGetReactionsInMeme2() throws Exception {
         when(memeReactionService.getMemeReactionsByMemeId(Mockito.<String>any()))
@@ -375,10 +299,6 @@ class MemeReactionControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
-
-    /**
-     * Method under test: {@link MemeReactionController#getReactionsInMeme(String)}
-     */
     @Test
     void testGetReactionsInMeme3() throws Exception {
         when(memeReactionService.getMemeReactionsByMemeId(Mockito.<String>any()))

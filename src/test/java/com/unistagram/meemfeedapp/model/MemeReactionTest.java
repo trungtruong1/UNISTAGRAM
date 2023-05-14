@@ -7,9 +7,6 @@ import com.unistagram.memefeedapp.model.MemeReaction;
 import org.junit.jupiter.api.Test;
 
 class MemeReactionTest {
-    /**
-     * Method under test: {@link MemeReaction#MemeReaction()}
-     */
     @Test
     void testConstructor() {
         MemeReaction actualMemeReaction = new MemeReaction();
@@ -19,10 +16,6 @@ class MemeReactionTest {
         assertNull(actualMemeReaction.getReaction_id());
         assertNull(actualMemeReaction.getMeme_id());
     }
-
-    /**
-     * Method under test: {@link MemeReaction#MemeReaction(String, String, String)}
-     */
     @Test
     void testConstructor2() {
         MemeReaction actualMemeReaction = new MemeReaction("Meme id", "Reaction id", "User");

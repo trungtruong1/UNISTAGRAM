@@ -47,10 +47,6 @@ class ReactionControllerTest {
 
     @MockBean
     private UserService userService;
-
-    /**
-     * Method under test: {@link ReactionController#handleObjectIdException()}
-     */
     @Test
     void testHandleObjectIdException() {
         ResponseEntity<String> actualHandleObjectIdExceptionResult = reactionController.handleObjectIdException();
@@ -58,10 +54,6 @@ class ReactionControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, actualHandleObjectIdExceptionResult.getStatusCode());
         assertTrue(actualHandleObjectIdExceptionResult.getHeaders().isEmpty());
     }
-
-    /**
-     * Method under test: {@link ReactionController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
     @Test
     void testHandleParameterErrorNumber() {
         ResponseEntity<String> actualHandleParameterErrorNumberResult = reactionController
@@ -70,29 +62,8 @@ class ReactionControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, actualHandleParameterErrorNumberResult.getStatusCode());
         assertTrue(actualHandleParameterErrorNumberResult.getHeaders().isEmpty());
     }
-
-    /**
-     * Method under test: {@link ReactionController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
     @Test
-    @Disabled("TODO: Complete this test")
     void testHandleParameterErrorNumber2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.unistagram.userapp.exception.ParameterErrorNumberException.getMessage()" because "ex" is null
-        //       at com.unistagram.memefeedapp.controller.ReactionController.handleParameterErrorNumber(ReactionController.java:44)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        reactionController.handleParameterErrorNumber(null);
-    }
-
-    /**
-     * Method under test: {@link ReactionController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
-    @Test
-    void testHandleParameterErrorNumber3() {
         ParameterErrorNumberException ex = mock(ParameterErrorNumberException.class);
         when(ex.getMessage()).thenReturn("Not all who wander are lost");
         ResponseEntity<String> actualHandleParameterErrorNumberResult = reactionController.handleParameterErrorNumber(ex);
@@ -102,9 +73,6 @@ class ReactionControllerTest {
         verify(ex).getMessage();
     }
 
-    /**
-     * Method under test: {@link ReactionController#handleParameterErrorString(ParameterErrorStringException)}
-     */
     @Test
     void testHandleParameterErrorString() {
         ResponseEntity<String> actualHandleParameterErrorStringResult = reactionController
@@ -113,29 +81,8 @@ class ReactionControllerTest {
         assertEquals(HttpStatus.NOT_ACCEPTABLE, actualHandleParameterErrorStringResult.getStatusCode());
         assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
     }
-
-    /**
-     * Method under test: {@link ReactionController#handleParameterErrorString(ParameterErrorStringException)}
-     */
     @Test
-    @Disabled("TODO: Complete this test")
     void testHandleParameterErrorString2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.unistagram.userapp.exception.ParameterErrorStringException.getMessage()" because "ex" is null
-        //       at com.unistagram.memefeedapp.controller.ReactionController.handleParameterErrorString(ReactionController.java:50)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        reactionController.handleParameterErrorString(null);
-    }
-
-    /**
-     * Method under test: {@link ReactionController#handleParameterErrorString(ParameterErrorStringException)}
-     */
-    @Test
-    void testHandleParameterErrorString3() {
         ParameterErrorStringException ex = mock(ParameterErrorStringException.class);
         when(ex.getMessage()).thenReturn("Not all who wander are lost");
         ResponseEntity<String> actualHandleParameterErrorStringResult = reactionController.handleParameterErrorString(ex);
@@ -144,10 +91,6 @@ class ReactionControllerTest {
         assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
         verify(ex).getMessage();
     }
-
-    /**
-     * Method under test: {@link ReactionController#getMemeById(String)}
-     */
     @Test
     void testGetMemeById() throws Exception {
         Reaction reaction = new Reaction();
@@ -168,10 +111,6 @@ class ReactionControllerTest {
                         .string(
                                 "{\"id\":\"42\",\"title\":\"Dr\",\"image\":{\"type\":0,\"data\":\"QVhBWEFYQVg=\"},\"author\":\"JaneDoe\",\"timestamp\":0}"));
     }
-
-    /**
-     * Method under test: {@link ReactionController#getMemeById(String)}
-     */
     @Test
     void testGetMemeById2() throws Exception {
         when(reactionService.getReactionById(Mockito.<String>any())).thenReturn(Optional.empty());
@@ -183,10 +122,6 @@ class ReactionControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("The reaction id does not exist!"));
     }
-
-    /**
-     * Method under test: {@link ReactionController#getMemeById(String)}
-     */
     @Test
     void testGetMemeById3() throws Exception {
         when(reactionService.getReactionById(Mockito.<String>any()))
@@ -199,10 +134,6 @@ class ReactionControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
-
-    /**
-     * Method under test: {@link ReactionController#saveReaction(String, MultipartFile, String)}
-     */
     @Test
     void testSaveReaction() throws Exception {
         MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.get("/reactions").param("author", "foo");
