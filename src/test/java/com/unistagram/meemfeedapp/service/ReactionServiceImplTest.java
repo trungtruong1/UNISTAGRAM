@@ -1,5 +1,6 @@
 package com.unistagram.meemfeedapp.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
@@ -16,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
+import java.util.Optional;
 
 import com.unistagram.memefeedapp.service.ReactionServiceImpl;
 import org.bson.types.Binary;
@@ -69,6 +71,11 @@ class ReactionServiceImplTest {
         when(mongoTemplate.findOne(Mockito.<Query>any(), Mockito.<Class<Reaction>>any())).thenReturn(reaction);
         assertTrue(reactionServiceImpl.getReactionById("42").isPresent());
         verify(mongoTemplate).findOne(Mockito.<Query>any(), Mockito.<Class<Reaction>>any());
+    }
+
+    @Test
+    void testGetReactionById2() throws UnsupportedEncodingException {
+        assertEquals(Optional.empty(), reactionServiceImpl.getReactionById("Please, let me go to bed"));
     }
 }
 
