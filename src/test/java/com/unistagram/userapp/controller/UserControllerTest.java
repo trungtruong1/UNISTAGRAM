@@ -16,6 +16,7 @@ import com.unistagram.userapp.service.UserService;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -158,6 +159,12 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Parameter is not a number!"));
     }
+
+    @Test
+    void testGetUser6() throws Exception {
+        Assertions.assertThrows(ParameterErrorStringException.class, () -> userController.getUser(""));
+    }
+
     @Test
     void testSaveUser() throws Exception {
         User user = new User();
@@ -517,6 +524,12 @@ class UserControllerTest {
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(406))
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Parameter is not a number!"));
+    }
+
+    @Test
+    void testUpdateUser9() throws Exception {
+        User new_user = new User();
+        Assertions.assertThrows(ParameterErrorStringException.class, () -> userController.updateUser("", new_user));
     }
 }
 
