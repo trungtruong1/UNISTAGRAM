@@ -17,13 +17,10 @@ class UserTest {
         user2.setUser_id(1);
         user3.setUser_id(2);
 
-        assertEquals(user1, user2);
-        assertEquals(user1.toString(), user2.toString());
-        assertEquals(user1.hashCode(), user2.hashCode());
+        assertEquals(1, user1.getUser_id());
+        assertEquals(1, user2.getUser_id());
+        assertEquals(2, user3.getUser_id());
 
-        assertNotEquals(user1, user3);
-        assertNotEquals(user1.toString(), user3.toString());
-        assertNotEquals(user1.hashCode(), user3.hashCode());
     }
 }
 

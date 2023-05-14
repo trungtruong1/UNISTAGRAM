@@ -7,8 +7,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Document(collection = "user")
 @JsonInclude(JsonInclude.Include.NON_NULL) //include only non_null values
 public class User {

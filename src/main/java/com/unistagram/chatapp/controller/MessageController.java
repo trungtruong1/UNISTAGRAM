@@ -35,7 +35,7 @@ public class MessageController {
     private UserService userService;
 
 
-    private static class SendMessageInfo {
+    public static class SendMessageInfo {
         String conversation;
         String sender;
         String content;
@@ -97,9 +97,6 @@ public class MessageController {
         }
         if(message.sender.equals(conversation.get().getClient2())) {
             receiver = conversation.get().getClient1();
-        }
-        if(receiver == "") {
-            throw new ParameterErrorStringException("Receiver is not in this conversation!");
         }
         String message_id = messageService.saveNewMessage(message.getConversation(), message.getSender(), receiver, message.getContent());
         Optional<Message> new_message = messageService.getMessageById(message_id);

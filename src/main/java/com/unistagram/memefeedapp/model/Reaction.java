@@ -7,9 +7,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+// @EqualsAndHashCode(callSuper = false)
 @Document(collection = "reaction")
 @JsonInclude(JsonInclude.Include.NON_NULL) //include only non_null values
 public class Reaction extends Meme {
