@@ -51,9 +51,6 @@ class MessageControllerTest {
     @MockBean
     private UserService userService;
 
-    /**
-     * Method under test: {@link MessageController#handleObjectIdException()}
-     */
     @Test
     void testHandleObjectIdException() {
         ResponseEntity<String> actualHandleObjectIdExceptionResult = messageController.handleObjectIdException();
@@ -62,9 +59,6 @@ class MessageControllerTest {
         assertTrue(actualHandleObjectIdExceptionResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MessageController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
     @Test
     void testHandleParameterErrorNumber() {
         ResponseEntity<String> actualHandleParameterErrorNumberResult = messageController
@@ -74,28 +68,8 @@ class MessageControllerTest {
         assertTrue(actualHandleParameterErrorNumberResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MessageController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
     @Test
-    @Disabled("TODO: Complete this test")
     void testHandleParameterErrorNumber2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.unistagram.userapp.exception.ParameterErrorNumberException.getMessage()" because "ex" is null
-        //       at com.unistagram.chatapp.controller.MessageController.handleParameterErrorNumber(MessageController.java:67)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        messageController.handleParameterErrorNumber(null);
-    }
-
-    /**
-     * Method under test: {@link MessageController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
-    @Test
-    void testHandleParameterErrorNumber3() {
         ParameterErrorNumberException ex = mock(ParameterErrorNumberException.class);
         when(ex.getMessage()).thenReturn("Not all who wander are lost");
         ResponseEntity<String> actualHandleParameterErrorNumberResult = messageController.handleParameterErrorNumber(ex);
@@ -105,9 +79,6 @@ class MessageControllerTest {
         verify(ex).getMessage();
     }
 
-    /**
-     * Method under test: {@link MessageController#handleParameterErrorString(ParameterErrorStringException)}
-     */
     @Test
     void testHandleParameterErrorString() {
         ResponseEntity<String> actualHandleParameterErrorStringResult = messageController
@@ -117,28 +88,8 @@ class MessageControllerTest {
         assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MessageController#handleParameterErrorString(ParameterErrorStringException)}
-     */
     @Test
-    @Disabled("TODO: Complete this test")
     void testHandleParameterErrorString2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.unistagram.userapp.exception.ParameterErrorStringException.getMessage()" because "ex" is null
-        //       at com.unistagram.chatapp.controller.MessageController.handleParameterErrorString(MessageController.java:73)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        messageController.handleParameterErrorString(null);
-    }
-
-    /**
-     * Method under test: {@link MessageController#handleParameterErrorString(ParameterErrorStringException)}
-     */
-    @Test
-    void testHandleParameterErrorString3() {
         ParameterErrorStringException ex = mock(ParameterErrorStringException.class);
         when(ex.getMessage()).thenReturn("Not all who wander are lost");
         ResponseEntity<String> actualHandleParameterErrorStringResult = messageController.handleParameterErrorString(ex);
@@ -148,9 +99,6 @@ class MessageControllerTest {
         verify(ex).getMessage();
     }
 
-    /**
-     * Method under test: {@link MessageController#getMessagesInConversation(String)}
-     */
     @Test
     void testGetMessagesInConversation() throws Exception {
         when(messageService.getAllMessageInConversation(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -163,9 +111,6 @@ class MessageControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link MessageController#getMessagesInConversation(String)}
-     */
     @Test
     void testGetMessagesInConversation2() throws Exception {
         when(messageService.getAllMessageInConversation(Mockito.<String>any()))
@@ -179,9 +124,6 @@ class MessageControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link MessageController#getMessagesInConversation(String)}
-     */
     @Test
     void testGetMessagesInConversation3() throws Exception {
         when(messageService.getAllMessageInConversation(Mockito.<String>any()))
@@ -195,9 +137,6 @@ class MessageControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link MessageController#getMessagesInConversation(String)}
-     */
     @Test
     void testGetMessagesInConversation4() throws Exception {
         when(messageService.getAllMessageInConversation(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -211,9 +150,6 @@ class MessageControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link MessageController#sendMessageToConversation(MessageController.SendMessageInfo)}
-     */
     @Test
     void testSendMessageToConversation() throws Exception {
         MockHttpServletRequestBuilder contentTypeResult = MockMvcRequestBuilders.post("/messages/send")
@@ -226,9 +162,6 @@ class MessageControllerTest {
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
     }
 
-    /**
-     * Method under test: {@link MessageController#sendMessageToConversation(MessageController.SendMessageInfo)}
-     */
     @Test
     void testSendMessageToConversation2() throws Exception {
         User user = mock(User.class);
