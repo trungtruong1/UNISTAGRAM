@@ -46,9 +46,6 @@ class ConversationControllerTest {
     @MockBean
     private UserService userService;
 
-    /**
-     * Method under test: {@link ConversationController#handleObjectIdException()}
-     */
     @Test
     void testHandleObjectIdException() {
         ResponseEntity<String> actualHandleObjectIdExceptionResult = conversationController.handleObjectIdException();
@@ -57,9 +54,6 @@ class ConversationControllerTest {
         assertTrue(actualHandleObjectIdExceptionResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link ConversationController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
     @Test
     void testHandleParameterErrorNumber() {
         ResponseEntity<String> actualHandleParameterErrorNumberResult = conversationController
@@ -69,28 +63,9 @@ class ConversationControllerTest {
         assertTrue(actualHandleParameterErrorNumberResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link ConversationController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
+
     @Test
-    @Disabled("TODO: Complete this test")
     void testHandleParameterErrorNumber2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.unistagram.userapp.exception.ParameterErrorNumberException.getMessage()" because "ex" is null
-        //       at com.unistagram.chatapp.controller.ConversationController.handleParameterErrorNumber(ConversationController.java:41)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        conversationController.handleParameterErrorNumber(null);
-    }
-
-    /**
-     * Method under test: {@link ConversationController#handleParameterErrorNumber(ParameterErrorNumberException)}
-     */
-    @Test
-    void testHandleParameterErrorNumber3() {
         ParameterErrorNumberException ex = mock(ParameterErrorNumberException.class);
         when(ex.getMessage()).thenReturn("Not all who wander are lost");
         ResponseEntity<String> actualHandleParameterErrorNumberResult = conversationController
@@ -101,9 +76,6 @@ class ConversationControllerTest {
         verify(ex).getMessage();
     }
 
-    /**
-     * Method under test: {@link ConversationController#handleParameterErrorString(ParameterErrorStringException)}
-     */
     @Test
     void testHandleParameterErrorString() {
         ResponseEntity<String> actualHandleParameterErrorStringResult = conversationController
@@ -113,28 +85,8 @@ class ConversationControllerTest {
         assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link ConversationController#handleParameterErrorString(ParameterErrorStringException)}
-     */
     @Test
-    @Disabled("TODO: Complete this test")
     void testHandleParameterErrorString2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.unistagram.userapp.exception.ParameterErrorStringException.getMessage()" because "ex" is null
-        //       at com.unistagram.chatapp.controller.ConversationController.handleParameterErrorString(ConversationController.java:47)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        conversationController.handleParameterErrorString(null);
-    }
-
-    /**
-     * Method under test: {@link ConversationController#handleParameterErrorString(ParameterErrorStringException)}
-     */
-    @Test
-    void testHandleParameterErrorString3() {
         ParameterErrorStringException ex = mock(ParameterErrorStringException.class);
         when(ex.getMessage()).thenReturn("Not all who wander are lost");
         ResponseEntity<String> actualHandleParameterErrorStringResult = conversationController
@@ -145,9 +97,6 @@ class ConversationControllerTest {
         verify(ex).getMessage();
     }
 
-    /**
-     * Method under test: {@link ConversationController#getAllConversations()}
-     */
     @Test
     void testGetAllConversations() throws Exception {
         when(conversationService.getAllConversations()).thenReturn(new ArrayList<>());
@@ -160,9 +109,6 @@ class ConversationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link ConversationController#getAllConversations()}
-     */
     @Test
     void testGetAllConversations2() throws Exception {
         when(conversationService.getAllConversations()).thenThrow(new ParameterErrorNumberException("An error occurred"));
@@ -175,9 +121,6 @@ class ConversationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link ConversationController#getAllConversations()}
-     */
     @Test
     void testGetAllConversations3() throws Exception {
         when(conversationService.getAllConversations()).thenThrow(new ParameterErrorStringException("An error occurred"));
@@ -190,9 +133,6 @@ class ConversationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link ConversationController#getAllConversations()}
-     */
     @Test
     void testGetAllConversations4() throws Exception {
         when(conversationService.getAllConversations()).thenReturn(new ArrayList<>());
@@ -205,10 +145,6 @@ class ConversationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
-
-    /**
-     * Method under test: {@link ConversationController#getConversationsByUser(int)}
-     */
     @Test
     void testGetConversationsByUser() throws Exception {
         when(conversationService.getConversationsByUser(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -238,9 +174,6 @@ class ConversationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link ConversationController#getConversationsByUser(int)}
-     */
     @Test
     void testGetConversationsByUser2() throws Exception {
         when(conversationService.getConversationsByUser(Mockito.<String>any()))
@@ -271,9 +204,6 @@ class ConversationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link ConversationController#getConversationsByUser(int)}
-     */
     @Test
     void testGetConversationsByUser3() throws Exception {
         when(conversationService.getConversationsByUser(Mockito.<String>any()))
@@ -304,9 +234,7 @@ class ConversationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link ConversationController#getConversationsByUser(int)}
-     */
+
     @Test
     void testGetConversationsByUser4() throws Exception {
         when(conversationService.getConversationsByUser(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -319,10 +247,6 @@ class ConversationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("User id does not exist!"));
     }
-
-    /**
-     * Method under test: {@link ConversationController#getConversation(String)}
-     */
     @Test
     void testGetConversation() throws Exception {
         Conversation conversation = new Conversation();
@@ -342,9 +266,6 @@ class ConversationControllerTest {
                         .string("{\"id\":\"42\",\"client1\":\"Client1\",\"client2\":\"Client2\",\"status\":\"ONGOING\"}"));
     }
 
-    /**
-     * Method under test: {@link ConversationController#getConversation(String)}
-     */
     @Test
     void testGetConversation2() throws Exception {
         when(conversationService.getConversationById(Mockito.<String>any())).thenReturn(Optional.empty());
@@ -357,9 +278,6 @@ class ConversationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("Conversation id does not exist!"));
     }
 
-    /**
-     * Method under test: {@link ConversationController#getConversation(String)}
-     */
     @Test
     void testGetConversation3() throws Exception {
         when(conversationService.getConversationById(Mockito.<String>any()))
@@ -373,9 +291,6 @@ class ConversationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
     }
 
-    /**
-     * Method under test: {@link ConversationController#getConversation(String)}
-     */
     @Test
     void testGetConversation4() throws Exception {
         when(conversationService.getConversationById(Mockito.<String>any()))

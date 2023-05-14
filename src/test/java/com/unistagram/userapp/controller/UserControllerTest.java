@@ -41,9 +41,6 @@ class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    /**
-     * Method under test: {@link UserController#handleObjectIdException()}
-     */
     @Test
     void testHandleObjectIdException() {
         ResponseEntity<String> actualHandleObjectIdExceptionResult = userController.handleObjectIdException();
@@ -52,9 +49,6 @@ class UserControllerTest {
         assertTrue(actualHandleObjectIdExceptionResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link UserController#handleParameterErrorNumber()}
-     */
     @Test
     void testHandleParameterErrorNumber() {
         ResponseEntity<String> actualHandleParameterErrorNumberResult = userController.handleParameterErrorNumber();
@@ -63,9 +57,6 @@ class UserControllerTest {
         assertTrue(actualHandleParameterErrorNumberResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link UserController#handleParameterErrorString()}
-     */
     @Test
     void testHandleParameterErrorString() {
         ResponseEntity<String> actualHandleParameterErrorStringResult = userController.handleParameterErrorString();
@@ -74,9 +65,6 @@ class UserControllerTest {
         assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link UserController#getUser(String)}
-     */
     @Test
     void testGetUser() throws Exception {
         User user = new User();
@@ -108,9 +96,6 @@ class UserControllerTest {
                                         + "\"],\"activity\":[\"Activity\"]}"));
     }
 
-    /**
-     * Method under test: {@link UserController#getUser(String)}
-     */
     @Test
     void testGetUser2() throws Exception {
         when(userService.getUserById(anyInt())).thenReturn(Optional.empty());
@@ -123,9 +108,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("User id does not exist!"));
     }
 
-    /**
-     * Method under test: {@link UserController#getUser(String)}
-     */
     @Test
     void testGetUser3() throws Exception {
         User user = new User();
@@ -154,9 +136,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("Parameter is not a number!"));
     }
 
-    /**
-     * Method under test: {@link UserController#getUser(String)}
-     */
     @Test
     void testGetUser4() throws Exception {
         when(userService.getUserById(anyInt())).thenThrow(new ObjectIdException("An error occurred"));
@@ -168,10 +147,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Something wrong when saving the user"));
     }
-
-    /**
-     * Method under test: {@link UserController#getUser(String)}
-     */
     @Test
     void testGetUser5() throws Exception {
         when(userService.getUserById(anyInt())).thenThrow(new NumberFormatException("?"));
@@ -183,10 +158,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Parameter is not a number!"));
     }
-
-    /**
-     * Method under test: {@link UserController#saveUser(User)}
-     */
     @Test
     void testSaveUser() throws Exception {
         User user = new User();
@@ -212,10 +183,6 @@ class UserControllerTest {
                 .perform(requestBuilder);
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(405));
     }
-
-    /**
-     * Method under test: {@link UserController#updateUser(String, User)}
-     */
     @Test
     void testUpdateUser() throws Exception {
         UpdateResult updateResult = mock(UpdateResult.class);
@@ -269,10 +236,6 @@ class UserControllerTest {
                                         + "\":1,\"gender\":\"Gender\",\"nationality\":\"Nationality\",\"is_in_queue\":true,\"music\":[\"Music\"],\"film\":[\"Film"
                                         + "\"],\"activity\":[\"Activity\"]}"));
     }
-
-    /**
-     * Method under test: {@link UserController#updateUser(String, User)}
-     */
     @Test
     void testUpdateUser2() throws Exception {
         UpdateResult updateResult = mock(UpdateResult.class);
@@ -306,10 +269,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Something wrong when saving the user"));
     }
-
-    /**
-     * Method under test: {@link UserController#updateUser(String, User)}
-     */
     @Test
     void testUpdateUser3() throws Exception {
         UpdateResult updateResult = mock(UpdateResult.class);
@@ -343,10 +302,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Parameter is not a number!"));
     }
-
-    /**
-     * Method under test: {@link UserController#updateUser(String, User)}
-     */
     @Test
     void testUpdateUser4() throws Exception {
         UpdateResult updateResult = mock(UpdateResult.class);
@@ -380,10 +335,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("User id does not exist!"));
     }
-
-    /**
-     * Method under test: {@link UserController#updateUser(String, User)}
-     */
     @Test
     void testUpdateUser5() throws Exception {
         UpdateResult updateResult = mock(UpdateResult.class);
@@ -418,9 +369,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("Parameter is not a number!"));
     }
 
-    /**
-     * Method under test: {@link UserController#updateUser(String, User)}
-     */
     @Test
     void testUpdateUser6() throws Exception {
         UpdateResult updateResult = mock(UpdateResult.class);
@@ -470,10 +418,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Something wrong when saving the user"));
     }
-
-    /**
-     * Method under test: {@link UserController#updateUser(String, User)}
-     */
     @Test
     void testUpdateUser7() throws Exception {
         UpdateResult updateResult = mock(UpdateResult.class);
@@ -524,9 +468,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("User id does not exist!"));
     }
 
-    /**
-     * Method under test: {@link UserController#updateUser(String, User)}
-     */
     @Test
     void testUpdateUser8() throws Exception {
         UpdateResult updateResult = mock(UpdateResult.class);

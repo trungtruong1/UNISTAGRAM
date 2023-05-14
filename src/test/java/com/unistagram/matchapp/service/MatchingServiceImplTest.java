@@ -38,9 +38,6 @@ class MatchingServiceImplTest {
     @MockBean
     private UserService userService;
 
-    /**
-     * Method under test: {@link MatchingServiceImpl#joinQueue(User)}
-     */
     @Test
     void testJoinQueue() {
         User user = new User();
@@ -81,10 +78,6 @@ class MatchingServiceImplTest {
         verify(userService).getOthersInQueue(Mockito.<String>any());
         verify(userService).getUserById(anyInt());
     }
-
-    /**
-     * Method under test: {@link MatchingServiceImpl#joinQueue(User)}
-     */
     @Test
     void testJoinQueue2() {
         when(conversationService.save(Mockito.<Conversation>any())).thenReturn("Save");
@@ -146,10 +139,6 @@ class MatchingServiceImplTest {
         verify(userService).getOthersInQueue(Mockito.<String>any());
         verify(userService).getUserById(anyInt());
     }
-
-    /**
-     * Method under test: {@link MatchingServiceImpl#joinQueue(User)}
-     */
     @Test
     void testJoinQueue3() {
         when(conversationService.save(Mockito.<Conversation>any())).thenReturn("Save");
@@ -243,9 +232,6 @@ class MatchingServiceImplTest {
         verify(user2).set_in_queue(anyBoolean());
     }
 
-    /**
-     * Method under test: {@link MatchingServiceImpl#joinQueue(User)}
-     */
     @Test
     void testJoinQueue4() {
         when(conversationService.save(Mockito.<Conversation>any())).thenReturn("Save");
@@ -372,9 +358,6 @@ class MatchingServiceImplTest {
         verify(user).set_in_queue(anyBoolean());
     }
 
-    /**
-     * Method under test: {@link MatchingServiceImpl#isWaiting(User)}
-     */
     @Test
     void testIsWaiting() {
         User client = new User();
@@ -394,9 +377,6 @@ class MatchingServiceImplTest {
         assertTrue(matchingServiceImpl.isWaiting(client));
     }
 
-    /**
-     * Method under test: {@link MatchingServiceImpl#isWaiting(User)}
-     */
     @Test
     void testIsWaiting2() {
         User client = mock(User.class);
@@ -444,9 +424,6 @@ class MatchingServiceImplTest {
         verify(client).set_in_queue(anyBoolean());
     }
 
-    /**
-     * Method under test: {@link MatchingServiceImpl#isWaiting(User)}
-     */
     @Test
     void testIsWaiting3() {
         User client = mock(User.class);
@@ -494,9 +471,6 @@ class MatchingServiceImplTest {
         verify(client).set_in_queue(anyBoolean());
     }
 
-    /**
-     * Method under test: {@link MatchingServiceImpl#match(User)}
-     */
     @Test
     void testMatch() {
         when(userService.getOthersInQueue(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -519,9 +493,6 @@ class MatchingServiceImplTest {
         verify(userService).getOthersInQueue(Mockito.<String>any());
     }
 
-    /**
-     * Method under test: {@link MatchingServiceImpl#match(User)}
-     */
     @Test
     void testMatch2() {
         when(conversationService.save(Mockito.<Conversation>any())).thenReturn("Save");
@@ -567,9 +538,6 @@ class MatchingServiceImplTest {
         assertFalse(client.getIs_in_queue());
     }
 
-    /**
-     * Method under test: {@link MatchingServiceImpl#match(User)}
-     */
     @Test
     void testMatch3() {
         when(conversationService.save(Mockito.<Conversation>any())).thenReturn("Save");
@@ -646,9 +614,6 @@ class MatchingServiceImplTest {
         assertFalse(client.getIs_in_queue());
     }
 
-    /**
-     * Method under test: {@link MatchingServiceImpl#match(User)}
-     */
     @Test
     void testMatch4() {
         when(conversationService.save(Mockito.<Conversation>any())).thenReturn("Save");

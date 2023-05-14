@@ -35,10 +35,6 @@ class ConversationServiceImplTest {
 
     @MockBean
     private MongoTemplate mongoTemplate;
-
-    /**
-     * Method under test: {@link ConversationServiceImpl#save(Conversation)}
-     */
     @Test
     void testSave() {
         Conversation conversation = new Conversation();
@@ -57,9 +53,6 @@ class ConversationServiceImplTest {
         verify(conversationRepository).save(Mockito.<Conversation>any());
     }
 
-    /**
-     * Method under test: {@link ConversationServiceImpl#getAllConversations()}
-     */
     @Test
     void testGetAllConversations() {
         ArrayList<Conversation> conversationList = new ArrayList<>();
@@ -70,9 +63,6 @@ class ConversationServiceImplTest {
         verify(mongoTemplate).find(Mockito.<Query>any(), Mockito.<Class<Conversation>>any());
     }
 
-    /**
-     * Method under test: {@link ConversationServiceImpl#getConversationById(String)}
-     */
     @Test
     void testGetConversationById() {
         Conversation conversation = new Conversation();
@@ -85,9 +75,6 @@ class ConversationServiceImplTest {
         verify(mongoTemplate).findOne(Mockito.<Query>any(), Mockito.<Class<Conversation>>any());
     }
 
-    /**
-     * Method under test: {@link ConversationServiceImpl#updateConversationById(String, Conversation)}
-     */
     @Test
     void testUpdateConversationById() {
         when(mongoTemplate.updateFirst(Mockito.<Query>any(), Mockito.<UpdateDefinition>any(),
@@ -102,10 +89,6 @@ class ConversationServiceImplTest {
         verify(mongoTemplate).updateFirst(Mockito.<Query>any(), Mockito.<UpdateDefinition>any(),
                 Mockito.<Class<Object>>any());
     }
-
-    /**
-     * Method under test: {@link ConversationServiceImpl#getConversationsByUser(String)}
-     */
     @Test
     void testGetConversationsByUser() {
         ArrayList<Conversation> conversationList = new ArrayList<>();

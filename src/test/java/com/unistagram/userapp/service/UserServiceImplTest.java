@@ -38,50 +38,9 @@ class UserServiceImplTest {
     @Autowired
     private UserServiceImpl userServiceImpl;
 
-    /**
-     * Method under test: {@link UserServiceImpl#save(User)}
-     */
+
     @Test
-    @Disabled("TODO: Complete this test")
     void testSave() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
-        //       at jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
-        //       at jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
-        //       at jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
-        //       at java.util.Objects.checkIndex(Objects.java:361)
-        //       at java.util.ArrayList.get(ArrayList.java:427)
-        //       at com.unistagram.userapp.service.UserServiceImpl.getMaxId(UserServiceImpl.java:82)
-        //       at com.unistagram.userapp.service.UserServiceImpl.save(UserServiceImpl.java:28)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(mongoTemplate.find(Mockito.<Query>any(), Mockito.<Class<User>>any())).thenReturn(new ArrayList<>());
-
-        User user = new User();
-        user.setActivity(new String[]{"Activity"});
-        user.setAge(1);
-        user.setEmail("jane.doe@example.org");
-        user.setFilm(new String[]{"Film"});
-        user.setGender("Gender");
-        user.setId("42");
-        user.setMusic(new String[]{"Music"});
-        user.setNationality("Nationality");
-        user.setPassword("iloveyou");
-        user.setUserId(1);
-        user.setUser_id(1);
-        user.setUsername("janedoe");
-        user.set_in_queue(true);
-        userServiceImpl.save(user);
-    }
-
-    /**
-     * Method under test: {@link UserServiceImpl#save(User)}
-     */
-    @Test
-    void testSave2() {
         User user = new User();
         user.setActivity(new String[]{"Activity"});
         user.setAge(1);
@@ -137,9 +96,6 @@ class UserServiceImplTest {
         assertEquals(2, user3.getUser_id());
     }
 
-    /**
-     * Method under test: {@link UserServiceImpl#getUser()}
-     */
     @Test
     void testGetUser() {
         ArrayList<User> userList = new ArrayList<>();
@@ -150,9 +106,6 @@ class UserServiceImplTest {
         verify(userRepository).findAll();
     }
 
-    /**
-     * Method under test: {@link UserServiceImpl#getOthersInQueue(String)}
-     */
     @Test
     void testGetOthersInQueue() {
         ArrayList<User> userList = new ArrayList<>();
@@ -162,10 +115,6 @@ class UserServiceImplTest {
         assertTrue(actualOthersInQueue.isEmpty());
         verify(mongoTemplate).find(Mockito.<Query>any(), Mockito.<Class<User>>any());
     }
-
-    /**
-     * Method under test: {@link UserServiceImpl#getUserById(int)}
-     */
     @Test
     void testGetUserById() {
         User user = new User();
@@ -187,9 +136,6 @@ class UserServiceImplTest {
         verify(mongoTemplate).findOne(Mockito.<Query>any(), Mockito.<Class<User>>any());
     }
 
-    /**
-     * Method under test: {@link UserServiceImpl#getUserById(String)}
-     */
     @Test
     void testGetUserById2() {
         User user = new User();
@@ -213,10 +159,6 @@ class UserServiceImplTest {
         assertTrue(actualUserById.isPresent());
         verify(userRepository).findById(Mockito.<String>any());
     }
-
-    /**
-     * Method under test: {@link UserServiceImpl#updateUserInfoById(int, User)}
-     */
     @Test
     void testUpdateUserInfoById() {
         when(mongoTemplate.updateFirst(Mockito.<Query>any(), Mockito.<UpdateDefinition>any(),
@@ -240,35 +182,8 @@ class UserServiceImplTest {
         verify(mongoTemplate).updateFirst(Mockito.<Query>any(), Mockito.<UpdateDefinition>any(),
                 Mockito.<Class<Object>>any());
     }
-
-    /**
-     * Method under test: {@link UserServiceImpl#getMaxId()}
-     */
     @Test
-    @Disabled("TODO: Complete this test")
     void testGetMaxId() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
-        //       at jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
-        //       at jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
-        //       at jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
-        //       at java.util.Objects.checkIndex(Objects.java:361)
-        //       at java.util.ArrayList.get(ArrayList.java:427)
-        //       at com.unistagram.userapp.service.UserServiceImpl.getMaxId(UserServiceImpl.java:82)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(mongoTemplate.find(Mockito.<Query>any(), Mockito.<Class<User>>any())).thenReturn(new ArrayList<>());
-        userServiceImpl.getMaxId();
-    }
-
-    /**
-     * Method under test: {@link UserServiceImpl#getMaxId()}
-     */
-    @Test
-    void testGetMaxId2() {
         User user = new User();
         user.setActivity(new String[]{"user_id"});
         user.setAge(1);
