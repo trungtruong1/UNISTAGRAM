@@ -15,6 +15,8 @@ import com.unistagram.userapp.service.UserService;
 
 import java.util.Optional;
 import java.util.UUID;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -300,6 +302,12 @@ class MatchingControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Parameter is not a number!"));
     }
+
+    @Test
+    void testUpdateUserToJoinQueue6() throws Exception {
+        Assertions.assertThrows(ParameterErrorStringException.class, () -> matchingController.updateUserToJoinQueue(""));
+    }
+
     @Test
     void testUpdateUserToOutQueue() throws Exception {
         doNothing().when(matchingService).outQueue(Mockito.<User>any());
@@ -490,6 +498,11 @@ class MatchingControllerTest {
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(406))
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Parameter is not a number!"));
+    }
+
+    @Test
+    void testUpdateUserToOutQueue8() throws Exception {
+        Assertions.assertThrows(ParameterErrorStringException.class, () -> matchingController.updateUserToOutQueue(""));
     }
 }
 

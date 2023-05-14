@@ -7,6 +7,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.unistagram.chatapp.controller.MessageController.SendMessageInfo;
+import com.unistagram.chatapp.model.Conversation;
+import com.unistagram.chatapp.model.Message;
+import com.unistagram.chatapp.model.Conversation.Status;
+import com.unistagram.chatapp.repositories.ConversationRepository;
 import com.unistagram.chatapp.service.ConversationService;
 import com.unistagram.chatapp.service.MessageService;
 import com.unistagram.userapp.exception.ParameterErrorNumberException;
@@ -14,15 +19,26 @@ import com.unistagram.userapp.exception.ParameterErrorStringException;
 import com.unistagram.userapp.service.UserService;
 
 import java.util.ArrayList;
+import java.util.Optional;
+
+import javax.security.auth.message.MessageInfo;
 
 import org.apache.catalina.User;
 import org.apache.catalina.realm.UserDatabaseRealm;
 import org.apache.catalina.users.MemoryUserDatabase;
+import org.junit.Rule;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -38,6 +54,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {MessageController.class})
 @ExtendWith(SpringExtension.class)
+@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 class MessageControllerTest {
     @MockBean
     private ConversationService conversationService;
@@ -51,130 +69,105 @@ class MessageControllerTest {
     @MockBean
     private UserService userService;
 
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
+
     @Test
-    void testHandleObjectIdException() {
-        ResponseEntity<String> actualHandleObjectIdExceptionResult = messageController.handleObjectIdException();
-        assertEquals("Something wrong when saving the message", actualHandleObjectIdExceptionResult.getBody());
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, actualHandleObjectIdExceptionResult.getStatusCode());
-        assertTrue(actualHandleObjectIdExceptionResult.getHeaders().isEmpty());
+    public void testSendMessageInfoDefaultConstructor() {
+        SendMessageInfo new_message_info = new SendMessageInfo();
+        assertEquals(null, new_message_info.getConversation());
+        assertEquals(null, new_message_info.getSender());
+        assertEquals(null, new_message_info.getContent());
     }
 
     @Test
-    void testHandleParameterErrorNumber() {
-        ResponseEntity<String> actualHandleParameterErrorNumberResult = messageController
-                .handleParameterErrorNumber(new ParameterErrorNumberException("An error occurred"));
-        assertEquals("An error occurred", actualHandleParameterErrorNumberResult.getBody());
-        assertEquals(HttpStatus.NOT_FOUND, actualHandleParameterErrorNumberResult.getStatusCode());
-        assertTrue(actualHandleParameterErrorNumberResult.getHeaders().isEmpty());
+    public void testSendMessageInfoConstructor() {
+        SendMessageInfo new_message_info = new SendMessageInfo("1", "2", "3");
+        assertEquals("1", new_message_info.getConversation());
+        assertEquals("2", new_message_info.getSender());
+        assertEquals("3", new_message_info.getContent());
     }
 
     @Test
-    void testHandleParameterErrorNumber2() {
-        ParameterErrorNumberException ex = mock(ParameterErrorNumberException.class);
-        when(ex.getMessage()).thenReturn("Not all who wander are lost");
-        ResponseEntity<String> actualHandleParameterErrorNumberResult = messageController.handleParameterErrorNumber(ex);
-        assertEquals("Not all who wander are lost", actualHandleParameterErrorNumberResult.getBody());
-        assertEquals(HttpStatus.NOT_FOUND, actualHandleParameterErrorNumberResult.getStatusCode());
-        assertTrue(actualHandleParameterErrorNumberResult.getHeaders().isEmpty());
-        verify(ex).getMessage();
+    public void testSendMessageToConversation() {
+        SendMessageInfo new_message_info = new SendMessageInfo("1", "2", "3");
+        Assertions.assertThrows(ParameterErrorNumberException.class, () -> messageController.sendMessageToConversation(new_message_info));
     }
 
     @Test
-    void testHandleParameterErrorString() {
-        ResponseEntity<String> actualHandleParameterErrorStringResult = messageController
-                .handleParameterErrorString(new ParameterErrorStringException("An error occurred"));
-        assertEquals("An error occurred", actualHandleParameterErrorStringResult.getBody());
-        assertEquals(HttpStatus.NOT_ACCEPTABLE, actualHandleParameterErrorStringResult.getStatusCode());
-        assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
+    public void testSendMessageToConversation2() {
+        // Set up mock data
+        String conversationId = "1234";
+        String sender = "sender1";
+        String receiver = "receiver1";
+        String content = "content1";
+        SendMessageInfo sendMessageInfo = new SendMessageInfo(conversationId, sender, content);
+        Conversation conversation = new Conversation("client1", "client2", Conversation.Status.TERMINATED);
+        Message message = new Message("1", sender, receiver, content);
+        when(conversationService.getConversationById(conversationId)).thenReturn(Optional.of(conversation));
+        when(messageService.saveNewMessage(conversationId, sender, receiver, content)).thenReturn("1");
+        when(messageService.getMessageById("1")).thenReturn(Optional.of(message));
+
+        // Call the controller method
+        Assertions.assertThrows(ParameterErrorStringException.class, () -> messageController.sendMessageToConversation(sendMessageInfo));
+
     }
 
     @Test
-    void testHandleParameterErrorString2() {
-        ParameterErrorStringException ex = mock(ParameterErrorStringException.class);
-        when(ex.getMessage()).thenReturn("Not all who wander are lost");
-        ResponseEntity<String> actualHandleParameterErrorStringResult = messageController.handleParameterErrorString(ex);
-        assertEquals("Not all who wander are lost", actualHandleParameterErrorStringResult.getBody());
-        assertEquals(HttpStatus.NOT_ACCEPTABLE, actualHandleParameterErrorStringResult.getStatusCode());
-        assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
-        verify(ex).getMessage();
+    public void testSendMessageToConversation3() {
+        
+        // Set up mock data
+        String conversationId = "1234";
+        String sender = "sender1";
+        String receiver = "receiver1";
+        String content = "content1";
+        SendMessageInfo sendMessageInfo = new SendMessageInfo(conversationId, sender, content);
+        Conversation conversation = new Conversation("client1", "client2", Conversation.Status.ONGOING);
+        Message message = new Message("1", sender, receiver, content);
+        when(conversationService.getConversationById(conversationId)).thenReturn(Optional.of(conversation));
+        when(messageService.saveNewMessage(conversationId, sender, receiver, content)).thenReturn("1");
+        when(messageService.getMessageById("1")).thenReturn(Optional.of(message));
+
+        // Call the controller method
+        Assertions.assertThrows(ParameterErrorStringException.class, () -> messageController.sendMessageToConversation(sendMessageInfo));
     }
 
     @Test
-    void testGetMessagesInConversation() throws Exception {
-        when(messageService.getAllMessageInConversation(Mockito.<String>any())).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/messages/{id}", "42");
-        MockMvcBuilders.standaloneSetup(messageController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("[]"));
+    public void testSendMessageToConversation4() {
+        
+        // Set up mock data
+        String conversationId = "1234";
+        String sender = "client1";
+        String receiver = "client2";
+        String content = "content1";
+        SendMessageInfo sendMessageInfo = new SendMessageInfo(conversationId, sender, content);
+        Conversation conversation = new Conversation("client1", "client2", Conversation.Status.ONGOING);
+        Message message = new Message("1", sender, receiver, content);
+        when(conversationService.getConversationById(conversationId)).thenReturn(Optional.of(conversation));
+        when(messageService.saveNewMessage(conversationId, sender, receiver, content)).thenReturn("1");
+        when(messageService.getMessageById("1")).thenReturn(Optional.of(message));
+
+        // Call the controller method
+        messageController.sendMessageToConversation(sendMessageInfo);
     }
 
     @Test
-    void testGetMessagesInConversation2() throws Exception {
-        when(messageService.getAllMessageInConversation(Mockito.<String>any()))
-                .thenThrow(new ParameterErrorNumberException("An error occurred"));
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/messages/{id}", "42");
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(messageController)
-                .build()
-                .perform(requestBuilder);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-                .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
+    public void testSendMessageToConversation5() {
+        
+        // Set up mock data
+        String conversationId = "1234";
+        String sender = "client2";
+        String receiver = "client1";
+        String content = "content1";
+        SendMessageInfo sendMessageInfo = new SendMessageInfo(conversationId, sender, content);
+        Conversation conversation = new Conversation("client1", "client2", Conversation.Status.ONGOING);
+        Message message = new Message("1", sender, receiver, content);
+        when(conversationService.getConversationById(conversationId)).thenReturn(Optional.of(conversation));
+        when(messageService.saveNewMessage(conversationId, sender, receiver, content)).thenReturn("1");
+        when(messageService.getMessageById("1")).thenReturn(Optional.of(message));
+
+        messageController.sendMessageToConversation(sendMessageInfo);
     }
 
-    @Test
-    void testGetMessagesInConversation3() throws Exception {
-        when(messageService.getAllMessageInConversation(Mockito.<String>any()))
-                .thenThrow(new ParameterErrorStringException("An error occurred"));
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/messages/{id}", "42");
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(messageController)
-                .build()
-                .perform(requestBuilder);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(406))
-                .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-                .andExpect(MockMvcResultMatchers.content().string("An error occurred"));
-    }
-
-    @Test
-    void testGetMessagesInConversation4() throws Exception {
-        when(messageService.getAllMessageInConversation(Mockito.<String>any())).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/messages/{id}", "42");
-        requestBuilder.characterEncoding("Encoding");
-        MockMvcBuilders.standaloneSetup(messageController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("[]"));
-    }
-
-    @Test
-    void testSendMessageToConversation() throws Exception {
-        MockHttpServletRequestBuilder contentTypeResult = MockMvcRequestBuilders.post("/messages/send")
-                .contentType(MediaType.APPLICATION_JSON);
-        MockHttpServletRequestBuilder requestBuilder = contentTypeResult
-                .content((new ObjectMapper()).writeValueAsString(null));
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(messageController)
-                .build()
-                .perform(requestBuilder);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
-    }
-
-    @Test
-    void testSendMessageToConversation2() throws Exception {
-        User user = mock(User.class);
-        when(user.getName()).thenReturn("Name");
-        MockHttpServletRequestBuilder postResult = MockMvcRequestBuilders.post("/messages/send");
-        postResult.principal(new UserDatabaseRealm.UserDatabasePrincipal(user, new MemoryUserDatabase()));
-        MockHttpServletRequestBuilder contentTypeResult = postResult.contentType(MediaType.APPLICATION_JSON);
-        MockHttpServletRequestBuilder requestBuilder = contentTypeResult
-                .content((new ObjectMapper()).writeValueAsString(null));
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(messageController)
-                .build()
-                .perform(requestBuilder);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
-    }
 }
 

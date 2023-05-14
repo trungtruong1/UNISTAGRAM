@@ -14,6 +14,7 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Optional;
 
 import com.unistagram.memefeedapp.service.MemeReactionServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -61,6 +62,12 @@ class MemeReactionServiceImplTest {
         assertTrue(memeReactionServiceImpl.getMemeReactionByMemeAndUser("Meme id", "User id").isPresent());
         verify(mongoTemplate).findOne(Mockito.<Query>any(), Mockito.<Class<MemeReaction>>any());
     }
+
+    @Test
+    void testGetMemeReactionByMemeAndUser2() {
+        assertEquals(Optional.empty(), memeReactionServiceImpl.getMemeReactionByMemeAndUser("null", "null"));
+    }
+
     @Test
     void testGetMemeReactionById() {
         MemeReaction memeReaction = new MemeReaction();
@@ -73,6 +80,12 @@ class MemeReactionServiceImplTest {
         assertTrue(memeReactionServiceImpl.getMemeReactionById("Meme id", "Reaction id", "User id").isPresent());
         verify(mongoTemplate).findOne(Mockito.<Query>any(), Mockito.<Class<MemeReaction>>any());
     }
+
+    @Test
+    void testGetMemeReactionById2() {
+        assertEquals(Optional.empty(), memeReactionServiceImpl.getMemeReactionById("I want to sleep", "not lmao", "lmao"));
+    }
+
     @Test
     void testGetMemeReactionsByMemeId() {
         when(mongoTemplate.find(Mockito.<Query>any(), Mockito.<Class<MemeReaction>>any())).thenReturn(new ArrayList<>());
