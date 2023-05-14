@@ -1,23 +1,24 @@
 package com.unistagram.chatapp.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 class MessageTest {
-    /**
-     * Method under test: {@link Message#Message(String, String, String, String)}
-     */
-    @Test
-    void testConstructor() {
-        Message actualMessage = new Message("Conversation", "Sender", "Receiver", "Not all who wander are lost");
 
-        assertEquals("Not all who wander are lost", actualMessage.getContent());
-        assertEquals("Sender", actualMessage.getSender());
-        assertEquals("Receiver", actualMessage.getReceiver());
-        assertNull(actualMessage.getId());
-        assertEquals("Conversation", actualMessage.getConversation());
+    @Test
+    public void testMessageModel(){
+        Message message1 = new Message("conversation1", "sender1", "receiver1", "content1");
+        Message message2 = new Message("conversation1", "sender1", "receiver1", "content1");
+        Message message3 = new Message("conversation2", "sender2", "receiver2", "content2");
+
+        assertEquals(message1, message2);
+        assertEquals(message1.toString(), message2.toString());
+        assertEquals(message1.hashCode(), message2.hashCode());
+
+        assertNotEquals(message1,message3);
+        assertNotEquals(message1.toString(), message3.toString());
+        assertNotEquals(message1.hashCode(), message3.hashCode());
+
     }
 }
 

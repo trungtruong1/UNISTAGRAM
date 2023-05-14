@@ -1,50 +1,26 @@
 package com.unistagram.chatapp.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 class ConversationTest {
-    /**
-     * Methods under test:
-     *
-     * <ul>
-     *   <li>{@link Conversation#Conversation()}
-     *   <li>{@link Conversation#getClient1()}
-     *   <li>{@link Conversation#getClient2()}
-     *   <li>{@link Conversation#getId()}
-     *   <li>{@link Conversation#getStatus()}
-     * </ul>
-     */
     @Test
-    void testConstructor() {
-        Conversation actualConversation = new Conversation();
-        assertNull(actualConversation.getClient1());
-        assertNull(actualConversation.getClient2());
-        assertNull(actualConversation.getId());
-        assertNull(actualConversation.getStatus());
+    public void testConversationModel() {
+        Conversation conversation1 = new Conversation("JohnWick", "Jack", Conversation.Status.ONGOING);
+        Conversation conversation2 = new Conversation("JohnWick", "Jack", Conversation.Status.ONGOING);
+        Conversation conversation3 = new Conversation("JohnWick", "Jack", Conversation.Status.TERMINATED);
+
+
+        assertEquals(conversation1, conversation2);
+        assertEquals(conversation1.toString(), conversation2.toString());
+        assertEquals(conversation1.hashCode(), conversation2.hashCode());
+
+        assertNotEquals(conversation1,conversation3);
+        assertNotEquals(conversation1.toString(), conversation3.toString());
+        assertNotEquals(conversation1.hashCode(), conversation3.hashCode());
     }
 
-    /**
-     * Methods under test:
-     *
-     * <ul>
-     *   <li>{@link Conversation#Conversation(String, String, Conversation.Status)}
-     *   <li>{@link Conversation#getClient1()}
-     *   <li>{@link Conversation#getClient2()}
-     *   <li>{@link Conversation#getId()}
-     *   <li>{@link Conversation#getStatus()}
-     * </ul>
-     */
-    @Test
-    void testConstructor2() {
-        Conversation actualConversation = new Conversation("Client1", "Client2", Conversation.Status.ONGOING);
-
-        assertEquals("Client1", actualConversation.getClient1());
-        assertEquals("Client2", actualConversation.getClient2());
-        assertNull(actualConversation.getId());
-        assertEquals(Conversation.Status.ONGOING, actualConversation.getStatus());
-    }
 }
 
