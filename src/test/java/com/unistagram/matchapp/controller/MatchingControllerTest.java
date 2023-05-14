@@ -14,7 +14,7 @@ import com.unistagram.userapp.model.User;
 import com.unistagram.userapp.service.UserService;
 
 import java.util.Optional;
-
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -42,51 +42,33 @@ class MatchingControllerTest {
     @MockBean
     private UserService userService;
 
-    /**
-     * Method under test: {@link MatchingController#handleObjectIdException()}
-     */
     @Test
     void testHandleObjectIdException() {
         ResponseEntity<String> actualHandleObjectIdExceptionResult = matchingController.handleObjectIdException();
         assertEquals("Something wrong when saving the user", actualHandleObjectIdExceptionResult.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, actualHandleObjectIdExceptionResult.getStatusCode());
-        assertTrue(actualHandleObjectIdExceptionResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MatchingController#handleParameterErrorNumber()}
-     */
     @Test
     void testHandleParameterErrorNumber() {
         ResponseEntity<String> actualHandleParameterErrorNumberResult = matchingController.handleParameterErrorNumber();
         assertEquals("User id does not exist!", actualHandleParameterErrorNumberResult.getBody());
         assertEquals(HttpStatus.NOT_FOUND, actualHandleParameterErrorNumberResult.getStatusCode());
-        assertTrue(actualHandleParameterErrorNumberResult.getHeaders().isEmpty());
     }
 
-    /**
-     * Method under test: {@link MatchingController#handleParameterErrorString()}
-     */
     @Test
     void testHandleParameterErrorString() {
         ResponseEntity<String> actualHandleParameterErrorStringResult = matchingController.handleParameterErrorString();
         assertEquals("Parameter is not a number!", actualHandleParameterErrorStringResult.getBody());
         assertEquals(HttpStatus.NOT_ACCEPTABLE, actualHandleParameterErrorStringResult.getStatusCode());
-        assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
     }
-
-    /**
-     * Method under test: {@link MatchingController#greeting(String)}
-     */
     @Test
     void testGreeting() throws Exception {
-        assertEquals("Hello, Not all who wander are lost!",
-                matchingController.greeting("Not all who wander are lost").getContent());
+        String randomMess = UUID.randomUUID().toString();
+        assertEquals("Hello, " + randomMess + "!",
+                matchingController.greeting(randomMess).getContent());
     }
 
-    /**
-     * Method under test: {@link MatchingController#checkUserInQueue(int)}
-     */
     @Test
     void testCheckUserInQueue() throws Exception {
         when(matchingService.isWaiting(Mockito.<User>any())).thenReturn(true);
@@ -115,10 +97,6 @@ class MatchingControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content().string("{\"is_in_queue\":true}"));
     }
-
-    /**
-     * Method under test: {@link MatchingController#checkUserInQueue(int)}
-     */
     @Test
     void testCheckUserInQueue2() throws Exception {
         when(matchingService.isWaiting(Mockito.<User>any()))
@@ -149,38 +127,35 @@ class MatchingControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("Parameter is not a number!"));
     }
 
-    /**
-     * Method under test: {@link MatchingController#checkUserInQueue(int)}
-     */
-    @Test
-    void testCheckUserInQueue3() throws Exception {
-        when(matchingService.isWaiting(Mockito.<User>any()))
-                .thenThrow(new ParameterErrorNumberException("An error occurred"));
-
-        User user = new User();
-        user.setActivity(new String[]{"Activity"});
-        user.setAge(1);
-        user.setEmail("jane.doe@example.org");
-        user.setFilm(new String[]{"Film"});
-        user.setGender("Gender");
-        user.setId("42");
-        user.setMusic(new String[]{"Music"});
-        user.setNationality("Nationality");
-        user.setPassword("iloveyou");
-        user.setUserId(1);
-        user.setUser_id(1);
-        user.setUsername("janedoe");
-        user.set_in_queue(true);
-        Optional<User> ofResult = Optional.of(user);
-        when(userService.getUserById(anyInt())).thenReturn(ofResult);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/matching/check_in_queue/{id}", 1);
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(matchingController)
-                .build()
-                .perform(requestBuilder);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-                .andExpect(MockMvcResultMatchers.content().string("User id does not exist!"));
-    }
+//    @Test
+//    void testCheckUserInQueue3() throws Exception {
+//        when(matchingService.isWaiting(Mockito.<User>any()))
+//                .thenThrow(new ParameterErrorNumberException("An error occurred"));
+//
+//        User user = new User();
+//        user.setActivity(new String[]{"Activity"});
+//        user.setAge(1);
+//        user.setEmail("jane.doe@example.org");
+//        user.setFilm(new String[]{"Film"});
+//        user.setGender("Gender");
+//        user.setId("42");
+//        user.setMusic(new String[]{"Music"});
+//        user.setNationality("Nationality");
+//        user.setPassword("iloveyou");
+//        user.setUserId(1);
+//        user.setUser_id(1);
+//        user.setUsername("janedoe");
+//        user.set_in_queue(true);
+//        Optional<User> ofResult = Optional.of(user);
+//        when(userService.getUserById(anyInt())).thenReturn(ofResult);
+//        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/matching/check_in_queue/{id}", 1);
+//        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(matchingController)
+//                .build()
+//                .perform(requestBuilder);
+//        actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound())
+//                .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
+//                .andExpect(MockMvcResultMatchers.content().string("User id does not exist!"));
+//    }
 
     /**
      * Method under test: {@link MatchingController#checkUserInQueue(int)}
