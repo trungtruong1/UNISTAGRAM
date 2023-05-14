@@ -1,4 +1,4 @@
-package com.unistagram.memefeedapp.controller;
+package com.unistagram.meemfeedapp.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.unistagram.memefeedapp.controller.MemeController;
 import com.unistagram.memefeedapp.model.Meme;
 import com.unistagram.memefeedapp.service.MemeService;
 import com.unistagram.userapp.exception.ParameterErrorNumberException;
