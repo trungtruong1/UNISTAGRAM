@@ -21,7 +21,6 @@ import com.unistagram.chatapp.model.Conversation;
 import com.unistagram.chatapp.model.Message;
 import com.unistagram.chatapp.service.ConversationService;
 import com.unistagram.chatapp.service.MessageService;
-import com.unistagram.userapp.model.User;
 import com.unistagram.userapp.service.UserService;
 
 @RestController
@@ -34,6 +33,7 @@ public class MessageController {
     private ConversationService conversationService;
     @Autowired
     private UserService userService;
+
 
     private static class SendMessageInfo {
         String conversation;
@@ -62,15 +62,15 @@ public class MessageController {
     }
 
     @ExceptionHandler(ParameterErrorNumberException.class)
-    public ResponseEntity<String> handleParameterErrorNumber() {
+    public ResponseEntity<String> handleParameterErrorNumber(ParameterErrorNumberException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                             .body("Conversation does not exist!");
+                             .body(ex.getMessage());
     }
 
     @ExceptionHandler(ParameterErrorStringException.class)
-    public ResponseEntity<String> handleParameterErrorString() {
+    public ResponseEntity<String> handleParameterErrorString(ParameterErrorStringException ex) {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
-                             .body("User is not in this conversation!");
+                             .body(ex.getMessage());
     }
 
     @GetMapping("/{id}")
@@ -79,11 +79,17 @@ public class MessageController {
         return ResponseEntity.ok(conversation);
     }
 
-    @PostMapping("/send/")
+    @PostMapping("/send")
     public ResponseEntity<Message> sendMessageToConversation(@RequestBody SendMessageInfo message) {
         Optional<Conversation> conversation = conversationService.getConversationById(message.getConversation());
         if(conversation.isEmpty()) {
             throw new ParameterErrorNumberException("Conversation does not exist!");
+        }
+        if(!conversation.get().getStatus().equals(Conversation.Status.ONGOING)){
+            throw new ParameterErrorStringException("Conversation has been terminated!");
+        }
+        if(!message.sender.equals(conversation.get().getClient1()) && !message.sender.equals(conversation.get().getClient2())) {
+            throw new ParameterErrorStringException("Sender is not in this conversation!");
         }
         String receiver = "";
         if(message.sender.equals(conversation.get().getClient1())) {
@@ -93,7 +99,7 @@ public class MessageController {
             receiver = conversation.get().getClient1();
         }
         if(receiver == "") {
-            throw new ParameterErrorStringException("User is not in this conversation!");
+            throw new ParameterErrorStringException("Receiver is not in this conversation!");
         }
         String message_id = messageService.saveNewMessage(message.getConversation(), message.getSender(), receiver, message.getContent());
         Optional<Message> new_message = messageService.getMessageById(message_id);

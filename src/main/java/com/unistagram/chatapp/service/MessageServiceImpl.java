@@ -21,7 +21,7 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    private String save(Message message) {
+    public String save(Message message) {
         return messageRepository.save(message).getId().toString();
     }
 

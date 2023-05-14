@@ -32,12 +32,6 @@ public class Conversation {
         this.status = status;
     }
 
-    public Conversation(ObjectId client1, ObjectId client2, Status status) {
-        this.client1 = client1.toString();
-        this.client2 = client2.toString();
-        this.status = status;
-    }
-
     public String getId() { return this.id; }
 
     public String getClient1() { return this.client1; }

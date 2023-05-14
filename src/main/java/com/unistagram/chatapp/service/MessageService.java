@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.unistagram.chatapp.model.Message;
-import com.unistagram.userapp.model.User;
 
 public interface MessageService {
+    String save(Message message);
 
     public String saveNewMessage(String conversation_id, String sender_id, String receiver_id, String content);
 

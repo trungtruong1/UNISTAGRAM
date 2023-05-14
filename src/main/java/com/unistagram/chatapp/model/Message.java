@@ -1,14 +1,12 @@
 package com.unistagram.chatapp.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.unistagram.userapp.model.User;
 
 import lombok.Data;
 
@@ -29,12 +27,13 @@ public class Message {
     private String content;
 
     @CreationTimestamp
-    private LocalDateTime timestamp;
+    private Date timestamp;
 
     public Message(String conversation, String sender, String receiver, String content) {
         this.conversation = conversation;
         this.sender = sender;
         this.receiver = receiver;
         this.content = content;
+        this.timestamp = new Date();
     }
 }

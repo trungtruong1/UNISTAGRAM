@@ -36,15 +36,15 @@ public class ConversationController {
     }
 
     @ExceptionHandler(ParameterErrorNumberException.class)
-    public ResponseEntity<String> handleParameterErrorNumber() {
+    public ResponseEntity<String> handleParameterErrorNumber(ParameterErrorNumberException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                             .body("Conversation id does not exist!");
+                             .body(ex.getMessage());
     }
 
     @ExceptionHandler(ParameterErrorStringException.class)
-    public ResponseEntity<String> handleParameterErrorString() {
+    public ResponseEntity<String> handleParameterErrorString(ParameterErrorStringException ex) {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
-                             .body("User id does not exist!");
+                             .body(ex.getMessage());
     }
 
     @GetMapping("/")
@@ -53,7 +53,7 @@ public class ConversationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Conversation> getConversations(@PathVariable("id") String id) {
+    public ResponseEntity<Conversation> getConversation(@PathVariable("id") String id) {
         Optional<Conversation> conversation = conversationService.getConversationById(id);
         if(conversation.isEmpty()) {
             throw new ParameterErrorNumberException("Conversation id does not exist!");
