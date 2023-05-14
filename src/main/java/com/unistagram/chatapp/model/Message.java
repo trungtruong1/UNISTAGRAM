@@ -2,6 +2,8 @@ package com.unistagram.chatapp.model;
 
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,7 +12,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 
-@Data
+@Getter
+@Setter
 @Document(collection = "message")
 @JsonInclude(JsonInclude.Include.NON_NULL) //include only non_null values
 public class Message {
