@@ -1,5 +1,6 @@
 git clone https://github.com/trungtruong1/UNISTAGRAM.git 
 cd UNISTAGRAM
+git checkout milestone2
 mongod --fork --logpath /var/log/mongodb.log
 mongosh admin --eval "db.createUser({ user: 'admin', pwd: 'password', roles: ['userAdminAnyDatabase'] })"
 
@@ -9,5 +10,6 @@ mongoimport --db=cse364 --collection=meme --authenticationDatabase admin --usern
 mongoimport --db=cse364 --collection=message --authenticationDatabase admin --username admin --password password --file data/messages.json  --jsonArray
 mongoimport --db=cse364 --collection=reaction --authenticationDatabase admin --username admin --password password --file data/reactions.json  --jsonArray
 
+mvn jacoco:report
 mvn package
 java -jar ./target/cse364-project-1.0-SNAPSHOT.jar
