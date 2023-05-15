@@ -144,8 +144,6 @@ Returns a list of messages in the conversation with the ID of `645e37b871927a118
 curl -X GET localhost:8080/messages/645e37b871927a11886bc874
 ```
 
----
-
 ### Send Message To Conversation
 Send a new message to the given conversation. The API will return the newly sent message
 
@@ -198,10 +196,8 @@ Send a new message to the given conversation. The API will return the newly sent
 
 Returns the newly sent message.
 ```bash
-curl POST localhost:8080/messages/send -H 'Content-type:application/json' -d '{"conversation": "645e38253d6d8e1ff0a3b11e", "sender": "64299cd2b2afe565a469ebbf", "content": "I want to sleep~"}'
+curl -X POST localhost:8080/messages/send -H 'Content-type:application/json' -d '{"conversation": "645e38253d6d8e1ff0a3b11e", "sender": "64299cd2b2afe565a469ebbf", "content": "I want to sleep~"}'
 ```
-
----
 
 ### Query All Conversations
 Return all conversations in the database.
@@ -250,8 +246,6 @@ Returns the all conversations in the database.
 curl -X GET localhost:8080/conversations/
 ```
 
----
-
 ### Query A Conversation
 Return the conversation's information.
 
@@ -298,8 +292,6 @@ Return the conversation's information.
 ```bash
 curl -X GET localhost:8080/conversations/645e37b871927a11886bc874
 ```
-
----
 
 ### Query Conversations By User
 Return a list of conversations that the user participates in.
@@ -355,8 +347,6 @@ Return the conversation's information.
 curl -X GET localhost:8080/conversations/users/1
 ```
 
----
-
 ### End Conversation
 Terminate the conversation.
 
@@ -404,4 +394,471 @@ Return the conversation's information.
 curl -X PUT localhost:8080/conversations/end/645e38253d6d8e1ff0a3b11e
 ```
 
----
+## Matching app
+
+### Update an user to join the waiting queue
+Add an user to the waiting queue for conversation.
+
+* URL:
+
+    `/matching/join_queue/:id`
+
+* Method:
+
+    `PUT`
+
+* URL Params:
+
+    **Required**:
+    - `id=[string]` : The user ID
+
+* Data Params:
+
+    None
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json 
+{
+  "id" : "646076867f96a723e9a3f204",
+  "user_id" : 3000,
+  "age" : 25,
+  "gender" : "M",
+  "is_in_queue" : true
+}
+```
+* Error Response:
+
+    - Code: 404 Not Found
+
+        Content: `"User id does not exist!"`
+
+    - Code: 406 Not Acceptable
+
+        Content: `"Parameter is not a number!"`
+
+* Sample Call:
+
+Add to the queue an user with the id `3000`.
+```bash
+curl -X PUT localhost:8080/matching/join_queue/3000
+```
+
+### Remove an user from the waiting queue
+Remove the user from the waiting queue
+
+* URL:
+
+    `/matching/out_queue/:id`
+
+* Method:
+
+    `PUT`
+
+* URL Params:
+
+    None
+
+* Data Params:
+
+    **Required**:
+    - `id=[string]` : The user ID
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json
+{
+  "id" : "646076867f96a723e9a3f204",
+  "user_id" : 3000,
+  "age" : 25,
+  "gender" : "M",
+  "is_in_queue" : false
+}
+```
+
+* Error Response:
+
+    - Code: 404 Not Found
+
+        Content: `"User id does not exist!"`
+
+    - Code: 406 Not Acceptable
+
+        Content: `"Parameter is not a number!"`
+
+* Sample Call:
+
+Remove from the queue an user with the id `3000`.
+```bash
+curl -X PUT localhost:8080/matching/out_queue/3000
+```
+
+### Check if the user is in the queue
+
+* URL:
+
+    `/matching/check_in_queue/:id`
+
+* Method:
+
+    `GET`
+
+* URL Params:
+
+    None
+
+* Data Params:
+
+    **Required**:
+    - `id=[string]` : The user ID
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json
+{
+  "is_in_queue" : true
+}
+```
+
+* Error Response:
+
+    - Code: 404 Not Found
+
+        Content: `"User id does not exist!"`
+
+* Sample Call:
+
+Returns the status `is_in_queue` of the user
+```bash
+curl -X GET localhost:8080/matching/check_in_queue/3000
+```
+
+## Memefeed app
+
+### Post a meme 
+
+* URL:
+
+    `/memes`
+
+* Method:
+
+    `POST`
+
+* URL Params:
+
+    None
+
+* Data Params:
+
+    **Required**:
+    - `title=[string]` : The title of the posted meme
+    - `image=[@path/to/meme]` : The address of the meme 
+    - `author=[string]` : The user who posted the meme 
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json 
+{
+  "id" : "6461c3919e67e01f498aa6f0",
+  "title" : "Meme",
+  "image" : {
+    "type" : 0,
+    "data" : <data>
+  },
+  "author" : "Jay",
+  "timestamp" : 1684128657972
+}
+```
+
+* Sample Call:
+
+Add to the database a meme with the title `Meme`, path: `@data/meme_test.png`, and author `Jay`:
+```bash
+curl -X POST localhost:8080/memes -H "Content-Type:multipart/form-data" -F "title=Meme" -F "image=@data/meme_test.png" -F "author=Jay"
+```
+
+### Get a meme by its id
+
+* URL:
+
+    `/memes/:id`
+
+* Method:
+
+    `GET`
+
+* URL Params:
+
+    **Required**:
+    - `id=[string]` : The meme ID
+
+* Data Params:
+
+    None
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json 
+{
+  "id" : "6461c3919e67e01f498aa6f0",
+  "title" : "Meme",
+  "image" : {
+    "type" : 0,
+    "data" : <data>
+  },
+  "author" : "Jay",
+  "timestamp" : 1684128657972
+}
+```
+
+* Error Response:
+
+    - Code: 404 Not Found
+
+        Content: `"The meme id does not exist!"`
+
+
+* Sample Call:
+
+Get from the database the meme with the id `6461c3919e67e01f498aa6f0`.
+```bash
+curl -X GET localhost:8080/memes/6461c3919e67e01f498aa6f0
+```
+
+### Save Reaction
+This feature is created to allow users to upload their own reaction to memes
+
+* URL:
+
+    `/reactions`
+
+* Method:
+
+    `POST`
+
+* URL Params:
+
+    None
+
+* Data Params:
+
+    **Required**:
+    - `title=[string]` : The title of the uploaded reaction
+    - `image=[@path/to/meme]` : The path to the reaction
+    - `author=[string]` : The user who posted the reaction
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json
+{
+  "id" : "6461c9989e67e01f498aa6f1",
+  "title" : "Reaction",
+  "image" : {
+    "type" : 0,
+    "data" : <data>
+  },
+  "author" : "Garrick",
+  "timestamp" : 1684130200614
+}
+```
+
+* Sample Call:
+
+Add to the database a meme with the title `Reaction`, path: `@data/reaction_test.png`, and author `Garrick`:
+```bash
+curl -X POST localhost:8080/reactions -H "Content-Type:multipart/form-data" -F "title=Reaction" -F "image=@data/reaction_test.png" -F "author=Garrick"
+```
+### Get a reaction by its id
+
+* URL:
+
+    `/reactions/:id`
+
+* Method:
+
+    `GET`
+
+* URL Params:
+
+    **Required**:
+    - `id=[string]` : The meme ID
+
+* Data Params:
+
+    None
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json 
+{
+  "id" : "6461c9989e67e01f498aa6f1",
+  "title" : "Reaction",
+  "image" : {
+    "type" : 0,
+    "data" : <data>
+  },
+  "author" : "Garrick",
+  "timestamp" : 1684130200614
+}
+```
+
+* Error Response:
+
+    - Code: 404 Not Found
+
+        Content: `"The reaction id does not exist!"`
+
+
+* Sample Call:
+
+Get from the database the reaction with the id `6461c9989e67e01f498aa6f1`.
+```bash
+curl -X GET localhost:8080/reactions/6461c9989e67e01f498aa6f1
+```
+
+### Add Reaction to a meme
+Every reaction an user gave to a meme is added.
+
+* URL:
+
+    `/meme_reactions/add`
+
+* Method:
+
+    `POST`
+
+* URL Params:
+
+    None
+
+* Data Params:
+
+    **Required**:
+    - `meme_id=[string]` : The id of the meme
+    - `reaction_id=[string]` : The id of the reaction
+    - `user=[string]` : The user who made the reaction
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json 
+{
+  "id" : "6461cbad9e67e01f498aa6f2",
+  "meme_id" : "6461c3919e67e01f498aa6f0",
+  "reaction_id" : "6461c9989e67e01f498aa6f1",
+  "user_id" : "64299cd2b2afe565a469eba6"
+}
+```
+
+* Error Response:
+
+    - Code: 409 Conflict 
+
+        Content: `"This user has already reacted to this meme!"`
+
+
+* Sample Call:
+
+An user with id `64299cd2b2afe565a469eba6` reacted to the meme `6461c3919e67e01f498aa6f0` with the reaction `6461c9989e67e01f498aa6f1`
+```bash
+curl -X POST localhost:8080/meme_reactions/add/ -F 'meme_id=6461c3919e67e01f498aa6f0' -F 'reaction_id=6461c9989e67e01f498aa6f1' -F 'user_id=64299cd2b2afe565a469eba6'
+```
+
+### Get all the reactions that have been given to a meme.
+
+* URL:
+
+    `/meme_reactions/:id`
+
+* Method:
+
+    `GET`
+
+* URL Params:
+
+    **Required**:
+    - `id=[string]` : The id of the meme
+  
+* Data Params:
+
+    None
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json 
+{
+  "6461c9989e67e01f498aa6f1" : 1
+}
+```
+
+* Sample Call:
+
+Get all reactions that has been given to the meme with meme_id `6461c3919e67e01f498aa6f0`
+```bash
+curl -X GET localhost:8080/meme_reactions/6461c3919e67e01f498aa6f0
+```
+
+### Remove reaction from a meme.
+I think it is no longer funny, i want my reaction back!
+
+* URL:
+
+    `/meme_reactions/del`
+
+* Method:
+
+    `DELETE`
+
+* URL Params:
+
+    None
+  
+* Data Params:
+
+    **Required**:
+    - `meme_id=[string]` : The id of the meme
+    - `reaction_id=[string]` : The id of the reaction
+    - `user=[string]` : The user who wants to retract the reaction
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json 
+true
+```
+
+* Sample Call:
+
+An user with id `64299cd2b2afe565a469eba6` retracts his/her reaction `6461c9989e67e01f498aa6f1` from the meme `6461c3919e67e01f498aa6f0` 
+```bash
+curl -X DELETE localhost:8080/meme_reactions/del -F 'meme_id=6461c3919e67e01f498aa6f0' -F 'reaction_id=6461c9989e67e01f498aa6f1' -F 'user_id=64299cd2b2afe565a469eba6'
+```
