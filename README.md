@@ -38,13 +38,16 @@ This current REST API version is only for testing purposes as it does not suppor
 * [Send Message To Conversation](#send-message-to-conversation) : `POST /messages/send`
 
 
-* [Query All Conversations](#queryAllConversations) : `GET /conversations/` (only for testing purposes, will be removed on production)
+* [Query All Conversations](#query-all-conversations) : `GET /conversations/` (only for testing purposes, will be removed on production)
 
 
-* [Query A Conversation](#queryAConversation) : `GET /conversations/:id`
+* [Query A Conversation](#query-a-conversation) : `GET /conversations/:id`
 
 
-* [Query Conversations By User](#queryConversationByUser) : `GET /conversations/users/:id`
+* [Query Conversations By User](#query-conversations-by-user) : `GET /conversations/users/:id`
+
+
+* [End Conversation](#end-conversation) : `PUT /conversations/end/:id`
 
 ## Matching
 Matches 2 users randomly to form a new anonymous conversation. 
@@ -142,6 +145,7 @@ curl -X GET localhost:8080/messages/645e37b871927a11886bc874
 ```
 
 ### Send Message To Conversation
+Send a new message to the given conversation. The API will return the newly sent message
 
 * URL:
 
@@ -190,7 +194,202 @@ curl -X GET localhost:8080/messages/645e37b871927a11886bc874
 
 * Sample Call:
 
-Returns the newly sent message .
+Returns the newly sent message.
 ```bash
 curl POST localhost:8080/messages/send -H 'Content-type:application/json' -d '{"conversation": "645e38253d6d8e1ff0a3b11e", "sender": "64299cd2b2afe565a469ebbf", "content": "I want to sleep~"}'
+```
+
+### Query All Conversations
+Return all conversations in the database.
+
+* URL:
+
+    `/conversations/`
+
+* Method:
+
+    `GET`
+
+* URL Params:
+
+    None
+
+* Data Params:
+
+    None
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json
+[ {
+  "id" : "645e37b871927a11886bc874",
+  "client1" : "64299cd2b2afe565a469ebbf",
+  "client2" : "642b007f78fa427e80e8e3dd",
+  "status" : "ONGOING"
+}, {
+  "id" : "645e38253d6d8e1ff0a3b11e",
+  "client1" : "64299cd2b2afe565a469eba6",
+  "client2" : "64299cd2b2afe565a469ebbf",
+  "status" : "TERMINATED"
+},
+...
+]
+```
+
+* Sample Call:
+
+Returns the all conversations in the database.
+```bash
+curl -X GET localhost:8080/conversations/
+```
+
+### Query A Conversation
+Return the conversation's information.
+
+* URL:
+
+    `/conversations/:id`
+
+* Method:
+
+    `GET`
+
+* URL Params:
+
+    **Required**:
+    - `id=[string]` : The conversation ID
+
+* Data Params:
+
+    None
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json
+{
+  "id" : "645e37b871927a11886bc874",
+  "client1" : "64299cd2b2afe565a469ebbf",
+  "client2" : "642b007f78fa427e80e8e3dd",
+  "status" : "ONGOING"
+}
+```
+
+* Error Response:
+
+    - Code: 404 Not Found
+
+        Content: `"Conversation ID does not exist!"`
+
+* Sample Call:
+
+Return the conversation's information.
+```bash
+curl -X GET localhost:8080/conversations/645e37b871927a11886bc874
+```
+
+### Query Conversations By User
+Return a list of conversations that the user participates in.
+
+* URL:
+
+    `/conversations/users/:id`
+
+* Method:
+
+    `GET`
+
+* URL Params:
+
+    **Required**:
+    - `id=[integer]` : The user ID
+
+* Data Params:
+
+    None
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json
+[ {
+  "id" : "645e37b871927a11886bc874",
+  "client1" : "64299cd2b2afe565a469ebbf",
+  "client2" : "642b007f78fa427e80e8e3dd",
+  "status" : "ONGOING"
+}, {
+  "id" : "645e38253d6d8e1ff0a3b11e",
+  "client1" : "64299cd2b2afe565a469eba6",
+  "client2" : "64299cd2b2afe565a469ebbf",
+  "status" : "TERMINATED"
+},
+...
+]
+```
+
+* Error Response:
+
+    - Code: 404 Not Found
+
+        Content: `"User ID does not exist!"`
+
+* Sample Call:
+
+Return the conversation's information.
+```bash
+curl -X GET localhost:8080/conversations/users/1
+```
+
+### End Conversation
+Terminate the conversation.
+
+* URL:
+
+    `/conversations/end/:id`
+
+* Method:
+
+    `PUT`
+
+* URL Params:
+
+    **Required**:
+    - `id=[string]` : The conversation ID
+
+* Data Params:
+
+    None
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json
+{
+  "id" : "645e38253d6d8e1ff0a3b11e",
+  "client1" : "64299cd2b2afe565a469eba6",
+  "client2" : "64299cd2b2afe565a469ebbf",
+  "status" : "TERMINATED"
+}
+```
+
+* Error Response:
+
+    - Code: 404 Not Found
+
+        Content: `"Conversation ID does not exist!"`
+
+* Sample Call:
+
+Return the conversation's information.
+```bash
+curl -X PUT localhost:8080/conversations/end/645e38253d6d8e1ff0a3b11e
 ```
