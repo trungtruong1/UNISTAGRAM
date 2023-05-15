@@ -1,0 +1,21 @@
+[
+    {
+      "_id": {
+        "$oid": "645e37b871927a11886bc874"
+    },
+      "client1": "64299cd2b2afe565a469ebbf",
+      "client2": "642b007f78fa427e80e8e3dd",
+      "status": "ONGOING",
+      "_class": "com.unistagram.chatapp.model.Conversation"
+    },
+    {
+      "_id": {
+        "$oid": "645e38253d6d8e1ff0a3b11e"
+    },
+      "client1": "64299cd2b2afe565a469eba6",
+      "client2": "64299cd2b2afe565a469ebbf",
+      "status": "ONGOING",
+      "_class": "com.unistagram.chatapp.model.Conversation"
+    }
+  ]
+  

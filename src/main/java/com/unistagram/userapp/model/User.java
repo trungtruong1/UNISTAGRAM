@@ -27,9 +27,9 @@ public class User {
 	private String gender;
 	private String nationality;
 	private boolean is_in_queue;
-	private String[] music;
-	private String[] film;
-	private String[] activity;
+	// private String[] music;
+	// private String[] film;
+	// private String[] activity;
 
 	// user_id,gender,age,occupation,zip_code
 
@@ -43,9 +43,9 @@ public class User {
 	public String getGender() { return this.gender; }
 	public String getNationality() { return this.nationality; }
 	public boolean getIs_in_queue() { return this.is_in_queue; }
-	public String[] getMusic() { return this.music; }
-	public String[] getFilm() { return this.film; }
-	public String[] getActivity() { return this.activity; }
+	// public String[] getMusic() { return this.music; }
+	// public String[] getFilm() { return this.film; }
+	// public String[] getActivity() { return this.activity; }
 
 	public void setUserId(int id) { this.user_id = id; }
 

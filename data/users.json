@@ -1,0 +1,72 @@
+[
+    {
+        "_id": {
+            "$oid": "64299cd2b2afe565a469ebbf"
+        },
+        "user_id": 1,
+        "username": "i_love_ta",
+        "email": "se@unist.ac.kr",
+        "age": 21,
+        "gender": "Male",
+        "nationality": "Vietnam",
+        "is_in_queue": false
+    },
+    {
+        "_id": {
+            "$oid": "642b007f78fa427e80e8e3dd"
+        },
+        "user_id": 2,
+        "username": "traveler87",
+        "email": "traveler87@example.com",
+        "age": 34,
+        "gender": "Female",
+        "nationality": "United States",
+        "is_in_queue": false
+    },
+    {
+        "_id": {
+            "$oid": "64299cd2b2afe565a469eba6"
+        },
+        "user_id": 3,
+        "username": "sports_fan",
+        "email": "sportsfan23@gmail.com",
+        "age": 28,
+        "gender": "Male",
+        "nationality": "Canada",
+        "is_in_queue": false
+    },
+    {
+        "_id": {
+            "$oid": "64299cd2b2afe565a469ebaa"
+        },
+        "user_id": 4,
+        "username": "art_lover",
+        "email": "artlover@example.com",
+        "age": 43,
+        "gender": "Female",
+        "nationality": "France",
+        "is_in_queue": false
+    },
+    {
+        "_id": {
+            "$oid": "64299cd2b2afe565a469ebab"
+        },
+        "user_id": 5,
+        "username": "foodie",
+        "email": "foodie22@yahoo.com",
+        "age": 25,
+        "gender": "Female",
+        "nationality": "India",
+        "is_in_queue": false
+    },
+    {
+        "id" : "646076867f96a723e9a3f204",
+        "user_id" : 3000,
+        "username": "i_am_a_tester",
+        "email": "tester@unistagram.com",
+        "age": 25,
+        "gender": "Female",
+        "nationality": "Korean",
+        "is_in_queue": false
+    }
+]

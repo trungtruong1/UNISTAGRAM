@@ -67,9 +67,9 @@ public class UserServiceImpl implements UserService{
         .set("email", updated_user.getEmail())
         .set("nationality", updated_user.getNationality())
         .set("is_in_queue", updated_user.getIs_in_queue())
-        .set("music", updated_user.getMusic())
-        .set("film", updated_user.getFilm())
-        .set("activity", updated_user.getActivity())
+        // .set("music", updated_user.getMusic())
+        // .set("film", updated_user.getFilm())
+        // .set("activity", updated_user.getActivity())
         .set("age", updated_user.getAge());
         UpdateResult result = mongoTemplate.updateFirst(query, update, User.class);
         return result;
