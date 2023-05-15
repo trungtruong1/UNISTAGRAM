@@ -64,7 +64,7 @@ This current REST API version is only for testing purposes as it does not suppor
 
 * [Check if the user is in the queue](#check-if-the-user-is-in-the-queue) : `GET /matching/check_in_queue/:id`
 
-Note that the system will automatically match users when they enter the queue.
+Note that the system will automatically match users when they enter the queue, hence, create a new conversation.
 
 ## MemeFeed
 Provides an active and interactive meme feed so that everyone can share memes, or about anything one’s heart may desire.
