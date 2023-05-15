@@ -99,7 +99,10 @@ In addition to posting memes, user can also "react" to the meme by choosing amon
 ## Chat app
 
 ### Query Messages In Conversation
-Returns the list of messages given a conversation ID.
+
+
+<details>
+<summary>Returns the list of messages given a conversation ID.</summary>
 
 * URL:
 
@@ -107,22 +110,22 @@ Returns the list of messages given a conversation ID.
 
 * Method:
 
-    `GET`
+  `GET`
 
 * URL Params:
 
-    **Required**:
-    - `id=[string]` : The conversation ID
+  **Required**:
+  - `id=[string]` : The conversation ID
 
 * Data Params:
 
-    None
+  None
 
 * Success Response:
 
-    - Code: 200
+  - Code: 200
 
-        Content: 
+    Content:
 ```json 
 [ {
   "id" : "646089d9041dea27617b717f",
@@ -150,8 +153,16 @@ Returns a list of messages in the conversation with the ID of `645e37b871927a118
 curl -X GET localhost:8080/messages/645e37b871927a11886bc874
 ```
 
+
+</details>
+
+
+
 ### Send Message To Conversation
-Send a new message to the given conversation. The API will return the newly sent message
+
+<details><summary>Send a new message to the given conversation. The API will return the newly sent message.
+</summary>
+
 
 * URL:
 
@@ -159,24 +170,24 @@ Send a new message to the given conversation. The API will return the newly sent
 
 * Method:
 
-    `POST`
+  `POST`
 
 * URL Params:
 
-    None
+  None
 
 * Data Params:
 
-    **Required**:
-    - `conversation=[string]` : The conversation ID that this message belongs
-    - `sender=[string]` : The ID of the sender
-    - `content=[string]` : The main content of the message
+  **Required**:
+  - `conversation=[string]` : The conversation ID that this message belongs
+  - `sender=[string]` : The ID of the sender
+  - `content=[string]` : The main content of the message
 
 * Success Response:
 
-    - Code: 200
+  - Code: 200
 
-        Content: 
+    Content:
 ```json
 {
   "id" : "64619c77410d4207a6b45518",
@@ -190,13 +201,13 @@ Send a new message to the given conversation. The API will return the newly sent
 
 * Error Response:
 
-    - Code: 404 Not Found
+  - Code: 404 Not Found
 
-        Content: `"Conversation does not exist!"`
+    Content: `"Conversation does not exist!"`
 
-    - Code: 406 Not Acceptable
+  - Code: 406 Not Acceptable
 
-        Content: `"Conversation has been terminated!"` or `"Sender is not in this conversation!"`
+    Content: `"Conversation has been terminated!"` or `"Sender is not in this conversation!"`
 
 * Sample Call:
 
@@ -205,8 +216,15 @@ Returns the newly sent message.
 curl -X POST localhost:8080/messages/send -H 'Content-type:application/json' -d '{"conversation": "645e38253d6d8e1ff0a3b11e", "sender": "64299cd2b2afe565a469ebbf", "content": "I want to sleep~"}'
 ```
 
+</details>
+
+
+
+
+
 ### Query All Conversations
-Return all conversations in the database.
+<details><summary>Return all conversations in the database.</summary>
+
 
 * URL:
 
@@ -251,9 +269,13 @@ Returns the all conversations in the database.
 ```bash
 curl -X GET localhost:8080/conversations/
 ```
+</details>
+
 
 ### Query A Conversations
-Return the conversation's information.
+
+
+<details><summary>Return the conversation's information.</summary>
 
 * URL:
 
@@ -298,9 +320,15 @@ Return the conversation's information.
 ```bash
 curl -X GET localhost:8080/conversations/645e37b871927a11886bc874
 ```
+</details>
+
+
 
 ### Query Conversations By User
-Return a list of conversations that the user participates in.
+
+<details><summary>Return a list of conversations that the user participates in.
+</summary>
+
 
 * URL:
 
@@ -352,9 +380,14 @@ Return the conversation's information.
 ```bash
 curl -X GET localhost:8080/conversations/users/1
 ```
+</details>
+
 
 ### End Conversation
-Terminate the conversation.
+
+<details><summary>Terminate the conversation.
+</summary>
+
 
 * URL:
 
@@ -399,11 +432,17 @@ Return the conversation's information.
 ```bash
 curl -X PUT localhost:8080/conversations/end/645e38253d6d8e1ff0a3b11e
 ```
+</details>
+
 
 ## Matching app
 
 ### Update a user to join the waiting queue
-Add a user to the waiting queue for conversation.
+
+<details><summary>Add a user to the waiting queue for conversation.
+</summary>
+
+
 
 * URL:
 
@@ -452,9 +491,14 @@ Add to the waiting queue a user with the id `3000`.
 ```bash
 curl -X PUT localhost:8080/matching/join_queue/3000
 ```
+</details>
+
 
 ### Remove a user from the waiting queue
-Remove the user from the waiting queue
+
+<details><summary>Remove the user from the waiting queue
+</summary>
+
 
 * URL:
 
@@ -504,8 +548,11 @@ Remove from the queue a user with the id `3000`.
 ```bash
 curl -X PUT localhost:8080/matching/out_queue/3000
 ```
+</details>
+
 
 ### Check if the user is in the queue
+<details><summary>Check whether a user id are in the waiting queue for matching.</summary>
 
 * URL:
 
@@ -547,6 +594,8 @@ Returns the status `is_in_queue` of the user
 ```bash
 curl -X GET localhost:8080/matching/check_in_queue/3000
 ```
+</details>
+
 
 ## Memefeed app
 
@@ -595,7 +644,7 @@ Add to the database a meme with the title `Meme`, path: `@data/meme_test.png`, a
 ```bash
 curl -X POST localhost:8080/memes -H "Content-Type:multipart/form-data" -F "title=Meme" -F "image=@data/meme_test.png" -F "author=Jay"
 ```
-
+Make sure to run this command in the project directory `/UNISTAGRAM`.
 ### Get a meme by its id
 
 * URL:
@@ -693,6 +742,9 @@ Add to the database a meme with the title `Reaction`, path: `@data/reaction_test
 ```bash
 curl -X POST localhost:8080/reactions -H "Content-Type:multipart/form-data" -F "title=Reaction" -F "image=@data/reaction_test.png" -F "author=Garrick"
 ```
+Make sure to run this command in the project directory `/UNISTAGRAM`.
+
+
 ### Get a reaction by its id
 
 * URL:
