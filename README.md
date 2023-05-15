@@ -144,6 +144,8 @@ Returns a list of messages in the conversation with the ID of `645e37b871927a118
 curl -X GET localhost:8080/messages/645e37b871927a11886bc874
 ```
 
+---
+
 ### Send Message To Conversation
 Send a new message to the given conversation. The API will return the newly sent message
 
@@ -199,6 +201,8 @@ Returns the newly sent message.
 curl POST localhost:8080/messages/send -H 'Content-type:application/json' -d '{"conversation": "645e38253d6d8e1ff0a3b11e", "sender": "64299cd2b2afe565a469ebbf", "content": "I want to sleep~"}'
 ```
 
+---
+
 ### Query All Conversations
 Return all conversations in the database.
 
@@ -246,6 +250,8 @@ Returns the all conversations in the database.
 curl -X GET localhost:8080/conversations/
 ```
 
+---
+
 ### Query A Conversation
 Return the conversation's information.
 
@@ -292,6 +298,8 @@ Return the conversation's information.
 ```bash
 curl -X GET localhost:8080/conversations/645e37b871927a11886bc874
 ```
+
+---
 
 ### Query Conversations By User
 Return a list of conversations that the user participates in.
@@ -347,6 +355,8 @@ Return the conversation's information.
 curl -X GET localhost:8080/conversations/users/1
 ```
 
+---
+
 ### End Conversation
 Terminate the conversation.
 
@@ -393,3 +403,5 @@ Return the conversation's information.
 ```bash
 curl -X PUT localhost:8080/conversations/end/645e38253d6d8e1ff0a3b11e
 ```
+
+---
