@@ -41,7 +41,7 @@ This current REST API version is only for testing purposes as it does not suppor
 * [Query All Conversations](#query-all-conversations) : `GET /conversations/` (only for testing purposes, will be removed on production)
 
 
-* [Query A Conversation](#query-a-conversation) : `GET /conversations/:id`
+* [Query A Conversation](#query-a-conversations) : `GET /conversations/:id`
 
 
 * [Query Conversations By User](#query-conversations-by-user) : `GET /conversations/users/:id`
@@ -56,15 +56,15 @@ This current REST API version is only for testing purposes as it does not suppor
 
 ### Open Endpoints
 
-* [Add an user to the waiting queue](#updateUserToJoinQueue) : `PUT /matching/join_queue/:id`
+* [Update a user to join the waiting queue](#update-a-user-to-join-the-waiting-queue) : `PUT /matching/join_queue/:id`
 
 
-* [Remove the user from the queue](#updateUserToOutQueue) : `PUT /matching/out_queue/:id`
+* [Remove a user from the waiting queue](#remove-a-user-from-the-waiting-queue) : `PUT /matching/out_queue/:id`
 
 
-* [Check if the user is in the queue](#checkUserInQueue) : `GET /matching/check_in_queue/:id`
+* [Check if the user is in the queue](#check-if-the-user-is-in-the-queue) : `GET /matching/check_in_queue/:id`
 
-Note that the system will automatically matches users when they enter the queue.
+Note that the system will automatically match users when they enter the queue.
 
 ## MemeFeed
 Provides an active and interactive meme feed so that everyone can share memes, or about anything one’s heart may desire.
@@ -73,25 +73,25 @@ In addition to posting memes, user can also "react" to the meme by choosing amon
 
 ### Open Endpoints
 
-* [Query meme my ID](#queryMemeByID) : `GET /memes/:id`
+* [Post a meme](#post-a-meme) : `POST /memes`
 
 
-* [Post a new meme](#sendMeme) : `POST /memes`
-  
-
-* [Add a custom reaction](#saveReactino) : `POST /reactions`
+* [Get a meme by its id](#get-a-meme-by-its-id) : `GET /memes/:id`
 
 
-* [Get a reaction by an ID](#getMemeByID): `GET /reactions/:id`
+* [Save reaction](#save-reaction) : `POST /reactions`
 
 
-* [Query all reactions in the meme](#queryReactionsInMeme) : `GET /meme_reactions/:id`
+* [Get a reaction by its ID](#get-a-reaction-by-its-id): `GET /reactions/:id`
 
 
-* [React to a meme](#sendReaction) : `POST /meme_reactions/add`
+* [Add Reaction to a meme](#add-reaction-to-a-meme) : `POST /meme_reactions/add`
 
 
-* [Remove the user's reaction from a meme](#removeReaction) : `DELETE /meme_reactions/del`
+* [Get all the reactions that have been given to a meme](#get-all-the-reactions-that-have-been-given-to-a-meme) : `GET /meme_reactions/:id`
+
+
+* [Remove reaction from a meme](#remove-reaction-from-a-meme) : `DELETE /meme_reactions/del`
 
 
 # API Documentation
@@ -99,7 +99,7 @@ In addition to posting memes, user can also "react" to the meme by choosing amon
 ## Chat app
 
 ### Query Messages In Conversation
-Returns the list of messages given a converstion ID.
+Returns the list of messages given a conversation ID.
 
 * URL:
 
