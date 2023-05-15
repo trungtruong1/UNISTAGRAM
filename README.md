@@ -98,7 +98,7 @@ In addition to posting memes, user can also "react" to the meme by choosing amon
 
 ## Chat app
 
-### Query Messages In Conversation
+* ### Query Messages In Conversation
 
 
 <details>
@@ -158,7 +158,7 @@ curl -X GET localhost:8080/messages/645e37b871927a11886bc874
 
 
 
-### Send Message To Conversation
+* ### Send Message To Conversation
 
 <details><summary>Send a new message to the given conversation. The API will return the newly sent message.
 </summary>
@@ -222,7 +222,7 @@ curl -X POST localhost:8080/messages/send -H 'Content-type:application/json' -d 
 
 
 
-### Query All Conversations
+* ### Query All Conversations
 <details><summary>Return all conversations in the database.</summary>
 
 
@@ -272,7 +272,7 @@ curl -X GET localhost:8080/conversations/
 </details>
 
 
-### Query A Conversations
+* ### Query A Conversations
 
 
 <details><summary>Return the conversation's information.</summary>
@@ -324,7 +324,7 @@ curl -X GET localhost:8080/conversations/645e37b871927a11886bc874
 
 
 
-### Query Conversations By User
+* ### Query Conversations By User
 
 <details><summary>Return a list of conversations that the user participates in.
 </summary>
@@ -383,7 +383,7 @@ curl -X GET localhost:8080/conversations/users/1
 </details>
 
 
-### End Conversation
+* ### End Conversation
 
 <details><summary>Terminate the conversation.
 </summary>
@@ -435,9 +435,11 @@ curl -X PUT localhost:8080/conversations/end/645e38253d6d8e1ff0a3b11e
 </details>
 
 
+---
+
 ## Matching app
 
-### Update a user to join the waiting queue
+* ### Update a user to join the waiting queue
 
 <details><summary>Add a user to the waiting queue for conversation.
 </summary>
@@ -494,7 +496,7 @@ curl -X PUT localhost:8080/matching/join_queue/3000
 </details>
 
 
-### Remove a user from the waiting queue
+* ### Remove a user from the waiting queue
 
 <details><summary>Remove the user from the waiting queue
 </summary>
@@ -551,7 +553,7 @@ curl -X PUT localhost:8080/matching/out_queue/3000
 </details>
 
 
-### Check if the user is in the queue
+* ### Check if the user is in the queue
 <details><summary>Check whether a user id are in the waiting queue for matching.</summary>
 
 * URL:
@@ -596,10 +598,16 @@ curl -X GET localhost:8080/matching/check_in_queue/3000
 ```
 </details>
 
+---
 
 ## Memefeed app
 
-### Post a meme 
+* ### Post a meme 
+
+<details>
+<summary>
+Upload a new meme
+</summary>
 
 * URL:
 
@@ -644,8 +652,14 @@ Add to the database a meme with the title `Meme`, path: `@data/meme_test.png`, a
 ```bash
 curl -X POST localhost:8080/memes -H "Content-Type:multipart/form-data" -F "title=Meme" -F "image=@data/meme_test.png" -F "author=Jay"
 ```
-Make sure to run this command in the project directory `/UNISTAGRAM`.
-### Get a meme by its id
+</details>
+
+* ### Get a meme by its id
+
+<details>
+<summary>
+Query the meme by a given ID.
+</summary>
 
 * URL:
 
@@ -695,9 +709,14 @@ Get from the database the meme with the id `6461c3919e67e01f498aa6f0`.
 ```bash
 curl -X GET localhost:8080/memes/6461c3919e67e01f498aa6f0
 ```
+</details>
 
-### Save Reaction
+* ### Save Reaction
+
+<details>
+<summary>
 This feature is created to allow users to upload their own reaction to memes
+</summary>
 
 * URL:
 
@@ -742,10 +761,14 @@ Add to the database a meme with the title `Reaction`, path: `@data/reaction_test
 ```bash
 curl -X POST localhost:8080/reactions -H "Content-Type:multipart/form-data" -F "title=Reaction" -F "image=@data/reaction_test.png" -F "author=Garrick"
 ```
-Make sure to run this command in the project directory `/UNISTAGRAM`.
+</details>
 
+* ### Get a reaction by its id
 
-### Get a reaction by its id
+<details>
+<summary>
+Query a reaction by a given reaction_id
+</summary>
 
 * URL:
 
@@ -795,9 +818,14 @@ Get from the database the reaction with the id `6461c9989e67e01f498aa6f1`.
 ```bash
 curl -X GET localhost:8080/reactions/6461c9989e67e01f498aa6f1
 ```
+</details>
 
-### Add Reaction to a meme
+* ### Add Reaction to a meme
+
+<details>
+<summary>
 Every reaction a user gave to a meme is added.
+</summary>
 
 * URL:
 
@@ -845,8 +873,14 @@ An user with id `64299cd2b2afe565a469eba6` reacted to the meme `6461c3919e67e01f
 ```bash
 curl -X POST localhost:8080/meme_reactions/add/ -F 'meme_id=6461c3919e67e01f498aa6f0' -F 'reaction_id=6461c9989e67e01f498aa6f1' -F 'user_id=64299cd2b2afe565a469eba6'
 ```
+</details>
 
-### Get all the reactions that have been given to a meme.
+* ### Get all the reactions that have been given to a meme.
+
+<details>
+<summary>
+The purpose is self-explanatory
+</summary>
 
 * URL:
 
@@ -882,9 +916,14 @@ Get all reactions that has been given to the meme with meme_id `6461c3919e67e01f
 ```bash
 curl -X GET localhost:8080/meme_reactions/6461c3919e67e01f498aa6f0
 ```
+</details>
 
-### Remove reaction from a meme.
+* ### Remove reaction from a meme.
+
+<details>
+<summary>
 I think it is no longer funny, i want my reaction back!
+</summary>
 
 * URL:
 
@@ -920,3 +959,5 @@ An user with id `64299cd2b2afe565a469eba6` retracts his/her reaction `6461c9989e
 ```bash
 curl -X DELETE localhost:8080/meme_reactions/del -F 'meme_id=6461c3919e67e01f498aa6f0' -F 'reaction_id=6461c9989e67e01f498aa6f1' -F 'user_id=64299cd2b2afe565a469eba6'
 ```
+
+</details>
