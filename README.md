@@ -15,7 +15,7 @@
 
 # Features
 
-After considering the practicality and feasibility of our project, we want to focus on a more coherent system, so we decided to remove the game and auction, and keeping and specializing in only the anonymous messaging and meme feed. Therefore, our system will contain the following features
+After considering the practicality and feasibility of our project, we want to focus on a more coherent system, so we decided to remove the game and auction, and keeping and specializing in only the anonymous messaging and meme feed. Therefore, our system will contain the following features:
 
 * [Chatting](#chatting): Sending and querying the messages according to users' conversation. The identities of both parties are not disclosed (remain anonymous) to each other throughout the entire session.
 
