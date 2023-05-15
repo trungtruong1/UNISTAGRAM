@@ -43,4 +43,6 @@ public class Conversation {
 
     public Status getStatus() { return this.status; }
 
+    public void end() { this.status = Status.TERMINATED; }
+
 }

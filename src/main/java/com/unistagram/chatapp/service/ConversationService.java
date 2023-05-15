@@ -17,4 +17,6 @@ public interface ConversationService {
 
     public List<Conversation> getConversationsByUser(String id);
 
+    public UpdateResult endConversation(String id);
+
 }

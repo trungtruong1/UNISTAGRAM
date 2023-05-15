@@ -9,12 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unistagram.userapp.exception.ObjectIdException;
 import com.unistagram.userapp.exception.ParameterErrorNumberException;
 import com.unistagram.userapp.exception.ParameterErrorStringException;
+import com.mongodb.client.result.UpdateResult;
 import com.unistagram.chatapp.model.Conversation;
 import com.unistagram.chatapp.service.ConversationService;
 import com.unistagram.userapp.model.User;
@@ -68,6 +70,18 @@ public class ConversationController {
             throw new ParameterErrorStringException("User id does not exist!");
         }
         return ResponseEntity.ok(conversationService.getConversationsByUser(check_user.get().getId()));
+    }
+
+    @PutMapping("/end/{id}")
+    public ResponseEntity<Conversation> endConversationById(@PathVariable("id") String id) {
+        Optional<Conversation> conversation = conversationService.getConversationById(id);
+        if(conversation.isEmpty()) {
+            throw new ParameterErrorNumberException("Conversation id does not exist!");
+        }
+        conversationService.endConversation(id);
+        Conversation new_coversation = conversation.get();
+        new_coversation.end();
+        return ResponseEntity.ok(new_coversation);
     }
 
 }

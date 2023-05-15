@@ -61,5 +61,14 @@ public class ConversationServiceImpl implements ConversationService {
         );
         return mongoTemplate.find(query, Conversation.class);
     }
+
+    @Override
+    public UpdateResult endConversation(String id) {
+        Query query = new Query(Criteria.where("id").is(id));
+        Update update = new Update()
+                            .set("status", Conversation.Status.TERMINATED);
+        UpdateResult result = mongoTemplate.updateFirst(query, update, Conversation.class);
+        return result;
+    }
     
 }
