@@ -652,6 +652,7 @@ Add to the database a meme with the title `Meme`, path: `@data/meme_test.png`, a
 ```bash
 curl -X POST localhost:8080/memes -H "Content-Type:multipart/form-data" -F "title=Meme" -F "image=@data/meme_test.png" -F "author=Jay"
 ```
+Make sure to run this in the project directory `/UNISTAGRAM`.
 </details>
 
 * ### Get a meme by its id
@@ -761,6 +762,8 @@ Add to the database a meme with the title `Reaction`, path: `@data/reaction_test
 ```bash
 curl -X POST localhost:8080/reactions -H "Content-Type:multipart/form-data" -F "title=Reaction" -F "image=@data/reaction_test.png" -F "author=Garrick"
 ```
+Make sure to run this in the project directory `/UNISTAGRAM`.
+
 </details>
 
 * ### Get a reaction by its id
