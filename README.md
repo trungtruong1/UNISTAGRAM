@@ -32,10 +32,10 @@ This current REST API version is only for testing purposes as it does not suppor
 
 ### Open Endpoints
 
-* [Query Messages In Conversation](#queryMessagesInConversation) : `GET /messages/:id`
+* [Query Messages In Conversation](#query-messages-in-conversation) : `GET /messages/:id`
 
 
-* [Send Message To Conversation](#sendMessageToConversation) : `POST /messages/send`
+* [Send Message To Conversation](#send-message-to-conversation) : `POST /messages/send`
 
 
 * [Query All Conversations](#queryAllConversations) : `GET /conversations/` (only for testing purposes, will be removed on production)
@@ -87,4 +87,110 @@ In addition to posting memes, user can also "react" to the meme by choosing amon
 
 # API Documentation
 
-... TODO
+## Chat app
+
+### Query Messages In Conversation
+Returns the list of messages given a converstion ID.
+
+* URL:
+
+    `/messages/:id`
+
+* Method:
+
+    `GET`
+
+* URL Params:
+
+    **Required**:
+    - `id=[string]` : The conversation ID
+
+* Data Params:
+
+    None
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json 
+[ {
+  "id" : "646089d9041dea27617b717f",
+  "conversation" : "645e37b871927a11886bc874",
+  "sender" : "64299cd2b2afe565a469ebbf",
+  "receiver" : "642b007f78fa427e80e8e3dd",
+  "content" : "Hi~ Nice to meet u~",
+  "timestamp" : 1684117781004
+}, {
+  "id" : "646089de041dea27617b7180",
+  "conversation" : "645e37b871927a11886bc874",
+  "sender" : "64299cd2b2afe565a469ebbf",
+  "receiver" : "642b007f78fa427e80e8e3dd",
+  "content" : "hi!",
+  "timestamp" : 1684117781004
+},
+...
+]
+```
+
+* Sample Call:
+
+Returns a list of messages in the conversation with the ID of `645e37b871927a11886bc874`.
+```bash
+curl -X GET localhost:8080/messages/645e37b871927a11886bc874
+```
+
+### Send Message To Conversation
+
+* URL:
+
+    `/messages/send`
+
+* Method:
+
+    `POST`
+
+* URL Params:
+
+    None
+
+* Data Params:
+
+    **Required**:
+    - `conversation=[string]` : The conversation ID that this message belongs
+    - `sender=[string]` : The ID of the sender
+    - `content=[string]` : The main content of the message
+
+* Success Response:
+
+    - Code: 200
+
+        Content: 
+```json
+{
+  "id" : "64619c77410d4207a6b45518",
+  "conversation" : "645e38253d6d8e1ff0a3b11e",
+  "sender" : "64299cd2b2afe565a469ebbf",
+  "receiver" : "64299cd2b2afe565a469eba6",
+  "content" : "I want to sleep~",
+  "timestamp" : 1684118647784
+}
+```
+
+* Error Response:
+
+    - Code: 404 Not Found
+
+        Content: `"Conversation does not exist!"`
+
+    - Code: 406 Not Acceptable
+
+        Content: `"Conversation has been terminated!"` or `"Sender is not in this conversation!"`
+
+* Sample Call:
+
+Returns the newly sent message .
+```bash
+curl POST localhost:8080/messages/send -H 'Content-type:application/json' -d '{"conversation": "645e38253d6d8e1ff0a3b11e", "sender": "64299cd2b2afe565a469ebbf", "content": "I want to sleep~"}'
+```
