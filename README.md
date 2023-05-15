@@ -73,16 +73,22 @@ In addition to posting memes, user can also "react" to the meme by choosing amon
 
 ### Open Endpoints
 
-* [Query meme my ID](#queryMemeByID) : `GET /memems/:id`
+* [Query meme my ID](#queryMemeByID) : `GET /memes/:id`
 
 
 * [Post a new meme](#sendMeme) : `POST /memes`
+  
+
+* [Add a custom reaction](#saveReactino) : `POST /reactions`
+
+
+* [Get a reaction by an ID](#getMemeByID): `GET /reactions/:id`
 
 
 * [Query all reactions in the meme](#queryReactionsInMeme) : `GET /meme_reactions/:id`
 
 
-* [Create a new custom reaction](#sendReaction) : `POST /meme_reactions/add`
+* [React to a meme](#sendReaction) : `POST /meme_reactions/add`
 
 
 * [Remove the user's reaction from a meme](#removeReaction) : `DELETE /meme_reactions/del`
@@ -246,7 +252,7 @@ Returns the all conversations in the database.
 curl -X GET localhost:8080/conversations/
 ```
 
-### Query A Conversation
+### Query A Conversations
 Return the conversation's information.
 
 * URL:
@@ -284,7 +290,7 @@ Return the conversation's information.
 
     - Code: 404 Not Found
 
-        Content: `"Conversation ID does not exist!"`
+        Content: `"Conversation id does not exist!"`
 
 * Sample Call:
 
@@ -338,7 +344,7 @@ Return a list of conversations that the user participates in.
 
     - Code: 404 Not Found
 
-        Content: `"User ID does not exist!"`
+        Content: `"User id does not exist!"`
 
 * Sample Call:
 
@@ -396,8 +402,8 @@ curl -X PUT localhost:8080/conversations/end/645e38253d6d8e1ff0a3b11e
 
 ## Matching app
 
-### Update an user to join the waiting queue
-Add an user to the waiting queue for conversation.
+### Update a user to join the waiting queue
+Add a user to the waiting queue for conversation.
 
 * URL:
 
@@ -442,12 +448,12 @@ Add an user to the waiting queue for conversation.
 
 * Sample Call:
 
-Add to the queue an user with the id `3000`.
+Add to the waiting queue a user with the id `3000`.
 ```bash
 curl -X PUT localhost:8080/matching/join_queue/3000
 ```
 
-### Remove an user from the waiting queue
+### Remove a user from the waiting queue
 Remove the user from the waiting queue
 
 * URL:
@@ -494,7 +500,7 @@ Remove the user from the waiting queue
 
 * Sample Call:
 
-Remove from the queue an user with the id `3000`.
+Remove from the queue a user with the id `3000`.
 ```bash
 curl -X PUT localhost:8080/matching/out_queue/3000
 ```
@@ -525,7 +531,7 @@ curl -X PUT localhost:8080/matching/out_queue/3000
         Content: 
 ```json
 {
-  "is_in_queue" : true
+  "is_in_queue" : true/false
 }
 ```
 
@@ -700,7 +706,7 @@ curl -X POST localhost:8080/reactions -H "Content-Type:multipart/form-data" -F "
 * URL Params:
 
     **Required**:
-    - `id=[string]` : The meme ID
+    - `id=[string]` : The reaction ID
 
 * Data Params:
 
@@ -739,7 +745,7 @@ curl -X GET localhost:8080/reactions/6461c9989e67e01f498aa6f1
 ```
 
 ### Add Reaction to a meme
-Every reaction an user gave to a meme is added.
+Every reaction a user gave to a meme is added.
 
 * URL:
 
