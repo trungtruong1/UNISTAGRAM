@@ -3,3 +3,5 @@ target
 .idea
 
 .vscode
+
+src/main/frontend/node_modules
