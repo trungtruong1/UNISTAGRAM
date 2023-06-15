@@ -15,7 +15,7 @@
 
 # Features
 
-After considering the practicality and feasibility of our project, we want to focus on a more coherent system, so we decided to remove the game and auction, and keeping and specializing in only the anonymous messaging and meme feed. Therefore, our system will contain the following features
+After considering the practicality and feasibility of our project, we want to focus on a more coherent system, so we decided to remove the game and auction, and keeping and specializing in only the anonymous messaging and meme feed. Therefore, our system will contain the following features:
 
 * [Chatting](#chatting): Sending and querying the messages according to users' conversation. The identities of both parties are not disclosed (remain anonymous) to each other throughout the entire session.
 
@@ -652,6 +652,7 @@ Add to the database a meme with the title `Meme`, path: `@data/meme_test.png`, a
 ```bash
 curl -X POST localhost:8080/memes -H "Content-Type:multipart/form-data" -F "title=Meme" -F "image=@data/meme_test.png" -F "author=Jay"
 ```
+Make sure to run this in the project directory `/UNISTAGRAM`.
 </details>
 
 * ### Get a meme by its id
@@ -761,6 +762,8 @@ Add to the database a meme with the title `Reaction`, path: `@data/reaction_test
 ```bash
 curl -X POST localhost:8080/reactions -H "Content-Type:multipart/form-data" -F "title=Reaction" -F "image=@data/reaction_test.png" -F "author=Garrick"
 ```
+Make sure to run this in the project directory `/UNISTAGRAM`.
+
 </details>
 
 * ### Get a reaction by its id
