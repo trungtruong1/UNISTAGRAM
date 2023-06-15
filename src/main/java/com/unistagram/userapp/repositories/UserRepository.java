@@ -12,6 +12,7 @@ import com.unistagram.userapp.model.User;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
     User findById();
+    User findByUsername(String username);
     
     @Query("{'is_in_queue' : ?0, 'id' : { $ne: ?1 }}")
     List<User> findByIsInQueueAndExcludingId(boolean isInQueue, String id);

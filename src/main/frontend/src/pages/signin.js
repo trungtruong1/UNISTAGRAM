@@ -5,14 +5,15 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { checkLogin } from "../ultils/checkLogin";
 
 async function loginUser(credentials) {
-    const res = await fetch('http://localhost:8000/api/user/authenticate/', {
+    const res = await fetch('http://localhost:8000/users/api/auth', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: JSON.stringify(credentials)
+      body: new URLSearchParams(credentials),
     });
     return await res.json();
 }
@@ -25,8 +26,7 @@ export default function SignIn({ setToken }) {
     const handleSubmit = async e => {
         e.preventDefault();
 
-        const tokenString = sessionStorage.getItem('token');
-        const testToken = JSON.parse(tokenString);
+        const testToken = checkLogin();
 
         if(testToken) {
             alert("You are already signed in");
@@ -34,8 +34,8 @@ export default function SignIn({ setToken }) {
         }
 
         const token = await loginUser({
-            username,
-            password
+            username: username,
+            password: password
         });
         
         if(token.status === "failed"){
@@ -75,6 +75,9 @@ export default function SignIn({ setToken }) {
                                 <Button variant="primary" type="submit">
                                     Sign in
                                 </Button>
+                                <br></br>
+                                <br></br>
+                                <p className="text-center-lg-start">Don't have account yet? Click <a href="/signup">here</a> to sign up.</p>
                             </center>
                         </Form>
                     </Col>

@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,6 +37,7 @@ public class User {
 	public String getId() { return this.id; }
 	public int getUser_id() { return this.user_id; }
 	public String getUsername() { return this.username; }
+	public String getPassword() { return this.password; }
 	public String getEmail() { return this.email; }
 	public int getAge() { return this.age; }
 	public String getGender() { return this.gender; }
