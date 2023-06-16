@@ -8,7 +8,7 @@ import App from './App';
 import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import Play from './pages/play';
-import Watch from './pages/watch';
+import ChatPage from './pages/chat';
 import Leaderboard from './pages/leaderboard';
 import useToken from './useTokens';
 
@@ -19,8 +19,7 @@ function Index() {
             <Routes>
                 <Route path="/" element={<App />} />
                 <Route path="play" element={<Play />} />
-                <Route path="/watch/" element={<Watch />} />
-                <Route path="/watch/:pcode" element={<Watch />} />
+                <Route path="/chat/" element={<ChatPage />} />
                 <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/signin" element={<SignIn setToken={setToken}/>} />
                 <Route path="/signup" element={<SignUp />} />
