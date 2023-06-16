@@ -224,3 +224,80 @@
   background-color: #647ed5;
   cursor: pointer;
 }
+
+.containerFeed{
+  background-color: #a7bcff;
+  display: grid;
+  border: none;
+  width: 100%;
+  height: 80%;
+  padding: 0;
+  overflow: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  align-items: center;
+  justify-content: center;
+}
+
+.containerFeed::-webkit-scrollbar {
+  display: none;
+}
+
+.meme{
+  display: grid;
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.title{
+  display: flex;
+  align-items: center;
+  background-color: #9bddf0;
+  height: 50px;
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.memeContent img{
+  max-width: 100%;
+  height: auto;
+}
+
+.reactions{
+  display: flex;
+  align-items: center;
+  background-color: #dfcaca;
+  height: 50px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.caption{
+  font-weight: bold;
+}
+
+.reaction{
+  margin-left: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reaction:hover {
+  border: 2px solid black; /* Add your desired border style */
+}
+
+.reactionInReactionList{
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}

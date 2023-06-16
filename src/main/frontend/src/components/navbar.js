@@ -12,7 +12,7 @@ export default function NavBar() {
         window.location.href = "/";
     }
     return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
             <Container>
                 <Navbar.Brand href="/">
                     <img src="/logo.png" width="40" height="auto"/>
@@ -22,6 +22,7 @@ export default function NavBar() {
                     <Nav className="me-auto">
                         <Nav.Link href="/matching">Matching</Nav.Link>
                         <Nav.Link href="/chat">Chat</Nav.Link>
+                        <Nav.Link href="/Memefeed">MemeFeed</Nav.Link>
                     </Nav>
 
                     <Nav>

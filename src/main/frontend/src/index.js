@@ -9,7 +9,7 @@ import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import Matching from './pages/matching';
 import ChatPage from './pages/chat';
-import Leaderboard from './pages/leaderboard';
+import Memefeed from './pages/memefeed';
 import useToken from './useTokens';
 
 function Index() {
@@ -19,6 +19,7 @@ function Index() {
             <Routes>
                 <Route path="/" element={<App />} />
                 <Route path="/matching" element={<Matching />} />
+                <Route path="/memefeed" element={<Memefeed />} />
                 <Route path="/chat/" element={<ChatPage />} />
                 <Route path="/signin" element={<SignIn setToken={setToken}/>} />
                 <Route path="/signup" element={<SignUp />} />
