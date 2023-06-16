@@ -38,6 +38,7 @@ public class MatchingServiceImpl implements MatchingService {
         int user_id = client.getUser_id();
         User sample_user = userService.getUserById(user_id).get();
         sample_user.outQueue();
+        System.out.println(sample_user.getIs_in_queue());
         userService.updateUserInfoById(user_id, sample_user);
     }
 

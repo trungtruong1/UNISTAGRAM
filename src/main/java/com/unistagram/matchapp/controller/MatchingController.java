@@ -128,14 +128,15 @@ public class MatchingController {
         if(queried_user.isEmpty()) {
             throw new ParameterErrorNumberException("User id does not exist!");
         }
-        if(queried_user.get().getIs_in_queue()) {
-            return;    
-        }
 
         if(message.getCancel()) {
-            if(!matchingService.isWaiting(queried_user.get())) {
+            if(matchingService.isWaiting(queried_user.get())) {
                 matchingService.outQueue(queried_user.get());
             }
+            return;
+        }
+
+        if(queried_user.get().getIs_in_queue()) {
             return;
         }
 

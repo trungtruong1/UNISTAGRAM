@@ -45,9 +45,6 @@ function Matching() {
             userId: userToken.id,
             cancel: true,
         }));
-        if(stomp.client) {
-            stomp.client.disconnect((frame) => {});
-        }
         setshowFindMatch(false)
     };
 
