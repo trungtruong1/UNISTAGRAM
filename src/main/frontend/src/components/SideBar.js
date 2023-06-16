@@ -27,6 +27,7 @@ const Sidebar = ({ conversation, setConversation, setCurrentFriend }) => {
 
   }, []);
 
+  
   return (
     <div className="sidebar">
       <SideBarNav />

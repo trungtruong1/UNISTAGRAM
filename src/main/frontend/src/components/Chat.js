@@ -21,6 +21,7 @@ const Chat = ({ conversation, currentFriend }) => {
     }
   }
 
+  
   return (
     <div className="chat">
       <div className="chatInfo">
