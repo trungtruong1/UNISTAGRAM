@@ -9,7 +9,7 @@ import '../App.css';
 import SideBar from "../components/SideBar";
 import Chat from "../components/Chat";
 import { checkLogin } from "../ultils/checkLogin";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 function ChatPage() {
@@ -18,14 +18,16 @@ function ChatPage() {
         window.location.href = "/signin";
     }
 
+    let [conversation, setConversation] = useState("");
+
     return (
         <>
             <NavBar/>
 
             <div className='home'>
                 <div className='containerChat'>
-                    <SideBar/>
-                    <Chat/>
+                    <SideBar conversation={conversation} setConversation={setConversation}/>
+                    <Chat conversation={conversation}/>
                 </div>
             </div>
             

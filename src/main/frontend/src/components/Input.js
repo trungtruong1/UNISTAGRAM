@@ -6,7 +6,7 @@ import SockJS from "sockjs-client"
 import { Stomp } from "@stomp/stompjs"
 import { checkLogin } from "../ultils/checkLogin";
 
-const Input = () => {
+const Input = ({ conversation }) => {
   const [message, setMessage] = useState();
 
   const userToken = checkLogin();
@@ -34,19 +34,17 @@ const Input = () => {
     }
 
     stomp.client.send("/pub/chat/sendMessage", {}, JSON.stringify({
-      conversation: "648bd875544b5a7b3efd3c2f",
+      conversation: conversation,
       sender: userToken.id,
       content: trimmed_message,
     }));
     
-    console.log(trimmed_message);
   }
   
   return (
     <Form onSubmit={handleSubmit} className="input">
       {/* <Input></Input> */}
       <input onChange={e => setMessage(e.target.value)} type="text" placeholder="Say something I'm giving up on you..."/>
-      {/* <Input onChange={e => setMessage(e.target.value)} type="text" placeholder="Say something I'm giving up on you..." /> */}
       <div className="send">
         {/* <img></img>
         <input type="file" style={{display: "none"}} id="file"/>

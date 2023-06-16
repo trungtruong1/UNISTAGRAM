@@ -43,6 +43,8 @@ export default function SignIn({ setToken }) {
             return;
         }
 
+        // console.log(token);
+
         setToken(token);
         window.location.href = "/";
     }
