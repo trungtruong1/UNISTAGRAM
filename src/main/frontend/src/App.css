@@ -70,6 +70,7 @@
   display: flex;
   align-items: center;
   background-color: #2e7183;
+  color: white;
   height: 50px;
   padding: 10px;
   justify-content: space-between;
@@ -312,4 +313,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.chats{
+  height: calc(100% - 50px);
+  overflow: scroll;
+  overflow-x: hidden;
 }

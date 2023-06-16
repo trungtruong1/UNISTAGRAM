@@ -12,10 +12,10 @@ export default function NavBar() {
         window.location.href = "/";
     }
     return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top" style={{height: "6vh"}}>
             <Container>
                 <Navbar.Brand href="/">
-                    <img src="/logo.png" width="40" height="auto"/>
+                    <img src="/logo.png" style={{height: "4vh", width: "auto"}}/>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
