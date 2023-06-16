@@ -5,13 +5,17 @@ import NavBar from '../components/navbar';
 import Profile from '../components/profile';
 import Ranking from '../components/ranking';
 import SubmissionList from "../components/submission_list";
-import { ChatEngine } from 'react-chat-engine';
 import '../App.css';
 import SideBar from "../components/SideBar";
 import Chat from "../components/Chat";
+import { checkLogin } from "../ultils/checkLogin";
 
 
 function ChatPage() {
+    const testToken = checkLogin();
+    if(testToken === null) {
+        window.location.href = "/signin";
+    }
     return (
         <>
             <NavBar/>

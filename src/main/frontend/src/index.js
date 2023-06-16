@@ -18,9 +18,8 @@ function Index() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<App />} />
-                <Route path="play" element={<Play />} />
+                <Route path="/matching" element={<Play />} />
                 <Route path="/chat/" element={<ChatPage />} />
-                <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/signin" element={<SignIn setToken={setToken}/>} />
                 <Route path="/signup" element={<SignUp />} />
             </Routes>

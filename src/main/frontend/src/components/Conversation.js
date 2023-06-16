@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Message from "./Message";
 import '../App.css';
 
-const Messages = () => {
+const Conversation = () => {
 
   return (
     <div className="messages">
@@ -15,4 +15,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default Conversation;

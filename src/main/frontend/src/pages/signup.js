@@ -35,7 +35,7 @@ export default function SignUp() {
             return;
         }
 
-        if(password != repass) {
+        if(password !== repass) {
             alert("Passwords do not match!");
             return;
         }

@@ -6,8 +6,14 @@ import { Col, Row } from 'react-bootstrap';
 import NavBar from './components/navbar';
 import Profile from './components/profile';
 import Ranking from './components/ranking';
+import { checkLogin } from './ultils/checkLogin';
 
 function App() {
+    const testToken = checkLogin();
+    if(testToken === null) {
+        window.location.href = "/signin";
+    }
+
     return (
         <>
             <NavBar/>

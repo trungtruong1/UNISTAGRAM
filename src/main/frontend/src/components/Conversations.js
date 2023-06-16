@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 // import { db } from "../firebase";
 import '../App.css';
 
-const Chats = () => {
+const Conversations = () => {
 //   const [chats, setChats] = useState([]);
 
 //   const { currentUser } = useContext(AuthContext);
@@ -57,4 +57,4 @@ const Chats = () => {
   );
 };
 
-export default Chats;
+export default Conversations;
