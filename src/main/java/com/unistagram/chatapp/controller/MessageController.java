@@ -46,6 +46,7 @@ public class MessageController {
         String conversation;
         String sender;
         String content;
+        boolean terminated;
 
         public SendMessageInfo() {}
 
@@ -53,6 +54,14 @@ public class MessageController {
             this.conversation = conversation;
             this.sender = sender;
             this.content = content;
+            this.terminated = false;
+        }
+
+        public SendMessageInfo(String conversation, String sender, String content, boolean terminated) {
+            this.conversation = conversation;
+            this.sender = sender;
+            this.content = content;
+            this.terminated = terminated;
         }
     
         public String getConversation() { return this.conversation; }
@@ -60,6 +69,8 @@ public class MessageController {
         public String getSender() { return this.sender; }
     
         public String getContent() { return this.content; }
+
+        public boolean getTerminated() { return this.terminated; }
     }
 
     @ExceptionHandler(ObjectIdException.class)
@@ -117,6 +128,7 @@ public class MessageController {
             throw new ParameterErrorNumberException("Conversation does not exist!");
         }
         if(!conversation.get().getStatus().equals(Conversation.Status.ONGOING)){
+            messagingTemplate.convertAndSend("/sub/chat/room/" + message.getConversation(), new SendMessageInfo(null, null, null, true));
             throw new ParameterErrorStringException("Conversation has been terminated!");
         }
         if(!message.sender.equals(conversation.get().getClient1()) && !message.sender.equals(conversation.get().getClient2())) {

@@ -41,7 +41,11 @@ const Conversation = ({ conversation }) => {
     stomp.client.connect({}, (frame) => {
       console.log('Connected: ' + frame);
       stomp.client.subscribe('/sub/chat/room/' + conversation, function (greeting) {
-        let msg = JSON.parse(greeting.body)
+        let msg = JSON.parse(greeting.body);
+        if(msg.terminated) {
+          window.alert("The conversation has been terminated!");
+          window.location.reload();
+        }
         listMessages = [...listMessages, msg];
         setListMessages(listMessages);
       });
