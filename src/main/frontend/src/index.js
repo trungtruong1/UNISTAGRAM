@@ -7,7 +7,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import SignIn from './pages/signin';
 import SignUp from './pages/signup';
-import Play from './pages/play';
+import Matching from './pages/matching';
 import ChatPage from './pages/chat';
 import Leaderboard from './pages/leaderboard';
 import useToken from './useTokens';
@@ -18,7 +18,7 @@ function Index() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<App />} />
-                <Route path="/matching" element={<Play />} />
+                <Route path="/matching" element={<Matching />} />
                 <Route path="/chat/" element={<ChatPage />} />
                 <Route path="/signin" element={<SignIn setToken={setToken}/>} />
                 <Route path="/signup" element={<SignUp />} />
