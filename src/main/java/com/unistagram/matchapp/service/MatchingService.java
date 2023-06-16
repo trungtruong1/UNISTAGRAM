@@ -4,7 +4,7 @@ import com.unistagram.userapp.model.User;
 
 public interface MatchingService {
     
-    public void joinQueue(User client);
+    public String joinQueue(User client);
 
     public void outQueue(User client);
 
@@ -12,6 +12,6 @@ public interface MatchingService {
 
     // public Optional<User> getOtherRandomWaitingClient(User client);
 
-    public boolean match(User client);
+    public String match(User client);
 
 }

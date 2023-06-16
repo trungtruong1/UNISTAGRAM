@@ -23,7 +23,7 @@ const Conversations = ({ listConversations, conversation, setConversation, setCu
                 :
                     listConversations.map((conv, id) => {
                         if(conv.status !== "ONGOING") {
-                            return (<></>);
+                            return;
                         }
                         return (
                             <div onClick={() => handleSelectConv(conv, id)} key={id} id={conv.id} className="userChat">

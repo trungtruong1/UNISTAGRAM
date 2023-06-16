@@ -23,13 +23,13 @@ public class MatchingServiceImpl implements MatchingService {
     private Random rng = new Random();
 
     @Override
-    public void joinQueue(User client){
+    public String joinQueue(User client){
         // Update the user status to waiting
         int user_id = client.getUser_id();
         User sample_user = userService.getUserById(user_id).get();
         sample_user.joinQueue();
         userService.updateUserInfoById(user_id, sample_user);
-        match(sample_user);
+        return match(sample_user);
     }
 
     @Override
@@ -56,23 +56,22 @@ public class MatchingServiceImpl implements MatchingService {
         return Optional.of(waitingUsers.get(rng.nextInt(waitingUsers.size())));
     }
 
-    private void matchClients(User clientA, User clientB){
+    private String matchClients(User clientA, User clientB){
         clientA.outQueue();
         userService.updateUserInfoById(clientA.getUser_id(), clientA);
         clientB.outQueue();
         userService.updateUserInfoById(clientB.getUser_id(), clientB);
         Conversation new_conversation = new Conversation(clientA.getId(), clientB.getId(), Status.ONGOING);
-        conversationService.save(new_conversation);
+        return conversationService.save(new_conversation);
     }
 
     @Override
-    public boolean match(User client) {
+    public String match(User client) {
         Optional<User> candidate = getOtherRandomWaitingClient(client);
         if(candidate.isEmpty()) {
-            return false;
+            return null;
         }
-        matchClients(client, candidate.get());
-        return true;
+        return matchClients(client, candidate.get());
     }
 
 }

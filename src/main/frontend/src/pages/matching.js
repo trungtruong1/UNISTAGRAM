@@ -7,14 +7,49 @@ import NavBar from '../components/navbar';
 import useToken from '../useTokens';
 import { useEffect, useRef, useState } from 'react';
 import Board from '../components/chess_board';
+import { CompatClient, Stomp } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+import { checkLogin } from '../ultils/checkLogin';
 
 
 function Matching() {
 
     const [showFindMatch, setshowFindMatch] = useState(false);
 
-    const handleFindingMatch = () => setshowFindMatch(true);
-    const handleCancelFinding = () => setshowFindMatch(false);
+    const userToken = checkLogin();
+  
+    const stomp = useRef({});
+
+    useEffect(() => {
+        const socket = new SockJS("http://localhost:8000/ws");
+        stomp.client = Stomp.over(socket);
+        stomp.client.connect({}, (frame) => {
+          console.log('Connected: ' + frame);
+          stomp.client.subscribe('/sub/matching/user/' + userToken.id, function (greeting) {
+            window.alert("Matched successfully! You will be redirected to chat app");
+            window.location.href = "/chat";
+          });
+        });
+    }, []);
+
+    const handleFindingMatch = () => {
+        stomp.client.send("/pub/matching/queue", {}, JSON.stringify({
+            userId: userToken.id,
+            cancel: false,
+        }));
+        setshowFindMatch(true)
+    };
+
+    const handleCancelFinding = () => {
+        stomp.client.send("/pub/matching/queue", {}, JSON.stringify({
+            userId: userToken.id,
+            cancel: true,
+        }));
+        if(stomp.client) {
+            stomp.client.disconnect((frame) => {});
+        }
+        setshowFindMatch(false)
+    };
 
 
     return (

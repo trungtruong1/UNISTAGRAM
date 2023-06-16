@@ -16,13 +16,18 @@ import org.springframework.web.util.HtmlUtils;
 import com.unistagram.userapp.exception.ObjectIdException;
 import com.unistagram.userapp.exception.ParameterErrorNumberException;
 import com.unistagram.userapp.exception.ParameterErrorStringException;
+import com.unistagram.chatapp.model.Conversation;
+import com.unistagram.chatapp.service.ConversationService;
+import com.unistagram.matchapp.model.MatchingMessage;
 import com.unistagram.matchapp.model.MatchingRecieve;
 import com.unistagram.matchapp.service.MatchingService;
 import com.unistagram.userapp.model.User;
 import com.unistagram.userapp.service.UserService;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 
 @RestController
 @RequestMapping("/matching")
@@ -39,6 +44,10 @@ public class MatchingController {
     private UserService userService;
     @Autowired
     private MatchingService matchingService;
+    @Autowired
+    private SimpMessageSendingOperations messagingTemplate;
+    @Autowired
+    private ConversationService conversationService;
 
     @ExceptionHandler(ObjectIdException.class)
     public ResponseEntity<String> handleObjectIdException() {
@@ -113,11 +122,32 @@ public class MatchingController {
         return ResponseEntity.ok(new CheckInQueue(matchingService.isWaiting(user.get())));
     }
 
-    // @MessageMapping("/hello")
-    // @SendTo("/topic/greetings")
-    // public MatchingRecieve greeting(String message) throws Exception {
-    //     System.out.println("New message!");
-    //     Thread.sleep(1000); // simulated delay
-    //     return new MatchingRecieve("Hello, " + HtmlUtils.htmlEscape(message) + "!");
-    // }
+    @MessageMapping("/matching/queue")
+    public void sendMessage(@Payload MatchingRecieve message){
+        Optional<User> queried_user = userService.getUserById(message.getUserId());
+        if(queried_user.isEmpty()) {
+            throw new ParameterErrorNumberException("User id does not exist!");
+        }
+        if(queried_user.get().getIs_in_queue()) {
+            return;    
+        }
+
+        if(message.getCancel()) {
+            if(!matchingService.isWaiting(queried_user.get())) {
+                matchingService.outQueue(queried_user.get());
+            }
+            return;
+        }
+
+        String new_conversation = matchingService.joinQueue(queried_user.get());
+
+        if(new_conversation == null) {
+            return;
+        }
+
+        Conversation conversation = conversationService.getConversationById(new_conversation).get();
+        
+        messagingTemplate.convertAndSend("/sub/matching/user/" + conversation.getClient1(), new MatchingMessage(new_conversation));
+        messagingTemplate.convertAndSend("/sub/matching/user/" + conversation.getClient2(), new MatchingMessage(new_conversation));
+    }
 }

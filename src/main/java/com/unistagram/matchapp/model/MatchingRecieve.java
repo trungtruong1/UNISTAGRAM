@@ -2,16 +2,22 @@ package com.unistagram.matchapp.model;
 
 public class MatchingRecieve {
 
-    private String content;
+    private String userId;
+    private boolean cancel;
 
     public MatchingRecieve() {
     }
 
-    public MatchingRecieve(String content) {
-        this.content = content;
+    public MatchingRecieve(String userId, boolean cancel) {
+        this.userId = userId;
+        this.cancel = cancel;
     }
 
-    public String getContent() {
-        return content;
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public boolean getCancel() {
+        return this.cancel;
     }
 }
