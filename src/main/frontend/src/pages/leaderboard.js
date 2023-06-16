@@ -24,7 +24,6 @@ function Leaderboard() {
             const data = await res.json();
             console.log(data);
             data.sort();
-
             setScoreboard(data);
         }
 

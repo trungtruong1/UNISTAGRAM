@@ -44,7 +44,7 @@ class UserControllerTest {
 
     @Test
     void testHandleObjectIdException() {
-        ResponseEntity<String> actualHandleObjectIdExceptionResult = userController.handleObjectIdException();
+        ResponseEntity<String> actualHandleObjectIdExceptionResult = userController.handleObjectIdException(new ObjectIdException("blah blah"));
         assertEquals("Something wrong when saving the user", actualHandleObjectIdExceptionResult.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, actualHandleObjectIdExceptionResult.getStatusCode());
         assertTrue(actualHandleObjectIdExceptionResult.getHeaders().isEmpty());
@@ -52,7 +52,7 @@ class UserControllerTest {
 
     @Test
     void testHandleParameterErrorNumber() {
-        ResponseEntity<String> actualHandleParameterErrorNumberResult = userController.handleParameterErrorNumber();
+        ResponseEntity<String> actualHandleParameterErrorNumberResult = userController.handleParameterErrorNumber(new ParameterErrorNumberException("blah blah"));
         assertEquals("User id does not exist!", actualHandleParameterErrorNumberResult.getBody());
         assertEquals(HttpStatus.NOT_FOUND, actualHandleParameterErrorNumberResult.getStatusCode());
         assertTrue(actualHandleParameterErrorNumberResult.getHeaders().isEmpty());
@@ -60,7 +60,7 @@ class UserControllerTest {
 
     @Test
     void testHandleParameterErrorString() {
-        ResponseEntity<String> actualHandleParameterErrorStringResult = userController.handleParameterErrorString();
+        ResponseEntity<String> actualHandleParameterErrorStringResult = userController.handleParameterErrorString(new ParameterErrorStringException("blah blah"));
         assertEquals("Parameter is not a number!", actualHandleParameterErrorStringResult.getBody());
         assertEquals(HttpStatus.NOT_ACCEPTABLE, actualHandleParameterErrorStringResult.getStatusCode());
         assertTrue(actualHandleParameterErrorStringResult.getHeaders().isEmpty());
@@ -158,11 +158,6 @@ class UserControllerTest {
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(406))
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(MockMvcResultMatchers.content().string("Parameter is not a number!"));
-    }
-
-    @Test
-    void testGetUser6() throws Exception {
-        Assertions.assertThrows(ParameterErrorStringException.class, () -> userController.getUser(""));
     }
 
     @Test

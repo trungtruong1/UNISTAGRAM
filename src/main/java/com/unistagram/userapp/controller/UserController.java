@@ -34,25 +34,29 @@ public class UserController {
     private static int NOT_FOUND = 404;
 
     private class AuthResponse {
+        String id;
         String username;
         String password;
         String status;
         String reason;
 
         AuthResponse() {}
-        AuthResponse(String username, String password) {
+        AuthResponse(String id, String username, String password) {
+            this.id = id;
             this.username = username;
             this.password = password;
             this.status = "ok";
             this.reason = "";
         }
-        AuthResponse(String username, String password, String status, String reason) {
+        AuthResponse(String id, String username, String password, String status, String reason) {
+            this.id = id;
             this.username = username;
             this.password = password;
             this.status = status;
             this.reason = reason;
         }
-
+        
+        public String getId() { return this.id; }
         public String getUsername() { return this.username; }
         public String getPassword() { return this.password; }
         public String getStatus() { return this.status; }
@@ -124,12 +128,12 @@ public class UserController {
     public ResponseEntity<AuthResponse> authUser(@RequestParam String username, @RequestParam String password) {
         Optional<User> userOp = userService.getUserByUsername(username);
         if(userOp.isEmpty()) {
-            return ResponseEntity.status(NOT_FOUND).body(new AuthResponse("", "", "failed", "username not found"));
+            return ResponseEntity.status(NOT_FOUND).body(new AuthResponse("", "", "", "failed", "username not found"));
         }
         User user = userOp.get();
         if(!user.getPassword().equals(password)) {
-            return ResponseEntity.status(NOT_FOUND).body(new AuthResponse("", "", "failed", "password does not match"));
+            return ResponseEntity.status(NOT_FOUND).body(new AuthResponse("", "", "", "failed", "password does not match"));
         }
-        return ResponseEntity.ok(new AuthResponse(username, password));
+        return ResponseEntity.ok(new AuthResponse(user.getId(), username, password));
     }
 }

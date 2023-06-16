@@ -113,11 +113,11 @@ public class MatchingController {
         return ResponseEntity.ok(new CheckInQueue(matchingService.isWaiting(user.get())));
     }
 
-    @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
-    public MatchingRecieve greeting(String message) throws Exception {
-        System.out.println("New message!");
-        Thread.sleep(1000); // simulated delay
-        return new MatchingRecieve("Hello, " + HtmlUtils.htmlEscape(message) + "!");
-    }
+    // @MessageMapping("/hello")
+    // @SendTo("/topic/greetings")
+    // public MatchingRecieve greeting(String message) throws Exception {
+    //     System.out.println("New message!");
+    //     Thread.sleep(1000); // simulated delay
+    //     return new MatchingRecieve("Hello, " + HtmlUtils.htmlEscape(message) + "!");
+    // }
 }

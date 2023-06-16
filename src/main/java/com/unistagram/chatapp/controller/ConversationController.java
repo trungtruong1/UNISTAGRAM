@@ -6,18 +6,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.HtmlUtils;
 
 import com.unistagram.userapp.exception.ObjectIdException;
 import com.unistagram.userapp.exception.ParameterErrorNumberException;
 import com.unistagram.userapp.exception.ParameterErrorStringException;
 import com.mongodb.client.result.UpdateResult;
 import com.unistagram.chatapp.model.Conversation;
+import com.unistagram.chatapp.model.MessageReceive;
 import com.unistagram.chatapp.service.ConversationService;
 import com.unistagram.userapp.model.User;
 import com.unistagram.userapp.service.UserService;
@@ -82,6 +88,14 @@ public class ConversationController {
         Conversation new_coversation = conversation.get();
         new_coversation.end();
         return ResponseEntity.ok(new_coversation);
+    }
+
+    @MessageMapping("/hello")
+    @SendTo("/topic/greetings")
+    public MessageReceive greeting(String message) throws Exception {
+        System.out.println("New message!");
+        Thread.sleep(1000); // simulated delay
+        return new MessageReceive("Hello, " + HtmlUtils.htmlEscape(message) + "!");
     }
 
 }

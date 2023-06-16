@@ -9,6 +9,7 @@ import '../App.css';
 import SideBar from "../components/SideBar";
 import Chat from "../components/Chat";
 import { checkLogin } from "../ultils/checkLogin";
+import { useEffect } from "react";
 
 
 function ChatPage() {
@@ -16,6 +17,7 @@ function ChatPage() {
     if(testToken === null) {
         window.location.href = "/signin";
     }
+
     return (
         <>
             <NavBar/>

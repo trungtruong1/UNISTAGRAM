@@ -1,7 +1,7 @@
 
 
 export function checkLogin() {
-    const tokenString = sessionStorage.getItem('token');
+    const tokenString = localStorage.getItem('token');
     const testToken = JSON.parse(tokenString);
 
     // If the user is signed in, return the token

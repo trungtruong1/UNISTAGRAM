@@ -1,20 +1,61 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import '../App.css';
+import { Form } from "react-bootstrap";
+
+import SockJS from "sockjs-client"
+import { Stomp } from "@stomp/stompjs"
+import { checkLogin } from "../ultils/checkLogin";
 
 const Input = () => {
+  const [message, setMessage] = useState();
+
+  const userToken = checkLogin();
+  
+  const stomp = useRef({});
+  
+  useEffect(() => {
+    const socket = new SockJS("http://localhost:8000/ws");
+    stomp.client = Stomp.over(socket);
+    stomp.client.connect({}, (frame) => {
+      console.log('Connected: ' + frame);
+    });
+    console.log(stomp.client);
+  }, []);
+  
+  const handleSubmit = async e => {
+    e.preventDefault();
+    let trimmed_message = message.trim();
+
+    setMessage("");
+    e.target[0].value = "";
+
+    if(trimmed_message.length == 0) {
+      return;
+    }
+
+    stomp.client.send("/pub/chat/sendMessage", {}, JSON.stringify({
+      conversation: "648bd875544b5a7b3efd3c2f",
+      sender: userToken.id,
+      content: trimmed_message,
+    }));
+    
+    console.log(trimmed_message);
+  }
   
   return (
-    <div className="input">
-      <input type="text" placeholder="Say something I'm giving up on you..."/>
+    <Form onSubmit={handleSubmit} className="input">
+      {/* <Input></Input> */}
+      <input onChange={e => setMessage(e.target.value)} type="text" placeholder="Say something I'm giving up on you..."/>
+      {/* <Input onChange={e => setMessage(e.target.value)} type="text" placeholder="Say something I'm giving up on you..." /> */}
       <div className="send">
-        <img></img>
+        {/* <img></img>
         <input type="file" style={{display: "none"}} id="file"/>
         <label htmlFor="file">
             <img src="" alt=""/>
-        </label>
+        </label> */}
         <button>Send</button>
       </div>
-    </div>
+    </Form>
   );
 };
 
