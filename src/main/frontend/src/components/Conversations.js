@@ -21,7 +21,9 @@ const Conversations = ({ listConversations, conversation, setConversation, setCu
                 !listConversations.length?
                     (<></>)
                 :
-                    listConversations.map((conv, id) => {
+                    listConversations.map((_, id, arr) => {
+                        id = arr.length - 1 - id;
+                        let conv = arr[id];
                         if(conv.status !== "ONGOING") {
                             return;
                         }
