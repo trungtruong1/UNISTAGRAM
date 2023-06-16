@@ -3,6 +3,7 @@ import NavBar from '../components/navbar';
 import Title from '../components/Title';
 import Meme from '../components/Meme';
 import Reaction from '../components/Reactions';
+import Dialog from '../components/Dialog';
 
 function Memefeed() {
     return (
@@ -14,6 +15,7 @@ function Memefeed() {
                 <Meme/>
                 <Meme/>
                 <Meme/>
+                <Dialog />
             </div>
         </>
     )
