@@ -5,7 +5,7 @@ function Message({ message, isOwner=false }) {
     <div className={`message ${isOwner? "owner" : ""}`}>
         <div className="messageInfo">
             <p>{isOwner? "me" : "friend"}</p>
-            <span>5 Years Ago</span>
+            {/* <span>5 Years Ago</span> */}
         </div>
         <div className="messageContent">
             <p>{message}</p>

@@ -43,14 +43,8 @@ const Input = ({ conversation }) => {
   
   return (
     <Form onSubmit={handleSubmit} className="input">
-      {/* <Input></Input> */}
       <input onChange={e => setMessage(e.target.value)} type="text" placeholder="Say something I'm giving up on you..."/>
       <div className="send">
-        {/* <img></img>
-        <input type="file" style={{display: "none"}} id="file"/>
-        <label htmlFor="file">
-            <img src="" alt=""/>
-        </label> */}
         <button>Send</button>
       </div>
     </Form>

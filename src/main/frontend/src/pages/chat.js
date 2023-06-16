@@ -19,6 +19,7 @@ function ChatPage() {
     }
 
     let [conversation, setConversation] = useState("");
+    let [currentFriend, setCurrentFriend] = useState(-1);
 
     return (
         <>
@@ -26,8 +27,8 @@ function ChatPage() {
 
             <div className='home'>
                 <div className='containerChat'>
-                    <SideBar conversation={conversation} setConversation={setConversation}/>
-                    <Chat conversation={conversation}/>
+                    <SideBar conversation={conversation} setConversation={setConversation} setCurrentFriend={setCurrentFriend}/>
+                    <Chat conversation={conversation} currentFriend={currentFriend}/>
                 </div>
             </div>
             

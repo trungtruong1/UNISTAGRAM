@@ -1,27 +1,34 @@
 import React, { useContext, useEffect, useState } from "react";
-// import Cam from "../img/cam.png";
-// import Add from "../img/add.png";
-// import More from "../img/more.png";
 import Conversation from "./Conversation";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Input from "./Input";
-// import { ChatContext } from "../context/ChatContext";
 import '../App.css';
 import { checkLogin } from "../ultils/checkLogin";
 
-const Chat = ({ conversation }) => {
-//   const { data } = useContext(ChatContext);
+
+const Chat = ({ conversation, currentFriend }) => {
 
   const userToken = checkLogin();
+
+  const handleClick = async () => {
+    let sure = window.confirm("Are you sure about that?");
+    if(sure) {
+      const res = await fetch(`http://localhost:8000/conversations/end/${conversation}`, {
+        method: 'PUT',
+      });
+      window.location.reload();
+    }
+  }
 
   return (
     <div className="chat">
       <div className="chatInfo">
-        {/* username */}
-        <span>{userToken.username}</span>
+        <span>{(currentFriend === -1) ? "Please select" : "Anonymous " + (currentFriend+1)}</span>
         <div className="chatIcons">
-          {/* <img src={Cam} alt="" />
-          <img src={Add} alt="" />
-          <img src={More} alt="" /> */}
+          <IconButton onClick={() => handleClick()} aria-label="delete">
+            <DeleteIcon/>
+          </IconButton>
         </div>
       </div>
       <Conversation conversation={conversation}/>

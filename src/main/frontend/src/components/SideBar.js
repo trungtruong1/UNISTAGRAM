@@ -4,7 +4,7 @@ import Conversations from "./Conversations"
 import '../App.css';
 import { checkLogin } from "../ultils/checkLogin";
 
-const Sidebar = ({ conversation, setConversation }) => {
+const Sidebar = ({ conversation, setConversation, setCurrentFriend }) => {
   const userToken = checkLogin();
 
   let [listConversations, setlistConversations] = useState([]);
@@ -31,6 +31,7 @@ const Sidebar = ({ conversation, setConversation }) => {
     <div className="sidebar">
       <SideBarNav />
       <Conversations 
+        setCurrentFriend={setCurrentFriend}
         listConversations={listConversations} 
         conversation={conversation}
         setConversation={setConversation}

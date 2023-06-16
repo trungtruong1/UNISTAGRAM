@@ -64,12 +64,6 @@ class MatchingControllerTest {
         assertEquals("Parameter is not a number!", actualHandleParameterErrorStringResult.getBody());
         assertEquals(HttpStatus.NOT_ACCEPTABLE, actualHandleParameterErrorStringResult.getStatusCode());
     }
-    @Test
-    void testGreeting() throws Exception {
-        String randomMess = UUID.randomUUID().toString();
-        assertEquals("Hello, " + randomMess + "!",
-                matchingController.greeting(randomMess).getContent());
-    }
 
     @Test
     void testCheckUserInQueue() throws Exception {

@@ -37,22 +37,14 @@
   }
 }
 
+
+
 .home {
   background-color: #a7bcff;
-  height: 100vh;
+  height: 94vh;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.containerChat{
-  display: flex;
-  border: 1px solid white;
-  border-radius: 10px;
-  width: 65%;
-  height: 80%;
-  padding: 0;
-  overflow: hidden;
 }
 
 .sidebar{
@@ -70,7 +62,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: lightgray;
+  color: rgb(255, 251, 251);
   padding-left: 10px;
 }
 
@@ -135,6 +127,7 @@
   padding: 10px;
   height: calc(100% - 100px);
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 .messages .message {
@@ -148,6 +141,8 @@
   flex-direction: column;
   color: gray;
   font-weight: 300;
+  justify-content: center;
+  align-items: center;
 }
 
 .messages .message .messageInfo img {
@@ -161,7 +156,8 @@
   max-width: 80%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .messages .message .messageContent p {
@@ -223,6 +219,16 @@
   color: white;
   background-color: #647ed5;
   cursor: pointer;
+}
+
+.containerChat{
+  display: flex;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 65%;
+  height: 80%;
+  padding: 0;
+  overflow: hidden;
 }
 
 .containerFeed{
@@ -300,4 +306,10 @@
   height: 30px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.reactionList{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
