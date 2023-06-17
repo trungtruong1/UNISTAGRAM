@@ -1,8 +1,8 @@
 name: Continuous Integration
 run-name: ${{ github.actor }} is building and running all tests 🚀
-on: [push]
+on: [push, pull_request]
 jobs:
-  Explore-GitHub-Actions:
+  Build-and-Run-all-Tests:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
