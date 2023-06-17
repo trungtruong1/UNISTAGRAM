@@ -30,5 +30,13 @@ WORKDIR /root/project
 COPY ./run.sh /root/project/
 
 RUN chmod +x run.sh
+RUN sh run.sh
+
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.76/bin/apache-tomcat-9.0.76.zip
+RUN unzip apache-tomcat-9.0.76.zip
+
+COPY ./target/cse364-project.war ./apache-tomcat-9.0.76/webapps/ROOT.war
+RUN sh ./apache-tomcat-9.0.76/bin
+RUN sh catalina.sh run
 
 CMD ["bash"]
