@@ -17,6 +17,7 @@ function Reaction({ meme_id }) {
   const anchorRef = useRef(null);
 
   const [listReaction, setListReaction] = useState([]);
+  let [currentReaction, setCurrentReaction] = useState("");
 
   const userToken = checkLogin();
 
@@ -55,6 +56,7 @@ function Reaction({ meme_id }) {
           user_id: userToken.id,
         }),
       });
+      setCurrentReaction(reaction_id);
     }
 
   };
@@ -143,6 +145,8 @@ function Reaction({ meme_id }) {
             </Popper>
             <ReactionList
               meme_id={meme_id} 
+              currentReaction={currentReaction}
+              setCurrentReaction={setCurrentReaction}
             ></ReactionList>
           </div>
         </Stack>
