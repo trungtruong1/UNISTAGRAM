@@ -1,11 +1,13 @@
 package com.unistagram.memefeedapp.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,7 @@ import com.unistagram.userapp.exception.ParameterErrorStringException;
 import com.unistagram.userapp.service.UserService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/reactions")
 public class ReactionController {
 
@@ -63,5 +66,11 @@ public class ReactionController {
     public ResponseEntity<Reaction> saveReaction(@RequestParam String title, @RequestParam MultipartFile image, @RequestParam String author) throws IOException {
         String reaction_id = reactionService.save(title, image, author);
         return ResponseEntity.ok(reactionService.getReactionById(reaction_id).get());
+    }
+
+    @GetMapping("/user/{username}")
+    public ResponseEntity<List<Reaction>> getMemeByUser(@PathVariable("username") String username) {
+        List<Reaction> reaction = reactionService.getReactionByUsername(username);
+        return ResponseEntity.ok(reaction);
     }
 }

@@ -9,11 +9,32 @@ import Popper from '@mui/material/Popper';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import ReactionList from "./ReactionsList";
+import { checkLogin } from "../ultils/checkLogin";
 
 function Reaction(props) {
   const [open, setOpen] = useState(false);
   const [reactionStats, setReactionStats] = useState({key: 0});
   const anchorRef = useRef(null);
+
+  const [listReaction, setListReaction] = useState([]);
+
+  const userToken = checkLogin();
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function fetchData() {
+      if(ignore) return;
+      const res = await fetch(`http://localhost:8000/reactions/user/${userToken.username}`, {
+        method: 'GET',
+      });
+      const data = await res.json();
+      setListReaction(data);
+    }
+
+    fetchData();
+    return () => { ignore = true; }        
+  }, []);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -98,10 +119,23 @@ function Reaction(props) {
                         onKeyDown={handleListKeyDown}
                         style={{display: "flex"}}
                       >
-                        <img onClick={handleClose} id="angry" className="reaction" src="https://cdn11.bigcommerce.com/s-dl22izwaan/images/stencil/1280x1280/products/1997/18883/1104_1k__93990.1627320048.jpg?c=1"/>
-                        <img onClick={handleClose} id="angry" className="reaction" src="https://cdn11.bigcommerce.com/s-dl22izwaan/images/stencil/1280x1280/products/1997/18883/1104_1k__93990.1627320048.jpg?c=1"/>
-                        <img onClick={handleClose} id="angry" className="reaction" src="https://cdn11.bigcommerce.com/s-dl22izwaan/images/stencil/1280x1280/products/1997/18883/1104_1k__93990.1627320048.jpg?c=1"/>
-                        <img onClick={handleClose} id="angry" className="reaction" src="https://cdn11.bigcommerce.com/s-dl22izwaan/images/stencil/1280x1280/products/1997/18883/1104_1k__93990.1627320048.jpg?c=1"/>
+                        {
+                            !listReaction.length?
+                                (<></>)
+                            :
+                                listReaction.map((reaction, id, arr) => {
+                                    return (
+                                      <img 
+                                        key={id}
+                                        onClick={handleClose} 
+                                        id={reaction.id} 
+                                        className="reaction" 
+                                        src={`data:image/png;base64, ${reaction.image.data}`}
+                                        alt={reaction.title}
+                                      />
+                                    )
+                                })
+                        }
                       </MenuList>
                     </ClickAwayListener>
                   </Paper>

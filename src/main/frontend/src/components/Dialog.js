@@ -20,21 +20,24 @@ class AlertDialogSlide extends PureComponent {
     src: null,
     image: null,
     imageUrl: null,
-    meme_title: "",
+    title: "",
+    is_meme: false,
+    is_reaction: false,
   };
 
   userToken = checkLogin();
 
   onTitleChange = (e) => {
-    this.setState({ meme_title: e.target.value});
+    this.setState({ title: e.target.value});
   };
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
+  handleClickOpen = (meme) => {
+    if(meme) this.setState({ open: true, is_meme: true });
+    else this.setState({ open: true, is_reaction: true });
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, is_meme: false, is_reaction: false });
   };
 
   onSelectFile = e => {
@@ -53,16 +56,16 @@ class AlertDialogSlide extends PureComponent {
     this.imageRef = image;
   };
 
-  handleSubmitMeme = async (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
 
     let formData = new FormData();
 
-    formData.append("title", this.state.meme_title);
+    formData.append("title", this.state.title);
     formData.append("image", this.state.image);
     formData.append("author", this.userToken.username);
 
-    const res = await fetch('http://localhost:8000/memes', {
+    const res = await fetch(`http://localhost:8000/${this.state.is_meme? "memes" : "reactions"}`, {
       method: 'POST',
       headers: {
         // 'Content-Type': 'multipart/form-data'
@@ -76,7 +79,9 @@ class AlertDialogSlide extends PureComponent {
     }
 
     window.alert("Uploaded successfully!");
+
     window.location.reload();
+        
 
   }
 
@@ -89,14 +94,14 @@ class AlertDialogSlide extends PureComponent {
           <Button
             variant="outlined"
             color="primary"
-            onClick={this.handleClickOpen}
+            onClick={() => this.handleClickOpen(false)}
           >
             Upload your reactions!
           </Button>
           <Button
             variant="outlined"
             color="primary"
-            onClick={this.handleClickOpen}
+            onClick={() => this.handleClickOpen(true)}
           >
             Upload a meme!
           </Button>
@@ -107,11 +112,14 @@ class AlertDialogSlide extends PureComponent {
           keepMounted
           onClose={this.TransitionComponenthandleClose}
         >
-          <Form onSubmit={this.handleSubmitMeme}>
+          <Form onSubmit={this.handleSubmit}>
             <DialogTitle>
-              <input 
-                onChange={this.onTitleChange}
-              />
+              {
+                (this.state.is_meme)? 
+                  <input onChange={this.onTitleChange} placeholder="Your meme's title" /> 
+                : 
+                <input onChange={this.onTitleChange} placeholder="Your reaction's name?" /> 
+              }
             </DialogTitle>
             <DialogContent>
               <input

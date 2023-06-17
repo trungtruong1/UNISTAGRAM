@@ -1,6 +1,7 @@
 package com.unistagram.memefeedapp.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import org.bson.BsonBinarySubType;
@@ -38,5 +39,11 @@ public class ReactionServiceImpl extends MemeServiceImpl implements ReactionServ
             return Optional.empty();
         }
         return Optional.of(reaction);
+    }
+
+    @Override
+    public List<Reaction> getReactionByUsername(String username) {
+        Query query = new Query(Criteria.where("author").is(username));
+        return mongoTemplate.find(query, Reaction.class);
     }
 }
