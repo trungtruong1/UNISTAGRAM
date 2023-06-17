@@ -13,6 +13,10 @@ import { checkLogin } from '../ultils/checkLogin';
 
 
 function Matching() {
+    const testToken = checkLogin();
+    if(testToken === null) {
+        window.location.href = "/signin";
+    }
 
     const [showFindMatch, setshowFindMatch] = useState(false);
 

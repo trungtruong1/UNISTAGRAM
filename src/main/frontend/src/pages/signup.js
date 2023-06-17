@@ -60,6 +60,7 @@ export default function SignUp() {
             <br/>
             <Container>
                 <center>
+                    <img src="/logo_full.png" style={{height: "30vh", width: "auto"}}/>
                     <h1>Sign Up</h1>
                 </center>
                 <Row>

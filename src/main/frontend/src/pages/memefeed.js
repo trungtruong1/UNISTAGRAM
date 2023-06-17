@@ -5,8 +5,13 @@ import Meme from '../components/Meme';
 import Reaction from '../components/Reactions';
 import Dialog from '../components/Dialog';
 import { useEffect, useState } from 'react';
+import { checkLogin } from '../ultils/checkLogin';
 
 function Memefeed() {
+    const testToken = checkLogin();
+    if(testToken === null) {
+        window.location.href = "/signin";
+    }
 
     const [listMeme, setListMeme] = useState([]);
 

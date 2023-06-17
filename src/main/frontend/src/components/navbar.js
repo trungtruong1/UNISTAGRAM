@@ -22,7 +22,7 @@ export default function NavBar() {
                     <Nav className="me-auto">
                         <Nav.Link href="/matching">Matching</Nav.Link>
                         <Nav.Link href="/chat">Chat</Nav.Link>
-                        <Nav.Link href="/Memefeed">MemeFeed</Nav.Link>
+                        {/* <Nav.Link href="/Memefeed">MemeFeed</Nav.Link> */}
                     </Nav>
 
                     <Nav>
