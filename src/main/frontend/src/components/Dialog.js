@@ -86,10 +86,11 @@ class AlertDialogSlide extends PureComponent {
     return (
       <div>
         <Button
+          variant="outlined"
           color="primary"
           onClick={this.handleClickOpen}
         >
-          Upload a meme hereS!
+          Upload a meme!
         </Button>
         <Dialog
           open={this.state.open}
