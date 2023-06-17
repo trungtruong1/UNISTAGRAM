@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 class MatchingRecieveTest {
     @Test
     void testConstructor() {
-        assertNull((new MatchingRecieve()).getContent());
-        assertEquals("Not all who wander are lost", (new MatchingRecieve("Not all who wander are lost")).getContent());
+        assertNull((new MatchingRecieve()).getUserId());
+        assertEquals("Not all who wander are lost", (new MatchingRecieve("Not all who wander are lost", false)).getUserId());
     }
 }
 
