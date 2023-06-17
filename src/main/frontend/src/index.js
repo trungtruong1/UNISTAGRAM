@@ -18,9 +18,9 @@ function Index() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Memefeed />} />
-                <Route path="/matching" element={<Matching />} />
+                <Route path="/heartsync" element={<Matching />} />
                 {/* <Route path="/memefeed" element={<Memefeed />} /> */}
-                <Route path="/chat/" element={<ChatPage />} />
+                <Route path="/chat" element={<ChatPage />} />
                 <Route path="/signin" element={<SignIn setToken={setToken}/>} />
                 <Route path="/signup" element={<SignUp />} />
             </Routes>

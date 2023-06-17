@@ -20,7 +20,7 @@ export default function NavBar() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/matching">Matching</Nav.Link>
+                        <Nav.Link href="/heartsync">Matching</Nav.Link>
                         <Nav.Link href="/chat">Chat</Nav.Link>
                         {/* <Nav.Link href="/Memefeed">MemeFeed</Nav.Link> */}
                     </Nav>
