@@ -1,6 +1,7 @@
 package com.unistagram.memefeedapp.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import org.bson.BsonBinarySubType;
@@ -24,6 +25,11 @@ public class MemeServiceImpl implements MemeService {
     private MemeRepository memeRepository;
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Override
+    public List<Meme> getAllMeme() {
+        return mongoTemplate.findAll(Meme.class);
+    }
 
     @Override
     public String save(String title, MultipartFile file, String author) throws IOException {

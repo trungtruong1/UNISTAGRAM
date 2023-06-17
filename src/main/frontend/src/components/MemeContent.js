@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import '../App.css';
 
-const MemeContent = () => {
+const MemeContent = ({ image }) => {
 
   return (
     <div className="memeContent">
-      <img src="https://i.pinimg.com/736x/a3/43/a4/a343a43ad51ff282e3b20609328c964b.jpg"/>
+      <img src={`data:image/png;base64, ${image.data}`}/>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 package com.unistagram.memefeedapp.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,11 @@ public class MemeController {
     public ResponseEntity<String> handleParameterErrorString(ParameterErrorStringException ex) {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
                              .body(ex.getMessage());
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Meme>> getAllMeme() {
+        return ResponseEntity.ok(memeService.getAllMeme());
     }
 
     @GetMapping("/{id}")

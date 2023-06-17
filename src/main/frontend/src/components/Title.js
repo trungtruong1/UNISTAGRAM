@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import Message from "./Message";
 import '../App.css';
 
-const Title = () => {
+const Title = ({ title }) => {
 
   return (
     <div className="title">
-        <span className="caption">Haha found this funny af</span>
+        <span className="caption">{title}</span>
     </div>
   );
 };
