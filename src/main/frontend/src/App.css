@@ -330,12 +330,11 @@
 }
 
 .memeButtonBar{
-  padding: 20px;
   display: flex;
   float: right;
   align-items: center;
   height: 50px;
-  background: transparent;
+  background: #222529;
   position: sticky;
   bottom: 0;
 }
