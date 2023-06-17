@@ -15,4 +15,9 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - name: Build and run all test
+        run: |
+          mvn jacoco:report
+          mvn package
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
