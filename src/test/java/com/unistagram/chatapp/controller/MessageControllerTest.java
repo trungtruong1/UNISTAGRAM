@@ -1,5 +1,6 @@
 package com.unistagram.chatapp.controller;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -30,6 +31,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -50,6 +52,9 @@ class MessageControllerTest {
     @MockBean
     private UserService userService;
 
+    @MockBean 
+    private SimpMessageSendingOperations messagingTemplate;
+
     @Rule
     public final ExpectedException exception = ExpectedException.none();
 
@@ -59,6 +64,7 @@ class MessageControllerTest {
         assertEquals(null, new_message_info.getConversation());
         assertEquals(null, new_message_info.getSender());
         assertEquals(null, new_message_info.getContent());
+        assertFalse(new_message_info.getTerminated());
     }
 
     @Test
@@ -67,6 +73,7 @@ class MessageControllerTest {
         assertEquals("1", new_message_info.getConversation());
         assertEquals("2", new_message_info.getSender());
         assertEquals("3", new_message_info.getContent());
+        assertFalse(new_message_info.getTerminated());
     }
 
     @Test

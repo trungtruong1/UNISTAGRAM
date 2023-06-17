@@ -1,6 +1,5 @@
 package com.unistagram.matchapp.service;
 
-import static org.junit.Assert.assertSame;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.anyBoolean;
@@ -490,7 +489,7 @@ class MatchingServiceImplTest {
         client.setUser_id(1);
         client.setUsername("janedoe");
         client.set_in_queue(true);
-        assertSame("", matchingServiceImpl.match(client));
+        assertTrue(matchingServiceImpl.match(client) == null);
         verify(userService).getOthersInQueue(Mockito.<String>any());
     }
 
@@ -532,7 +531,7 @@ class MatchingServiceImplTest {
         client.setUser_id(1);
         client.setUsername("janedoe");
         client.set_in_queue(true);
-        // assertTrue(matchingServiceImpl.match(client));
+        assertTrue(matchingServiceImpl.match(client).length() > 0);
         verify(conversationService).save(Mockito.<Conversation>any());
         verify(userService, atLeast(1)).updateUserInfoById(anyInt(), Mockito.<User>any());
         verify(userService).getOthersInQueue(Mockito.<String>any());
@@ -592,7 +591,7 @@ class MatchingServiceImplTest {
         client.setUser_id(1);
         client.setUsername("janedoe");
         client.set_in_queue(true);
-        // assertTrue(matchingServiceImpl.match(client));
+        assertTrue(matchingServiceImpl.match(client).length() > 0);
         verify(conversationService).save(Mockito.<Conversation>any());
         verify(userService, atLeast(1)).updateUserInfoById(anyInt(), Mockito.<User>any());
         verify(userService).getOthersInQueue(Mockito.<String>any());
@@ -683,7 +682,7 @@ class MatchingServiceImplTest {
         client.setUser_id(1);
         client.setUsername("janedoe");
         client.set_in_queue(true);
-        // assertTrue(matchingServiceImpl.match(client));
+        assertTrue(matchingServiceImpl.match(client).length() > 0);
         verify(conversationService).save(Mockito.<Conversation>any());
         verify(userService, atLeast(1)).updateUserInfoById(anyInt(), Mockito.<User>any());
         verify(userService).getOthersInQueue(Mockito.<String>any());
