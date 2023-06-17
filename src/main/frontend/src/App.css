@@ -251,12 +251,15 @@
 }
 
 .meme{
+  border-radius: 10px 10px 10px 10px;
+  background-color: white;
   display: grid;
-  width: 100%;
-  height: auto;
+  width: 700px;
+  height: 500px;
   justify-content: center;
   margin-top: 30px;
   margin-bottom: 30px;
+  place-self: center;
 }
 
 .title{
@@ -264,7 +267,7 @@
   align-items: center;
   background-color: #9bddf0;
   height: 50px;
-  width: 100%;
+  width: 700px;
   padding: 10px;
   justify-content: center;
   border-radius: 10px 10px 0px 0px;
@@ -272,7 +275,11 @@
 
 .memeContent img{
   max-width: 100%;
-  height: auto;
+  max-height: 400px;
+}
+
+.memeContent{
+  text-align-last: center;
 }
 
 .reactions{
@@ -283,6 +290,7 @@
   width: 100%;
   padding: 10px;
   border-radius: 0px 0px 10px 10px;
+  place-self: self-end;
 }
 
 .caption{
@@ -319,4 +327,14 @@
   height: calc(100% - 50px);
   overflow: scroll;
   overflow-x: hidden;
+}
+
+.memeButtonBar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background: #222529;
+  position: sticky;
+  bottom: 0;
 }

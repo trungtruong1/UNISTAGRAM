@@ -40,8 +40,10 @@ function Memefeed() {
                             return <Meme key={id} author={meme.author} image={meme.image} title={meme.title} timeStamp={meme.timeStamp}/>;
                         })
                 }
-                <Dialog />
             </div>
+            <div className='memeButtonBar'>
+                    <Dialog />
+                </div>
         </>
     )
 }
