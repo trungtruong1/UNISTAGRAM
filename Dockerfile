@@ -9,6 +9,7 @@ RUN apt-get -y -q upgrade
 
 # Other dependencies '
 RUN apt-get -y install vim
+RUN apt-get -y install zip unzip
 RUN apt-get -y install maven
 RUN apt-get -y install openjdk-17-jdk openjdk-17-jre
 RUN apt-get -y install git tar wget nano curl
