@@ -20,9 +20,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Build and run all test
+      - name: Build the package
         run: |
-          mvn jacoco:report
           mvn package
+      - name: Run all test
+        run: |
+          mvn test
+          mvn jacoco:report
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
