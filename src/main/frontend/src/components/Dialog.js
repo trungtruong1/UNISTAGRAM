@@ -84,14 +84,23 @@ class AlertDialogSlide extends PureComponent {
     let fileInput = React.createRef();
     const { src, imageUrl } = this.state;
     return (
-      <div>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={this.handleClickOpen}
-        >
-          Upload a meme!
-        </Button>
+      <div style={{width: "100%"}}>
+        <div className="buttons_2">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={this.handleClickOpen}
+          >
+            Upload your reactions!
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={this.handleClickOpen}
+          >
+            Upload a meme!
+          </Button>
+        </div>
         <Dialog
           open={this.state.open}
           TransitionComponent={Transition}
