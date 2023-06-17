@@ -23,7 +23,6 @@ function ReactionList({ meme_id, currentReaction, setCurrentReaction }) {
           method: 'GET',
         });
         const reaction = await res.json();
-        console.log(reaction);
         listReaction.push({
           title: reaction.title,
           count: data[reaction_id],
@@ -40,6 +39,21 @@ function ReactionList({ meme_id, currentReaction, setCurrentReaction }) {
   }, [currentReaction]);
 
   const addReaction = async (reaction_id) => {
+    if(reaction_id === currentReaction) {
+      const res = await fetch(`http://localhost:8000/meme_reactions/del`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          meme_id: meme_id,
+          reaction_id: reaction_id,
+          user_id: userToken.id,
+        }),
+      });
+      setCurrentReaction("");
+      return;
+    }
     const res = await fetch(`http://localhost:8000/meme_reactions/add/`, {
       method: 'POST',
       headers: {
@@ -51,7 +65,7 @@ function ReactionList({ meme_id, currentReaction, setCurrentReaction }) {
         user_id: userToken.id,
       }),
     });
-    setCurrentReaction(reaction_id);
+    if(res.ok) setCurrentReaction(reaction_id);
   }
 
   return (
@@ -64,6 +78,17 @@ function ReactionList({ meme_id, currentReaction, setCurrentReaction }) {
             return (
               <div key={id}>
                 <img 
+                  style={
+                    (reaction.id === currentReaction)? 
+                      {
+                        width: "40px",
+                        height: "40px",
+                        border:  "2px solid red",
+                        boxShadow: "0 0 10px #333",
+                      }
+                    : 
+                      null
+                  }
                   className="reactionInReactionList"
                   src={`data:image/png;base64, ${reaction.image}`}
                   alt={reaction.title}

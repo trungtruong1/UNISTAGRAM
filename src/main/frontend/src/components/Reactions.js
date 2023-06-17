@@ -11,15 +11,16 @@ import Stack from '@mui/material/Stack';
 import ReactionList from "./ReactionsList";
 import { checkLogin } from "../ultils/checkLogin";
 
-function Reaction({ meme_id }) {
+function Reaction({ meme_id, currentReaction, setCurrentReaction }) {
   const [open, setOpen] = useState(false);
 
   const anchorRef = useRef(null);
 
   const [listReaction, setListReaction] = useState([]);
-  let [currentReaction, setCurrentReaction] = useState("");
 
   const userToken = checkLogin();
+
+  console.log("currentReaction", currentReaction);
 
   useEffect(() => {
     let ignore = false;
@@ -45,6 +46,21 @@ function Reaction({ meme_id }) {
     setOpen(false);
 
     if(reaction_id !== null) {
+      if(reaction_id === currentReaction) {
+        const res = await fetch(`http://localhost:8000/meme_reactions/del`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+            meme_id: meme_id,
+            reaction_id: reaction_id,
+            user_id: userToken.id,
+          }),
+        });
+        setCurrentReaction("");
+        return;
+      }
       const res = await fetch(`http://localhost:8000/meme_reactions/add/`, {
         method: 'POST',
         headers: {
@@ -56,7 +72,7 @@ function Reaction({ meme_id }) {
           user_id: userToken.id,
         }),
       });
-      setCurrentReaction(reaction_id);
+      if(res.ok) setCurrentReaction(reaction_id);
     }
 
   };
@@ -127,6 +143,17 @@ function Reaction({ meme_id }) {
                                 listReaction.map((reaction, id, arr) => {
                                     return (
                                       <img 
+                                        style={
+                                          (reaction.id === currentReaction)? 
+                                            {
+                                              width: "50px",
+                                              height: "50px",
+                                              border:  "2px solid red",
+                                              boxShadow: "0 0 10px #333",
+                                            }
+                                          : 
+                                            null
+                                        }
                                         key={id}
                                         onClick={(e) => handleClose(e, reaction.id)} 
                                         id={reaction.id} 

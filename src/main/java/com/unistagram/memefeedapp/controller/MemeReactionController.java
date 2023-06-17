@@ -53,6 +53,15 @@ public class MemeReactionController {
                              .body(ex.getMessage());
     }
 
+    @GetMapping("")
+    public ResponseEntity<MemeReaction> getReactionsOfUserInMeme(@RequestParam("user_id") String user_id, @RequestParam("meme_id") String meme_id) {
+        Optional<MemeReaction> res = memeReactionService.getMemeReactionByMemeAndUser(meme_id, user_id);
+        if(res.isEmpty()) {
+            throw new ParameterErrorStringException("This user hasnot reacted to this meme");
+        }
+        return ResponseEntity.ok(res.get());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<HashMap<String, Integer>> getReactionsInMeme(@PathVariable("id") String id) {
         HashMap<String, Integer> reaction = memeReactionService.getMemeReactionsByMemeId(id);
