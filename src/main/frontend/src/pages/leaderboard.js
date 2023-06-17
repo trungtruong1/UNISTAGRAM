@@ -15,7 +15,7 @@ function Leaderboard() {
 
         async function fetchData() {
             if(ignore) return;
-            const res = await fetch(`http://localhost:8000/api/user`, {
+            const res = await fetch(`http://localhost:8080/api/user`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

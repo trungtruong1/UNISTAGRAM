@@ -11,7 +11,7 @@ export default function Ranking() {
 
         async function fetchData() {
             if(ignore) return;
-            const res = await fetch(`http://localhost:8000/api/user/?top=5`, {
+            const res = await fetch(`http://localhost:8080/api/user/?top=5`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

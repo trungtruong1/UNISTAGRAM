@@ -65,7 +65,7 @@ class AlertDialogSlide extends PureComponent {
     formData.append("image", this.state.image);
     formData.append("author", this.userToken.username);
 
-    const res = await fetch(`http://localhost:8000/${this.state.is_meme? "memes" : "reactions"}`, {
+    const res = await fetch(`http://localhost:8080/${this.state.is_meme? "memes" : "reactions"}`, {
       method: 'POST',
       headers: {
         // 'Content-Type': 'multipart/form-data'

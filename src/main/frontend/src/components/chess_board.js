@@ -43,7 +43,7 @@ export default function SquareStyles({selectPieceState, matchInfo, userInfo, ran
                 gameCopy.load(data.fen);
                 setGame(gameCopy);
                 if(data.player === userInfo.username) return true;
-                const match = await fetch(`http://localhost:8000/api/match/${userInfo.in_game}`, {
+                const match = await fetch(`http://localhost:8080/api/match/${userInfo.in_game}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ export default function SquareStyles({selectPieceState, matchInfo, userInfo, ran
                 [data.move.from]: { backgroundColor: 'rgba(255, 255, 0, 0.4)' },
                 [data.move.to]: { backgroundColor: 'rgba(255, 255, 0, 0.4)' }
             });
-            const match = await fetch(`http://localhost:8000/api/match/${userInfo.in_game}`, {
+            const match = await fetch(`http://localhost:8080/api/match/${userInfo.in_game}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ export default function SquareStyles({selectPieceState, matchInfo, userInfo, ran
             updateStatus();
             const roll_button = document.getElementById("roll_button");
             roll_button.disabled = (playerTurn !== game.turn());
-            socket.move = new WebSocket(`ws://localhost:8000/ws/move/${matchInfo.id}/`);
+            socket.move = new WebSocket(`ws://localhost:8080/ws/move/${matchInfo.id}/`);
             socket.move.onmessage = function(e) {
                 const data = JSON.parse(e.data);
                 if(data.player === userInfo.username && !data.is_put) return;
@@ -123,7 +123,7 @@ export default function SquareStyles({selectPieceState, matchInfo, userInfo, ran
             if(piece == null) type = 'cp';
             else type = gameCopy.get(move.to).type;
             gameCopy.move(move);
-            const match = await fetch(`http://localhost:8000/api/match/${userInfo.in_game}`, {
+            const match = await fetch(`http://localhost:8080/api/match/${userInfo.in_game}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

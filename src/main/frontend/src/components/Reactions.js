@@ -27,7 +27,7 @@ function Reaction({ meme_id, currentReaction, setCurrentReaction }) {
 
     async function fetchData() {
       if(ignore) return;
-      const res = await fetch(`http://localhost:8000/reactions/user/${userToken.username}`, {
+      const res = await fetch(`http://localhost:8080/reactions/user/${userToken.username}`, {
         method: 'GET',
       });
       const data = await res.json();
@@ -47,7 +47,7 @@ function Reaction({ meme_id, currentReaction, setCurrentReaction }) {
 
     if(reaction_id !== null) {
       if(reaction_id === currentReaction) {
-        const res = await fetch(`http://localhost:8000/meme_reactions/del`, {
+        const res = await fetch(`http://localhost:8080/meme_reactions/del`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -61,7 +61,7 @@ function Reaction({ meme_id, currentReaction, setCurrentReaction }) {
         setCurrentReaction("");
         return;
       }
-      const res = await fetch(`http://localhost:8000/meme_reactions/add/`, {
+      const res = await fetch(`http://localhost:8080/meme_reactions/add/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

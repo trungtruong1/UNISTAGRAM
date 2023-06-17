@@ -14,7 +14,7 @@ const Sidebar = ({ conversation, setConversation, setCurrentFriend }) => {
 
       async function fetchData() {
           if(ignore) return;
-          const res = await fetch(`http://localhost:8000/conversations/users/${userToken.id_num}`, {
+          const res = await fetch(`http://localhost:8080/conversations/users/${userToken.id_num}`, {
               method: 'GET',
           });
           listConversations = await res.json();

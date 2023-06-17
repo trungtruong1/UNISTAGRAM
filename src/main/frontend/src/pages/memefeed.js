@@ -20,7 +20,7 @@ function Memefeed() {
 
         async function fetchData() {
             if(ignore) return;
-            const res = await fetch(`http://localhost:8000/memes/`, {
+            const res = await fetch(`http://localhost:8080/memes/`, {
                 method: 'GET',
             });
             const data = await res.json();

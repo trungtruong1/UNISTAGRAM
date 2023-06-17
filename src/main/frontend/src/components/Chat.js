@@ -14,7 +14,7 @@ const Chat = ({ conversation, currentFriend }) => {
   const handleClick = async () => {
     let sure = window.confirm("Are you sure about that?");
     if(sure) {
-      const res = await fetch(`http://localhost:8000/conversations/end/${conversation}`, {
+      const res = await fetch(`http://localhost:8080/conversations/end/${conversation}`, {
         method: 'PUT',
       });
       window.location.reload();

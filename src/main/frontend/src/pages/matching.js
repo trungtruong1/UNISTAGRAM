@@ -25,7 +25,7 @@ function Matching() {
     const stomp = useRef({});
 
     useEffect(() => {
-        const socket = new SockJS("http://localhost:8000/ws");
+        const socket = new SockJS("http://localhost:8080/ws");
         stomp.client = Stomp.over(socket);
         stomp.client.connect({}, (frame) => {
           console.log('Connected: ' + frame);

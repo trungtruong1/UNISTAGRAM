@@ -16,7 +16,7 @@ const Meme = ({ id, title, image, author, timeStamp }) => {
 
     async function fetchData() {
       // if(ignore) return;
-      const res = await fetch(`http://localhost:8000/meme_reactions?user_id=${userToken.id}&meme_id=${id}`, {
+      const res = await fetch(`http://localhost:8080/meme_reactions?user_id=${userToken.id}&meme_id=${id}`, {
         method: 'GET',
       });
       if(res.ok) {

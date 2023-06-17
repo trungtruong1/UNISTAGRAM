@@ -14,7 +14,7 @@ const Input = ({ conversation }) => {
   const stomp = useRef({});
   
   useEffect(() => {
-    const socket = new SockJS("http://localhost:8000/ws");
+    const socket = new SockJS("http://localhost:8080/ws");
     stomp.client = Stomp.over(socket);
     stomp.client.connect({}, (frame) => {
       console.log('Connected: ' + frame);
@@ -43,10 +43,22 @@ const Input = ({ conversation }) => {
   
   return (
     <Form onSubmit={handleSubmit} className="input">
-      <input onChange={e => setMessage(e.target.value)} type="text" placeholder="Say something I'm giving up on you..."/>
-      <div className="send">
-        <button>Send</button>
-      </div>
+      {
+        (conversation === "")? 
+          <>
+            <input disabled onChange={e => setMessage(e.target.value)} type="text" placeholder="Say something I'm giving up on you..."/>
+            <div className="send">
+              <button disabled>Send</button>
+            </div>
+          </>
+        :
+          <>
+            <input onChange={e => setMessage(e.target.value)} type="text" placeholder="Say something I'm giving up on you..."/>
+            <div className="send">
+              <button>Send</button>
+            </div>
+          </>
+      }
     </Form>
   );
 };

@@ -20,7 +20,7 @@ const Conversation = ({ conversation }) => {
 
     async function fetchData() {
       if(ignore) return;
-      const res = await fetch(`http://localhost:8000/messages/${conversation}`, {
+      const res = await fetch(`http://localhost:8080/messages/${conversation}`, {
         method: 'GET',
       });
       listMessages = await res.json();
@@ -33,7 +33,7 @@ const Conversation = ({ conversation }) => {
   }, [conversation]);
   
   useEffect(() => {
-    const socket = new SockJS("http://localhost:8000/ws");
+    const socket = new SockJS("http://localhost:8080/ws");
     if(stomp.client) {
       stomp.client.disconnect((frame) => {});
     }

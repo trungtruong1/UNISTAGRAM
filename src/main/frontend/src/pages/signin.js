@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { checkLogin } from "../ultils/checkLogin";
 
 async function loginUser(credentials) {
-    const res = await fetch('http://localhost:8000/users/api/auth', {
+    const res = await fetch('http://localhost:8080/users/api/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'

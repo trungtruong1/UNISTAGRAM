@@ -12,7 +12,7 @@ export default function Profile() {
         async function fetchData() {
             if(!token) return;
             if(ignore) return;
-            const res = await fetch(`http://localhost:8000/api/user/getinfo/?username=${token.username}`, {
+            const res = await fetch(`http://localhost:8080/api/user/getinfo/?username=${token.username}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
