@@ -11,9 +11,9 @@ import Stack from '@mui/material/Stack';
 import ReactionList from "./ReactionsList";
 import { checkLogin } from "../ultils/checkLogin";
 
-function Reaction(props) {
+function Reaction({ meme_id }) {
   const [open, setOpen] = useState(false);
-  const [reactionStats, setReactionStats] = useState({key: 0});
+
   const anchorRef = useRef(null);
 
   const [listReaction, setListReaction] = useState([]);
@@ -40,25 +40,23 @@ function Reaction(props) {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event) => {
-    let id = event.target.id;
-    // if (
-    //   anchorRef.current &&
-    //   anchorRef.current.contains(event.target)
-    // ) {
-    //   return;
-    // }
-    if(id in reactionStats){
-      reactionStats[id] += 1;
-    } else{
-      let newState = {
-        ...reactionStats,
-        [id]: 0,
-      }
-      setReactionStats(newState);
+  const handleClose = async (event, reaction_id) => {
+    setOpen(false);
+
+    if(reaction_id !== null) {
+      const res = await fetch(`http://localhost:8000/meme_reactions/add/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          meme_id: meme_id,
+          reaction_id: reaction_id,
+          user_id: userToken.id,
+        }),
+      });
     }
 
-    setOpen(false);
   };
 
   function handleListKeyDown(event) {
@@ -91,6 +89,7 @@ function Reaction(props) {
               aria-expanded={open ? 'true' : undefined}
               aria-haspopup="true"
               onClick={handleToggle}
+              style={{float: "right"}}
             >
               React!
             </Button>
@@ -111,7 +110,7 @@ function Reaction(props) {
                   }}
                 >
                   <Paper>
-                    <ClickAwayListener onClickAway={handleClose}>
+                    <ClickAwayListener onClickAway={(e) => handleClose(e, null)}>
                       <MenuList
                         autoFocusItem={open}
                         id="composition-menu"
@@ -127,7 +126,7 @@ function Reaction(props) {
                                     return (
                                       <img 
                                         key={id}
-                                        onClick={handleClose} 
+                                        onClick={(e) => handleClose(e, reaction.id)} 
                                         id={reaction.id} 
                                         className="reaction" 
                                         src={`data:image/png;base64, ${reaction.image.data}`}
@@ -143,7 +142,7 @@ function Reaction(props) {
               )}
             </Popper>
             <ReactionList
-              reactionStats={reactionStats} 
+              meme_id={meme_id} 
             ></ReactionList>
           </div>
         </Stack>

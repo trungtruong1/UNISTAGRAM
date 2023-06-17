@@ -5,13 +5,13 @@ import Reaction from "./Reactions";
 import MemeContent from "./MemeContent";
 
 
-const Meme = ({ title, image, author, timeStamp }) => {
+const Meme = ({ id, title, image, author, timeStamp }) => {
 
   return (
     <div className="meme">
       <Title title={title}/>
       <MemeContent image={image}/>
-      <Reaction/>
+      <Reaction meme_id={id}/>
     </div>
   );
 };

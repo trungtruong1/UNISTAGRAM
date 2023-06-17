@@ -37,7 +37,7 @@ function Memefeed() {
                         (<></>)
                     :
                         listMeme.map((meme, id, arr) => {
-                            return <Meme key={id} author={meme.author} image={meme.image} title={meme.title} timeStamp={meme.timeStamp}/>;
+                            return <Meme key={id} id={meme.id} author={meme.author} image={meme.image} title={meme.title} timeStamp={meme.timeStamp}/>;
                         })
                 }
             </div>
