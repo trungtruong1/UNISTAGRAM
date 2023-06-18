@@ -67,7 +67,7 @@ Of course, we always have reactions to a specifc post. For this, we add a button
 #### Upload your own Reaction
 We have a button in the lower left corner that will allow you to upload your reaction. The way to load is similar to uploading a meme. However, after uploading, when you click the `React!` button, you will see your own, exclusive, uploaded reaction: 
 
-![Alt Text](readme_images/tomreaction.png)
+![Alt Text](readme_images/newreaction.png)
 
 For example, I uploaded a tom picture as a reaction. And if I react, I can click on the reaction and it will show my reaction:
 
