@@ -4,6 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LD_LIBRARY_PATH=/usr/local/lib
 ENV LIBRARY_PATH=/usr/local/lib
 
+EXPOSE 8080
+
 RUN apt-get -y -q update
 RUN apt-get -y -q upgrade
 
@@ -30,13 +32,14 @@ WORKDIR /root/project
 COPY ./run.sh /root/project/
 
 RUN chmod +x run.sh
-RUN sh run.sh
 
 RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.76/bin/apache-tomcat-9.0.76.zip
 RUN unzip apache-tomcat-9.0.76.zip
 
-COPY ./target/cse364-project.war ./apache-tomcat-9.0.76/webapps/ROOT.war
-RUN sh ./apache-tomcat-9.0.76/bin
-RUN sh catalina.sh run
+RUN rm -rf ./apache-tomcat-9.0.76/webapps/ROOT.war
+RUN rm -rf ./apache-tomcat-9.0.76/webapps/ROOT
+COPY ./cse364-project.war ./apache-tomcat-9.0.76/webapps/ROOT.war
+RUN chmod +x ./apache-tomcat-9.0.76/bin/catalina.sh
 
-CMD ["bash"]
+CMD sh /root/project/run.sh;\
+    sh /root/project/apache-tomcat-9.0.76/bin/catalina.sh run
