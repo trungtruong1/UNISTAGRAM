@@ -1,97 +1,106 @@
 # UNISTAGRAM
 
+## Introduction
+UNISTAGRAM is a platform that allow UNISTARSs to match with an anonymous user to have a chat. UNISTAGRAM also has a memefeed where users can upload memes to share laughter among the UNIST community. 
+
 ## Contents
 
 * [Features](#features) : A brief introduction to our system's features.
-* [Rest API Open Endpoints](#rest-api-open-endpoints) : A brief introduction to our system's REST API open endpoints.
-* [API Documentation](#api-documentation) : A comprehensive documentation of the current REST API version.
-
-## Note for Users: Open Endpoints are the same as the previous milestone
-* [Query user](#query-user) : `GET /users/:id`
-
-* [Insert user](#insert-user) : `POST /users`
-
-* [Update user](#update-user) : `PUT /users/:id`
 
 # Features
-
-After considering the practicality and feasibility of our project, we want to focus on a more coherent system, so we decided to remove the game and auction, and keeping and specializing in only the anonymous messaging and meme feed. Therefore, our system will contain the following features:
 
 * [Chatting](#chatting): Sending and querying the messages according to users' conversation. The identities of both parties are not disclosed (remain anonymous) to each other throughout the entire session.
 
 * [Matching](#matching): Matches 2 users randomly to form a new anonymous conversation. 
 
-* [MemeFeed](#memefeed): Provides an active and interactive meme feed so that everyone can share memes, or about anything one’s heart may desire. 
+* [MemeFeed](#memefeed): Provides an active and interactive meme feed so that everyone can share memes, or about anything one’s heart may desire. This is our main page.
 
-# REST API Open Endpoints
+* Each feature reside on its own page and we will discuss about it more in-depth in the section below.
+  
+# Description of each Page
 
-## Chatting
-Sending and querying the messages according to users' conversation. The identities of both parties are not disclosed (remain anonymous) to each other throughout the entire session. 
+For better user experience, we will explain each page of our website according to user flow.
 
-This current REST API version is only for testing purposes as it does not support real-time communication between the client and the server. We find hard to test this real-time connection using commands as the `curl` commands could get ridiculously long and prone to errors. Therefore, it is best to present the REST API version, and the real-time connection using websocket will be provided after a front-end system is completed in the next milestone.
+## Navigation Bar
 
-### Open Endpoints
+Our website will always have a Navigation bar on the top, each element in the navigation bar is: Logo (Access main page), Matching, Memefeed, Sign in, and Sign up.
 
-* [Query Messages In Conversation](#query-messages-in-conversation) : `GET /messages/:id`
+![Alt Text](readme_images/navbar.png)
 
+## Sign Up
 
-* [Send Message To Conversation](#send-message-to-conversation) : `POST /messages/send`
+To use our platform, you should first sign up. The signup display should look like below: 
 
+![Alt Text](readme_images/signup.png)
 
-* [Query All Conversations](#query-all-conversations) : `GET /conversations/` (only for testing purposes, will be removed on production)
+After signing up, a pop up message will show up saying that you have succesfully signed up and you will be redirected to the sign in page.
 
+## Sign in
 
-* [Query A Conversation](#query-a-conversations) : `GET /conversations/:id`
+The sign in display: 
 
-
-* [Query Conversations By User](#query-conversations-by-user) : `GET /conversations/users/:id`
-
-
-* [End Conversation](#end-conversation) : `PUT /conversations/end/:id`
-
-## Matching
-Matches 2 users randomly to form a new anonymous conversation. 
-
-This current REST API version is only for testing purposes as it does not support real-time communication between the client and the server. We find hard to test this real-time connection using commands as the `curl` commands could get ridiculously long and prone to errors. Therefore, it is best to present the REST API version, and the real-time connection using websocket will be provided after a front-end system is completed in the next milestone.
-
-### Open Endpoints
-
-* [Update a user to join the waiting queue](#update-a-user-to-join-the-waiting-queue) : `PUT /matching/join_queue/:id`
-
-
-* [Remove a user from the waiting queue](#remove-a-user-from-the-waiting-queue) : `PUT /matching/out_queue/:id`
-
-
-* [Check if the user is in the queue](#check-if-the-user-is-in-the-queue) : `GET /matching/check_in_queue/:id`
-
-Note that the system will automatically match users when they enter the queue.
+![Alt Text](readme_images/signin.png)
 
 ## MemeFeed
-Provides an active and interactive meme feed so that everyone can share memes, or about anything one’s heart may desire.
+After logging in, you will be redirected to our main page, which is the memefeed. 
+
+This is how our memefeed should look like: 
+
+![Alt Text](readme_images/memefeed.png)
+
+There are a few features in the memefeed that we will explain below. 
+
+### Upload Meme
+
+In the lower right coner, you can see an upload meme button. Since now you are an user who is logged in, you can freely browse our memefeed, and of course, upload your own memes!
+
+To upload you memes, simply click the button, select your meme from your device, and add a caption to it: 
+
+![Alt Text](readme_images/upmeme.png)
 
 In addition to posting memes, user can also "react" to the meme by choosing among various customized reactions created by other users.
 
-### Open Endpoints
+### Reactions and Reaction upload
 
-* [Post a meme](#post-a-meme) : `POST /memes`
+Of course, we always have reactions to a specifc post. For this, we add a button called `React!` in every post so that you can react to a post. Additionally, we allow you to choose your own reaction!
+
+#### Upload your own Reaction
+We have a button in the lower left corner that will allow you to upload your reaction. The way to load is similar to uploading a meme. However, after uploading, when you click the `React!` button, you will see your own, exclusive, uploaded reaction: 
+
+![Alt Text](readme_images/tomreaction.png)
+
+For example, I uploaded a tom picture as a reaction. And if I react, I can click on the reaction and it will show my reaction:
+
+![Alt Text](readme_images/tomreacted.png)
+
+The number of reaction of the same type can increase because others may want to react the same thing as well. Red circle indicates that this reaction belongs to you, click on the reacted reaction to retract the reaction.
+
+## Matching
+Before heading to an anonymous conversation, you need to be matched first. Our matching feature matches 2 users randomly to form a new anonymous conversation. Click on the `Matching` button at the [Navigation Bar](#navigation_bar) to go to the matching page
+
+The matching page should look like this: 
+
+![Alt Text](readme_images/matching.png)
+
+Click on the `Random matching` button will show a pop up like this:
+
+![Alt Text](readme_images/queuing.png)
+
+If the queue is non-empty(at least 1 more person is waiting to be matched), then you will be matched with an anonymous person and you will be able to enroll in an anonymous chat (you will be redirected to the chat page). 
 
 
-* [Get a meme by its id](#get-a-meme-by-its-id) : `GET /memes/:id`
+## Chatting
+In our application, the identities of both parties are not disclosed (remain anonymous) to each other throughout the entire session (unless you want to tell the other person who you are). 
 
+The interface of our chatting page is: 
 
-* [Save reaction](#save-reaction) : `POST /reactions`
+![Alt Text](readme_images/chatting.png)
 
+Now you can select a conversation (you can have multiple conversations at the same time) from the left bar and have a chat: 
 
-* [Get a reaction by its ID](#get-a-reaction-by-its-id): `GET /reactions/:id`
+![Alt Text](readme_images/chattingExample.png)
 
-
-* [Add Reaction to a meme](#add-reaction-to-a-meme) : `POST /meme_reactions/add`
-
-
-* [Get all the reactions that have been given to a meme](#get-all-the-reactions-that-have-been-given-to-a-meme) : `GET /meme_reactions/:id`
-
-
-* [Remove reaction from a meme](#remove-reaction-from-a-meme) : `DELETE /meme_reactions/del`
+To end a conversation, click the `bin` button on the upper right of the chat box. The conversation will disappear. 
 
 
 # API Documentation
