@@ -114,5 +114,6 @@ To end a conversation, click the `bin` button on the upper right of the chat box
 
 **Last and not least: Have fun, and prosper!**
 
+For Testing: Please access the localhost:8080 at 1 tab of a browser and access the same localhost:8080 at another tab (incognito tab). In the 2 tabs, log in into 2 different accounts, press `Random Matching` in the Matching page in both accounts to test the realtime anonymous matching and realtime anonymous chatting features. Thank you!
 
 </details>
