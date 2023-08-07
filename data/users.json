@@ -1,0 +1,41 @@
+[
+    {
+        "_id": {
+            "$oid": "64299cd2b2afe565a469ebbf"
+        },
+        "user_id": 1,
+        "username": "trung",
+        "password": "123",
+        "email": "se@unist.ac.kr",
+        "age": 0,
+        "gender": "Male",
+        "nationality": "Vietnam",
+        "is_in_queue": false
+    },
+    {
+        "_id": {
+            "$oid": "642b007f78fa427e80e8e3dd"
+        },
+        "user_id": 2,
+        "username": "duc",
+        "password": "123",
+        "email": "ducnm@unist.ac.kr",
+        "age": 0,
+        "gender": "Male",
+        "nationality": "Vietnam",
+        "is_in_queue": false
+    },
+    {
+        "_id": {
+            "$oid": "64299cd2b2afe565a469eba6"
+        },
+        "user_id": 3,
+        "username": "phuong",
+        "password": "123",
+        "email": "sportsfan23@gmail.com",
+        "age": 0,
+        "gender": "Female",
+        "nationality": "Vietnam",
+        "is_in_queue": false
+    }
+]

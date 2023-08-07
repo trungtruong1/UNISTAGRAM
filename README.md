@@ -1,262 +1,119 @@
 # UNISTAGRAM
 
-## Note for part 2
+## Introduction
+UNISTAGRAM is a platform that allow UNISTARSs to match with an anonymous user to have a chat and browse a meme feed constructed by its very users to share laughter among the UNIST community. 
 
-When testing POST and PUT method, please use the following commands
+## Contents
 
-```bash
-curl -X POST http://localhost:8080/employees -H 'Content-type:application/json' -d '{"name": "Samwise Gamgee", "role": "gardener"}'
-```
-```bash
-curl -X PUT http://localhost:8080/employees/3 -H 'Content-type:application/json' -d '{"name": "Samwise Gamgee", "role": "ring bearer"}'
-```
+* [Features](#features) : A brief introduction to our system's features.
 
-If you use the original `curl` command given in the handout, you will always recieve `400 - Bad request` due to a typo in the assignment handout.
+# Features
 
----
+* [Chatting](#chatting): Sending and querying the messages according to users' conversation. The identities of both parties are not disclosed (remain anonymous) to each other throughout the entire session.
 
-## Open Endpoints
+* [Matching](#matching): Matches 2 users randomly to form a new anonymous conversation. 
 
-* [Query rating](#query-rating) : `GET /ratings/:rating`
+* [MemeFeed](#memefeed): Provides an active and interactive meme feed so that everyone can share memes, or about anything one’s heart may desire. This is our main page.
 
-* [Query user](#query-user) : `GET /users/:id`
+* Each feature reside on its own page and we will discuss about it more in-depth in the section below.
+  
+# Description of each Page
 
-* [Insert user](#insert-user) : `POST /users`
+For better user experience, we will explain each page of our website according to user flow.
 
-* [Update user](#update-user) : `PUT /users/:id`
+## Navigation Bar
 
-## API Documentation
+Our website will always have a Navigation bar on the top, each element in the navigation bar is: Logo (Access main page), Matching, Memefeed, Sign in, and Sign up.
 
-### Query rating
-Returns the list of those movies with average rating greater or equal to the given rating score.
+![Alt Text](readme_images/navbar.png)
 
-* URL:
+## Sign Up
 
-    `/ratings/:rating`
+To use our platform, you should first sign up. The signup display should look like below: 
 
-* Method:
+![Alt Text](readme_images/signup.png)
 
-    `GET`
+After signing up, a pop up message will show up saying that you have succesfully signed up and you will be redirected to the sign in page.
 
-* URL Params:
+## Sign in
 
-    **Required**:
-    - `rating=[double]`
+The sign in display: 
 
-* Data Params:
+![Alt Text](readme_images/signin.png)
 
-    None
+## MemeFeed
+After logging in, you will be redirected to our main page, which is the memefeed. 
 
-* Success Response:
+This is how our memefeed should look like: 
 
-    - Code: 200
+![Alt Text](readme_images/memefeed.png)
 
-        Content: 
-`[
-{
-  "movie_name" : "Toy Story (1995)",
-  "genre": "Animation|Children's|Comedy"
-},
-{
-    "movie_name": "xxx",
-    "genre": "xxx",
-},
-...
-]
-`
+There are a few features in the memefeed that we will explain below. 
 
-* Error Response:
+### Upload Meme
 
-    - Code: 406 Not Acceptable
+In the lower right coner, you can see an upload meme button. Since now you are an user who is logged in, you can freely browse our memefeed, and of course, upload your own memes!
 
-        Content: `"Parameter is not in the range of [1, 5]!"` or `"Parameter is not a number!"`
+To upload you memes, simply click the button, select your meme from your device, and add a caption to it: 
 
-* Sample Call:
+![Alt Text](readme_images/upmeme.png)
 
-Returns a list of movies whose average ratings are greater or equal to 4.
-```bash
-curl -X GET http://localhost:8080/ratings/4
-```
+In addition to posting memes, user can also "react" to the meme by choosing among various customized reactions created by other users.
 
-### Query user
-Returns a user object with a given user ID.
+### Reactions and Reaction upload
 
-* URL:
+Of course, we always have reactions to a specifc post. For this, we add a button called `React!` in every post so that you can react to a post. Additionally, we allow you to choose your own reaction!
 
-    `/users/:id`
+#### Upload your own Reaction
+We have a button in the lower left corner that will allow you to upload your reaction:
 
-* Method:
 
-    `GET`
+![Alt Text](readme_images/upreactionmeme.png)
 
-* URL Params:
 
-    **Required**:
-    - `id=[integer]`
+The way to upload is similar to uploading a meme, below is the pop-up for meme uploading: 
 
-* Data Params:
+![Alt Text](readme_images/yourreaction.png)
 
-    None
+After uploading, when you click the `React!` button, you will see your own, exclusive, uploaded reaction: 
 
-* Success Response:
+![Alt Text](readme_images/newreaction.png)
 
-    - Code: 200
+For example, I uploaded a tom picture as a reaction. And if I react, I can click on the reaction and it will show my reaction under the meme:
 
-        Content: 
-`
-{
-  "id" : "64299cd2b2afe565a469eba2",
-  "user_id" : 3,
-  "gender" : "M",
-  "age" : 25,
-  "occupation" : 15,
-  "zip_code" : "55117",
-  "userId" : 3,
-  "zipCode" : "55117"
-}
-`
+![Alt Text](readme_images/tomreacted.png)
 
-* Error Response:
+The number of reaction of the same type can increase because others may want to react the same thing as well. Red circle indicates that this reaction belongs to you, click on the reacted reaction to retract the reaction.
 
-    - Code: 406 Not Acceptable
+## Matching
+Before heading to an anonymous conversation, you need to be matched first. Our matching feature matches 2 users randomly to form a new anonymous conversation. Click on the `Matching` button at the [Navigation Bar](#navigation_bar) to go to the matching page
 
-        Content: `"Parameter is not a number!"`
+The matching page should look like this: 
 
-    Or
+![Alt Text](readme_images/matching.png)
 
-    - Code: 404 Not Found
+Click on the `Random matching` button will show a pop up like this:
 
-        Content: `"User id does not exist!"`
+![Alt Text](readme_images/queuing.png)
 
+If the queue is non-empty (meaning at least 1 more person is waiting to be matched), then you will be matched with an anonymous person and you will be able to enroll in an anonymous chat (you will be redirected to the chat page). 
 
-* Sample Call:
 
-Returns a user object with a given user ID 3. 
-```bash
-curl -X GET http://localhost:8080/users/3
-```
+## Chatting
+In our application, the identities of both parties are not disclosed (remain anonymous) to each other throughout the entire session (unless you want to tell the other person who you are). 
 
-### Insert user
-Inserts a new user data to the database and returns a newly inserted user object given in data param.
+The interface of our chatting page is: 
 
-* URL:
+![Alt Text](readme_images/chatting.png)
 
-    `/users`
+Now you can select a conversation (you can have multiple conversations at the same time) from the left bar and have a chat: 
 
-* Method:
+![Alt Text](readme_images/chattingExample.png)
 
-    `POST`
+To end a conversation, click the `bin` button on the upper right of the chat box. The conversation will disappear. 
 
-* URL Params:
+**Last and not least: Have fun, and prosper!**
 
-    None
+For Testing: Please access the localhost:8080 at 1 tab of a browser and access the same localhost:8080 at another tab (incognito tab). In the 2 tabs, log in into 2 different accounts, press `Random Matching` in the Matching page in both accounts to test the realtime anonymous matching and realtime anonymous chatting features. Thank you!
 
-* Data Params:
-
-```json
-{
-    "gender": "M", 
-    "age": 21, 
-    "occupation": 7, 
-    "zip_code": "100000"
-}
-```
-
-* Success Response:
-
-    - Code: 200
-
-        Content: 
-`
-{
-  "id" : "642c1427ce91314b8fb3c3b0",
-  "user_id" : 6061,
-  "gender" : "M",
-  "age" : 21,
-  "occupation" : 7,
-  "zip_code" : "100000"
-}
-`
-
-* Error Response:
-
-    - Code: 500 Internal Server Error
-
-        Content: `"Something wrong when saving the user"`
-
-
-* Sample Call:
-
-Returns a newly inserted user with given information `{"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}`.
-```bash
-curl -X POST http://localhost:8080/users -H 'Content-type:application/json' -d '{"gender": "M", "age": 21, "occupation": 7, "zip_code": "100000"}'
-```
-
-### Update user
-Updates an existing user data in database and returns the updated user object given in data param.
-
-* URL:
-
-    `/users/:id`
-
-* Method:
-
-    `PUT`
-
-* URL Params:
-
-    **Required**:
-    - `id=[integer]`
-
-* Data Params:
-
-```json
-{
-    "gender": "F", 
-    "age": 18, 
-    "occupation": 5, 
-    "zip_code": "100"
-}
-```
-
-* Success Response:
-
-    - Code: 200
-
-        Content: 
-`
-{
-  "id" : "642c1427ce91314b8fb3c3b0",
-  "user_id" : 6061,
-  "gender" : "F",
-  "age" : 18,
-  "occupation" : 5,
-  "zip_code" : "100"
-}
-`
-
-* Error Response:
-
-    - Code: 406 Not Acceptable
-
-        Content: `"Parameter is not a number!"`
-
-    Or
-
-    - Code: 404 Not Found
-
-        Content: `"User id does not exist!"`
-
-    Or
-
-    - Code: 500 Internal Server Error
-
-        Content: `"Something wrong when saving the user"`
-
-
-* Sample Call:
-
-Change the user with id 6041 to `{"gender": "F", "age": 18, "occupation": 5, "zip_code": "100"}`
-```bash
-curl -X PUT http://localhost:8080/users/6041 -H 'Content-type:application/json' -d '{"gender": "F", "age": 18, "occupation": 5, "zip_code": "100"}'
-```
+</details>

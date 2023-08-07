@@ -1,0 +1,30 @@
+[
+    {
+        "id" : {
+            "$oid": "646089d9041dea27617b717f"
+        },
+        "conversation" : "645e37b871927a11886bc874",
+        "sender" : "64299cd2b2afe565a469ebbf",
+        "receiver" : "642b007f78fa427e80e8e3dd",
+        "content" : "Hi~ Nice to meet u~",
+        "timestamp" : {
+            "$date": {
+                "$numberLong": "1684117781004"
+            }
+        }
+    }, 
+    {
+        "id" : {
+            "$oid": "646089de041dea27617b7180"
+        },
+        "conversation" : "645e37b871927a11886bc874",
+        "sender" : "64299cd2b2afe565a469ebbf",
+        "receiver" : "642b007f78fa427e80e8e3dd",
+        "content" : "hi!",
+        "timestamp" : {
+            "$date": {
+                "$numberLong": "1684117781004"
+            }
+        }
+    }
+]
